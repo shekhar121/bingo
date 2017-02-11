@@ -1,4 +1,4 @@
-var Bingo90 = require('../models/bingo90');
+var Bingo90 = require('../models/bingo90'); 
 var bingo90 = new Bingo90();
 module.exports = function(http){
 	console.log('in chat');
@@ -58,7 +58,7 @@ module.exports = function(http){
 	                clearInterval(stopCounter);
 	                return;
             	}
-				
+				console.log(data, 'data from client');
 				data = bingo90.winner90(data);
 				console.log(data.counter_ball, array90.length, 'data.counter_ball');
 

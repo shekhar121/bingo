@@ -1,4 +1,4 @@
-/*
+/* 
 var bodyParser = require('body-parser');
 
 // create parser
@@ -60,6 +60,7 @@ module.exports = function(app){
 			user : req.session.user,
 			cards : req.query.cards,
 			user_room : req.query.room,
+			card_name : {},
 			url : 'bingo90' //req.url
 		}
 		Room.find({type:'bingo90'}, function(err, rooms){
@@ -80,6 +81,11 @@ module.exports = function(app){
 		        bingo90 = new Bingo90(Bingo.cards, selected_pattern);
 		        console.log(bingo90,'object -- Bingo90');
 		        Bingo.newCards = bingo90.newCards();*/
+		        bingo90 = new Bingo90(Bingo.cards, 'none');
+        		Bingo.table = bingo90.newCards();
+        		Bingo.card_name = JSON.stringify(bingo90.getCard_name());
+				console.log(Bingo.card_name,'object -- Bingo');
+
 				res.render('bingo90', {Bingo:Bingo})
 			})
 		//res.render('bingo90', {Bingo:Bingo})

@@ -60,24 +60,15 @@ body {
   padding: 1.2rem !important;
   font-size: 1.2rem !important;
 }
-/*.top-nav{
-    padding: 1rem;
-    position: absolute;
-    z-index: 999;
-    background: indigo;
-    border-right: 5px steelblue solid;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 15px;
-    width: 15%;
-}*/
+
 .btn-brown{
     color: #fff;
     background-color: #806641;
     border-color: #AE956D; 
 }
 .table90-container{
-    /*max-height: 415px;
-    overflow-y: scroll;*/
+    max-height: 440px;
+    overflow: auto;
 }
 
 .table90 {

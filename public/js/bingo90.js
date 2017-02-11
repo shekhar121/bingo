@@ -3,7 +3,7 @@
 		for (var i=0; i<obj.cards; i++) { 
 			obj.card_name_+i = [];
 		}
-	}*/
+	}*/ 
 var Bingo90 = function(cards, pattern){
 	this.cards = cards;
 	this.pattern = pattern;
