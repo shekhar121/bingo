@@ -1,83 +1,82 @@
 <%- include('header90'); %> 
 <script src="/socket.io/socket.io.js"></script>
     <!-- Page Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                
-                <div class="card90" style="border: 2px solid #c00;">
-                    <table class="table90 pattern" >
-                        <tr>
-                            <td style="border: 2px solid #ff5a01;vertical-align: top;"><a style="margin-left: -0.8rem;" class="btn btn-orange"><i class="fa fa-users left"></i> Players</a>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card90" style="border: 2px solid #c00;">
+                <table class="table90 pattern" >
+                    <tr>
+                        <td style="border: 2px solid #ff5a01;vertical-align: top;">
+                            <a style="margin-left: -0.8rem;" class="btn btn-orange">
+                                <i class="fa fa-users left"></i> Players
+                            </a>
                             <ul id="users_in_room" class="nav nav-pills nav-stacked" style="max-height: 120px;overflow-y: scroll;width:150px">
-                              
                             </ul>
-                  
                         </td>
-                            <td style="border: 2px solid blue;">
-                            <a class="btn btn-indigo"><i class="fa fa-gift left"></i> Prize</a>
+                        <td style="border: 2px solid blue;">
+                            <a class="btn btn-indigo">
+                                <i class="fa fa-gift left"></i> Prize
+                            </a>
                             <div class="clearfix"></div>
                             <span class="label label-warning">Line 1: &euro;5</span>
                             <span class="label label-info">Line 2: &euro;10</span>
-                            <span class="label label-success">Full Card <span class="badge">&euro;25</span></span>
+                            <span class="label label-success">Full Card 
+                                <span class="badge">&euro;25</span>
+                            </span>
                                
                             <hr class="hr" style="margin:10px;">
-                            <a class="btn btn-pink"><i class="fa fa-star left"></i> Winners</a>
+                            <a class="btn btn-pink">
+                                <i class="fa fa-star left"></i> Winners
+                            </a>
                             <div class="clearfix"></div>
                             <span class="label label-warning">Peter</span>
                             <span class="label label-info">John</span>
                             <span class="label label-success">Ravi</span>
-        
-                            </td>
-                        </tr>
-                    </table> 
-                    
-                </div>
-                <div class="clearfix"></div>
-                <div id="chat_box" class="card90" style="height: 225px;">
-                    <a class="btn btn-indigo" style="width: 95%;">
-                    <i class="fa fa-wechat left"> </i> Chat Box</a>
-                    <ul id="messages" style="padding: 0.5rem;overflow-y:scroll;max-height: 180px">
-                    </ul>
-                    <div class="chat-form" style="position: absolute;bottom: 0;"><input type="text" id="message" name="message" style="width: 65%;margin-right: 0.25rem;border: 1px solid #ddd;">
+                        </td>
+                    </tr>
+                </table> 
+            </div>
+            <div class="clearfix"></div>
+            <div id="chat_box" class="card90" style="height: 225px;">
+                <a class="btn btn-indigo" style="width: 95%;">
+                    <i class="fa fa-wechat left"> </i> Chat Box
+                </a>
+                <ul id="messages" style="padding: 0.5rem;overflow-y:scroll;max-height: 180px">
+                </ul>
+                <div class="chat-form" style="position: absolute;bottom: 0;">
+                    <input type="text" id="message" name="message" style="width: 65%;margin-right: 0.25rem;border: 1px solid #ddd;">
                     <a class="btn btn-indigo pull-right" id="send_msg_btn">
-                    <i class="fa fa-send left"></i> Send</a>
+                        <i class="fa fa-send left"></i> Send
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row table90-container">
+                <%  if(Bingo.cards > 0){ %>
+                <%- Bingo.table %>
+                <%     
+                    } else {
+                    for(var i=1; i < 37; i++) {
+                %>
+                <div class="col-md-6">
+                    <div class="card90" style="height: 72px;text-align: center;">
+                        <h3>Card <%= i %></h3>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-8">
-                <div class="row table90-container">
-
-                    <%  if(Bingo.cards > 0){ %>
-                    <%- Bingo.table %>
-                    <%     
-                        } else {
-                        for(var i=1; i < 37; i++) {
-                    %>
-<div class="col-md-6"><div class="card90" style="height: 72px;text-align: center;">
-    <h3>Card <%= i %></h3></div></div>
-                    <%  }    } %>
-                    <div class="clearfix"></div>
-                   
-                </div>
-            </div>
-
-
-
-
+                <%  }    } %>
+                <div class="clearfix"></div>
+           </div>
         </div>
-        <!--chat row-->
-        <div class="row">
-            <div class="col-md-9">
-                
-            </div>
-            <div class="col-md-3">
-      
-            </div>
-        </div>
-
     </div>
-    <!-- /.container -->
+    <!--chat row-->
+    <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+<!-- /.container -->
 
 <%- include('footer90'); %>
 <script>
@@ -139,17 +138,12 @@ $( document ).ready(function() {
         var bingo90 = {};
         var pattern = 'none';
         var selected_pattern = pattern[Math.floor(Math.random()*pattern.length)];
-        //bingo90 = new Bingo90(num, selected_pattern);
-        //bingo90 = new Bingo90(num, 'none');
-        //bingo90.newCard();
-        //bingo90.createCards();
+
         bingo90.user_room = '<%= Bingo.user_room %>';
         bingo90.card_name = JSON.parse('<%- Bingo.card_name %>');
         var winnerLine1Shown = 0;
         var winnerLine2Shown = 0;
         var winnerLine3Shown = 0;
-
-
        
         var cnt = 0;
         socket.emit('game counter', bingo90);
