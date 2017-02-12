@@ -156,7 +156,7 @@ $( document ).ready(function() {
                     }
                 }
              cnt++;
-            var bingoballHTML = '<div class="bingoball'+cnt+'"><h3 class="ball_num'+cnt+'"></h3>                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 206.2 206.2">                          <defs>                            <style>                              .ball{isolation:isolate;}.ballcolor{fill:grey;}.cls-3{opacity:0.48;fill:url(#linear-gradient);}.cls-3,.cls-6{mix-blend-mode:screen;}.cls-4{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:4px;}.cls-5{fill:#fff;opacity:0.8;}.cls-6{fill:url(#radial-gradient);}                            </style>                            <linearGradient id="linear-gradient" x1="103.1" x2="103.1" y2="206.2" gradientTransform="rotate(.02 114.612 114.572)" gradientUnits="userSpaceOnUse">                              <stop offset="0" stop-color="#fff"></stop>                              <stop offset="1" stop-color="#2483c5" stop-opacity="0"></stop>                            </linearGradient>                            <radialGradient id="radial-gradient" cx="72.1" cy="64.1" r="53" gradientTransform="rotate(.02 114.612 114.572)" xlink:href="#linear-gradient"></radialGradient>                          </defs>                          <g class="ball">                            <g id="Laag_1" data-name="Laag 1">                              <path d="M206.2 102.2a103 103 0 0 1-104 104C46.2 205.7.5 160 0 104A103 103 0 0 1 104 0c56 .5 101.7 46.3 102.2 102.2z" class="ballcolor'+cnt+'"></path>                              <path d="M206.2 102.2a103 103 0 0 1-104 104C46.2 205.7.5 160 0 104A103 103 0 0 1 104 0c56 .5 101.7 46.3 102.2 102.2z" class="cls-3"></path>                              <path d="M175.3 102.5A72.2 72.2 0 1 1 103.7 31a72.2 72.2 0 0 1 71.6 71.5z" class="cls-4"></path>                              <path d="M169 102.5A66 66 0 1 1 103.8 37a66 66 0 0 1 65.4 65.5z" class="cls-5"></path>                              <path d="M125 63.6A53 53 0 1 1 72.7 11 53 53 0 0 1 125 63.7z" class="cls-6"></path>                            </g>                          </g></div>';
+            var bingoballHTML = '<div class="bingoball'+cnt+'"><h3 class="ball_num'+cnt+'"></h3><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 206.2 206.2"><defs><style>  .ball{isolation:isolate;}.ballcolor{fill:grey;}.cls-3{opacity:0.48;fill:url(#linear-gradient);}.cls-3,.cls-6{mix-blend-mode:screen;}.cls-4{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:4px;}.cls-5{fill:#fff;opacity:0.8;}.cls-6{fill:url(#radial-gradient);}</style><linearGradient id="linear-gradient" x1="103.1" x2="103.1" y2="206.2" gradientTransform="rotate(.02 114.612 114.572)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"></stop><stop offset="1" stop-color="#2483c5" stop-opacity="0"></stop></linearGradient><radialGradient id="radial-gradient" cx="72.1" cy="64.1" r="53" gradientTransform="rotate(.02 114.612 114.572)" xlink:href="#linear-gradient"></radialGradient></defs><g class="ball"><g id="Laag_1" data-name="Laag 1"><path d="M206.2 102.2a103 103 0 0 1-104 104C46.2 205.7.5 160 0 104A103 103 0 0 1 104 0c56 .5 101.7 46.3 102.2 102.2z" class="ballcolor'+cnt+'"></path><path d="M206.2 102.2a103 103 0 0 1-104 104C46.2 205.7.5 160 0 104A103 103 0 0 1 104 0c56 .5 101.7 46.3 102.2 102.2z" class="cls-3"></path><path d="M175.3 102.5A72.2 72.2 0 1 1 103.7 31a72.2 72.2 0 0 1 71.6 71.5z" class="cls-4"></path><path d="M169 102.5A66 66 0 1 1 103.8 37a66 66 0 0 1 65.4 65.5z" class="cls-5"></path><path d="M125 63.6A53 53 0 1 1 72.7 11 53 53 0 0 1 125 63.7z" class="cls-6"></path></g></g></div>';
             $('#rolling_ball').append(bingoballHTML);   
             $("#counter_ball_"  + data.counter_ball).addClass('green');
             $('.ball_num'+cnt).html(data.counter_ball);
@@ -170,19 +170,14 @@ $( document ).ready(function() {
                 if (data.winnerLine1 == 1 || data.winnerLine2 == 1 || data.winnerLine3 == 1){
                     console.log("Hurray! We have a 1 line winner!");
                     $('#modalWinnerLine1').modal('show');
-                    //alert('Hurray! We have a 1 line winner!');
-                    //return;
-                    winnerLine1Shown = 1;
-                    //data.winnerLine1Shown = 1;
-                }
+                       winnerLine1Shown = 1;
+                   }
             }
             if(!winnerLine2Shown){
                 if (data.winnerLine2 == 1){
                     console.log("Hurray! We have a 2 lines winner!");
                     $('#modalWinnerLine2').modal('show');
-                    //alert('Hurray! We have a 2 lines winner!');
                     winnerLine2Shown = 1;
-                    //data.winnerLine2Shown = 1;
                 }
             }
             if(!winnerLine3Shown){
@@ -195,10 +190,9 @@ $( document ).ready(function() {
             }
             //socket.emit('game counter', bingo90);
         });
-            //console.log(array75);
         function animate(cnt){
             
-            var z = cnt - 1; //console.log(z);
+            var z = cnt - 1; 
             var y = cnt - 2;
             var x = cnt - 3;
             if(cnt == 1){
@@ -209,21 +203,14 @@ $( document ).ready(function() {
                 $('.bingoball'+cnt).animate({left: '850px',opacity:'1'}, 500, animate);
             } else {
                 $('.bingoball'+cnt).animate({left: '650px',opacity:'1'}, 500, animate);
-                
-                //console.log(z);
-                //$('.bingoball'+z).css('left:650px','-webkit-animation:inherit','animation:inherit', 'transition:inherit');
+
                 $('.bingoball'+z).css('left','850px');
                 $('.bingoball'+z).addClass('smallball');
                 $('.bingoball'+y).css('left','950px');
-                //$('.bingoball1').addClass('smallball');
                 $('.bingoball'+x).css('left','1050px');
-                //$('.bingoball2').addClass('smallball');
             }
         }
     <% } %>
-
-console.log(bingo90.winnerLine1);
-
     
 });
 </script>
