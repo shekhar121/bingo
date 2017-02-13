@@ -132,7 +132,7 @@ $( document ).ready(function() {
     })
     <% if(Bingo.cards > 0){ %>
 
-        console.log(JSON.parse('<%- Bingo.card_name %>'), 'lplplpp');
+        //console.log(JSON.parse('<%- Bingo.card_name %>'), 'lplplpp');
         var num = <%= Bingo.cards %>;
         $('#btn_tick').attr('disabled','disabled');
         var bingo90 = {};
@@ -146,8 +146,27 @@ $( document ).ready(function() {
         var winnerLine3Shown = 0;
        
         var cnt = 0;
-        socket.emit('game counter', bingo90);
+        
+        $('#start_game').on('click', function(){
+           socket.emit('game counter', bingo90); 
+        })
+        
+
         socket.on('show counter ball', function(data){ 
+            console.log(data, 'from server in ');
+            if (performance.navigation.type == 1) { console.log(data, 'show counter ball');
+                console.info( "This page is reloaded" );
+                socket.emit('stop counter', bingo90);
+            } else {
+                console.info( "This page is not reloaded");
+            }
+            if(data.game_completed){
+                //performance.navigation.type = 0;
+                setTimeout(function(){ 
+                    window.location = '/bingo90'; }, 
+                3000);
+                console.info( "game completed");
+            }
             for(key in data.card_name){
             //console.log(data, Object.keys(data.card_name).length, 'show counter ball');
             console.log(data.card_name[key]);
