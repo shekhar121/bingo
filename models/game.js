@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
  var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
-var childSchema = new Schema({ user: 'string', cards_table: 'String', playing_card: 'String'});
+var childSchema = new Schema({ user: 'string', cards_table: 'String', playing_card: 'String', pattern:'String'});
 
 
 var gameSchema = new Schema({
@@ -17,6 +17,7 @@ var gameSchema = new Schema({
     started   : Boolean,
     completed : Boolean,
     date      : Date,
+    type       : String
     //users :   Schema.Types.Mixed
 });
 

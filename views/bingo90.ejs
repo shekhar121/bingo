@@ -79,6 +79,7 @@
 <!-- /.container -->
 
 <%- include('footer90'); %>
+<!-- chat socket starts -->
 <script>
 var socket = io();
 $('#send_msg_btn').hide();
@@ -121,6 +122,8 @@ var data = {};
     });
 <% } %>
 </script>
+<!-- chat socket ends -->
+
 <script type="text/javascript">
 $( document ).ready(function() {
     $('.play90').on('click', function(e){ 

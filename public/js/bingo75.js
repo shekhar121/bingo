@@ -1,5 +1,5 @@
 //window.onload = newCard;
-var Bingo75 = function(cards, pattern){
+var Bingo75 = function(cards, pattern){ 
 	this.cards = cards,
 	this.pattern = pattern,
 	this.patternT = function(i){

@@ -26,8 +26,8 @@ body {
 }
 
 .table75-container{
-    max-height: 415px;
-    overflow-y: scroll;
+    max-height: 180px;
+    overflow: auto;
 }
 
 .table75 {
