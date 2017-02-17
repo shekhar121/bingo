@@ -94,7 +94,7 @@
                             
                         </div>
                         <div class="col-md-2">
-                            <a title="<%= Bingo.rooms[i]._id %>" class="play75 btn btn-primary pull-right">Play</a>
+                            <a title="<%= Bingo.rooms[i]._id %>" data="<%= Bingo.gameinplay._id %>" class="play75 btn btn-primary pull-right">Play</a>
                         </div>
                     </div>
                     <% }  %>
@@ -270,7 +270,9 @@ $( document ).ready(function() {
     $('.play75').on('click', function(e){ 
         var room = e.target.title;
         var card = $('#cards').val();
-        window.location = '/bingo75?cards='+card+'&room='+room;
+        //alert($(this).attr('data')); return;
+        var gid =  $(this).attr('data');
+        window.location = '/bingo75?cards='+card+'&room='+room+'&game='+gid;
     })
     <% if(Bingo.cards > 0){ %>
         var num = <%= Bingo.cards %>;
@@ -278,6 +280,7 @@ $( document ).ready(function() {
         var bingo75 = {};
         
         bingo75.user_room = '<%= Bingo.user_room %>';
+        bingo75.game_id = '<%= Bingo.game_id %>';
         bingo75.card_name = JSON.parse('<%- Bingo.card_name %>');
         bingo75.pattern = '<%- Bingo.pattern %>';
         var winner75 = 0;
@@ -297,7 +300,7 @@ $( document ).ready(function() {
             if(data.game_completed){
                 //performance.navigation.type = 0;
                 setTimeout(function(){ 
-                    window.location = '/bingo75'; }, 
+                    window.location = '/bingo75?game_c=yes&game_c_id='+data.game_id; }, 
                 3000);
                 console.info( "game completed");
             }

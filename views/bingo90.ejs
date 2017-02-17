@@ -131,7 +131,8 @@ $( document ).ready(function() {
         //return;
         var room = e.target.title;
         var card = $('#cards').val(); //alert(card);
-        window.location = '/bingo90?cards='+card+'&room='+room;
+        var gid =  $(this).attr('data');
+        window.location = '/bingo90?cards='+card+'&room='+room+'&game='+gid;
     })
     <% if(Bingo.cards > 0){ %>
 
@@ -143,6 +144,7 @@ $( document ).ready(function() {
         var selected_pattern = pattern[Math.floor(Math.random()*pattern.length)];
 
         bingo90.user_room = '<%= Bingo.user_room %>';
+        bingo90.game_id = '<%= Bingo.game_id %>';
         bingo90.card_name = JSON.parse('<%- Bingo.card_name %>');
         var winnerLine1Shown = 0;
         var winnerLine2Shown = 0;
@@ -166,7 +168,7 @@ $( document ).ready(function() {
             if(data.game_completed){
                 //performance.navigation.type = 0;
                 setTimeout(function(){ 
-                    window.location = '/bingo90'; }, 
+                    window.location = '/bingo90?game_c=yes&game_c_id='+data.game_id; }, 
                 3000);
                 console.info( "game completed");
             }

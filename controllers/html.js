@@ -1,4 +1,4 @@
-/* 
+/*  
 var bodyParser = require('body-parser');
 
 // create parser
@@ -39,8 +39,25 @@ module.exports = function(app){
 			user : req.session.user,
 			cards : req.query.cards,
 			user_room : req.query.room,
+			game_id : req.query.game,
 			card_name : {},
 			url : 'bingo75' //req.url
+		}
+		if(req.query.game_c == 'yes' && req.query.game_c_id){
+			Game.findOne({'_id':req.query.game_c_id},  function(err, game){
+	        	if(err){
+					res.status(500).send(err);
+					return;
+				}
+				game.started = true;
+				game.completed = true;
+				game.save(function(err){
+			  		if(err){
+			  			console.log(err);
+			  			return;
+			  		}
+		  		});
+			});
 		}
 		Room.find({type:'bingo75'}, function(err, rooms){
 			if(err){
@@ -48,87 +65,91 @@ module.exports = function(app){
 				return;
 			}
 			Bingo.rooms = rooms;
-			//console.log(Bingo)
 			User.find({username:req.session.user}, function(err, user){
 				if(err){
 					res.status(500).send(err);
 					return;
 				}
 				Bingo.user_details = user;
-				//console.log(Bingo.user_details,'details');
-				
-				var gameID = '58a375f91d2a97ac0800002a';
-				req.session.user_bought_card = false;
-				
-				
-				if(Bingo.cards > 0 && !req.session.user_bought_card){
-				req.session.user_bought_card = true;
-				bingo75 = new Bingo75(Bingo.cards, 'none');
-        		Bingo.table = bingo75.newCards();
-        		//Bingo.user_bought_card = req.session.user_bought_card;
-        		Bingo.card_name = JSON.stringify(bingo75.getCard_name());
-					Game.findOne({'_id':gameID},  function(err, game){
-			        	if(err){
-							res.status(500).send(err);
-							return;
-						}
-						
-						var user_exit = false;
-						var game_user_id = '';
-						console.log(game, 'from game75');
-						if(game.users){
-							for(var i=0;i<game.users.length;i++){
-								if(game.users[i].user == req.session.user){
-									user_exit = true;
-									game_user_id = game.users[i]._id;
-								} 
-							}
-						}
-						var get_cards = [];
-						var user_playing_cards = [];
-						if(!user_exit){
-							var pattern = ['T','TB'];
-        					var selected_pattern = pattern[Math.floor(Math.random()*pattern.length)];
-							game.users.push({user: req.session.user, cards_table:Bingo.table, playing_card:Bingo.card_name,pattern:selected_pattern});
-						//game.started = true;
-							game.save(function(err){
-						  		if(err){
-						  			console.log(err);
-						  			return;
-						  		}
-					  		});
-			
-						}
-					});
-				} 
-				if(!Bingo.cards) {
-					res.render('bingo75', {Bingo:Bingo});
-				}
-				console.log(req.session.user_bought_card,'111');
-				if(req.session.user_bought_card) {
-					Game.findOne({'_id':gameID, 'users.user':req.session.user},{'users.user.$': 1} , function(err, game3){
-			        	if(err){
-							console.log(err);
-							return;
-						}
-					console.log(game3, '3333');	
-					if(game3){
-						Bingo.table = game3.users[0].cards_table;
-						Bingo.card_name = game3.users[0].playing_card;
-						Bingo.pattern = game3.users[0].pattern;
+				Game.findOne({type:'bingo75', started:false, completed:false}, function(err, gameinplay){
+		        	if(err){
+						console.log(err);
+						return;
 					}
-					res.render('bingo75', {Bingo:Bingo});
-				  	//return;
-					});
-				}
+				Bingo.gameinplay = gameinplay;	
+
+
+					var gameID = req.query.game;
+					req.session.user_bought_card = false;
+					
+					
+					if(Bingo.cards > 0 && !req.session.user_bought_card){
+					req.session.user_bought_card = true;
+					bingo75 = new Bingo75(Bingo.cards, 'none');
+	        		Bingo.table = bingo75.newCards();
+	        		//Bingo.user_bought_card = req.session.user_bought_card;
+	        		Bingo.card_name = JSON.stringify(bingo75.getCard_name());
+						Game.findOne({'_id':gameID},  function(err, game){
+				        	if(err){
+								res.status(500).send(err);
+								return;
+							}
+							
+							var user_exit = false;
+							var game_user_id = '';
+							console.log(game, 'from game75');
+							if(game.users){
+								for(var i=0;i<game.users.length;i++){
+									if(game.users[i].user == req.session.user){
+										user_exit = true;
+										game_user_id = game.users[i]._id;
+									} 
+								}
+							}
+							var get_cards = [];
+							var user_playing_cards = [];
+							if(!user_exit){
+								var pattern = ['T','TB'];
+	        					var selected_pattern = pattern[Math.floor(Math.random()*pattern.length)];
+								game.users.push({user: req.session.user, cards_table:Bingo.table, playing_card:Bingo.card_name,pattern:selected_pattern});
+							//game.started = true;
+								game.save(function(err){
+							  		if(err){
+							  			console.log(err);
+							  			return;
+							  		}
+						  		});
 				
+							}
+						});
+					} 
+					if(!Bingo.cards) {
+						res.render('bingo75', {Bingo:Bingo});
+						return;
+					}
+					console.log(req.session.user_bought_card,'111');
+
+					if(req.session.user_bought_card) {
+						Game.findOne({'_id':gameID, 'users.user':req.session.user},{'users.user.$': 1} , function(err, game3){
+				        	if(err){
+								console.log(err);
+								return;
+							}
+						console.log(game3, '3333');	
+						if(game3){
+							Bingo.table = game3.users[0].cards_table;
+							Bingo.card_name = game3.users[0].playing_card;
+							Bingo.pattern = game3.users[0].pattern;
+						}
+						res.render('bingo75', {Bingo:Bingo});
+					  	//return;
+						});
+					}
 				
-			})
-	    	//res.render('bingo75', {Bingo:Bingo})
-		})
-		
-	    //res.redirect('/bingo75');
-	})
+				}) //gamein play	ends			
+			}) //User.find close
+		}) //Room.find close
+	}) //app.get close 
 	app.get('/bingo90', function(req, res){ 
 		//console.log(app.get('settings'), 'session3');
 		//req.session.user_bought_card = false;
@@ -140,8 +161,25 @@ module.exports = function(app){
 			user : req.session.user,
 			cards : req.query.cards,
 			user_room : req.query.room,
+			game_id : req.query.game,
 			card_name : {},
 			url : 'bingo90' //req.url
+		}
+		if(req.query.game_c == 'yes' && req.query.game_c_id){
+			Game.findOne({'_id':req.query.game_c_id},  function(err, game){
+	        	if(err){
+					res.status(500).send(err);
+					return;
+				}
+				game.started = true;
+				game.completed = true;
+				game.save(function(err){
+			  		if(err){
+			  			console.log(err);
+			  			return;
+			  		}
+		  		});
+			});
 		}
 		Room.find({type:'bingo90'}, function(err, rooms){
 			if(err){
@@ -155,119 +193,108 @@ module.exports = function(app){
 					return;
 				}
 				Bingo.user_details = user;
-				//console.log(Bingo.user_details,'details');
-				/*var pattern = 'none';
-		        var selected_pattern = pattern[Math.floor(Math.random()*pattern.length)];
-		        bingo90 = new Bingo90(Bingo.cards, selected_pattern);
-		        console.log(bingo90,'object -- Bingo90');
-		        Bingo.newCards = bingo90.newCards();*/
-		        
-				//console.log(Bingo.card_name,'object -- Bingo');
-			/*var game = new Game();
-				game.room_id = req.query.room;
-				game.users = {
-					user: req.session.user,
-					cards_table:Bingo.table,
-					playing_card:Bingo.card_name
-				}*/
-				var gameID = '58a375d41d2a97ac08000029';
-				req.session.user_bought_card = false;
-				
-				
-				if(Bingo.cards > 0 && !req.session.user_bought_card){
-				req.session.user_bought_card = true;
-				bingo90 = new Bingo90(Bingo.cards, 'none');
-        		Bingo.table = bingo90.newCards();
-        		//Bingo.user_bought_card = req.session.user_bought_card;
-        		Bingo.card_name = JSON.stringify(bingo90.getCard_name());
-					Game.findOne({'_id':gameID},  function(err, game){
-			        	if(err){
-							res.status(500).send(err);
-							return;
-						}
-						
-						var user_exit = false;
-						var game_user_id = '';
-						console.log(game, 'from game');
-						if(game.users){
-							for(var i=0;i<game.users.length;i++){
-								if(game.users[i].user == req.session.user){
-									user_exit = true;
-									game_user_id = game.users[i]._id;
-								} 
-							}
-						}
-						var get_cards = [];
-						var user_playing_cards = [];
-						if(!user_exit){
-							
-							/*var data = {
-								user: req.session.user,
-								cards_table:Bingo.table,
-								playing_card:JSON.stringify(Bingo.card_name)
-							}*/
-							//console.log(data , ' user no exit');
-							
-							game.users.push({user: req.session.user, cards_table:Bingo.table, playing_card:Bingo.card_name, pattern:'none'});
-						//game.started = true;
-							game.save(function(err){
-						  		if(err){
-						  			console.log(err);
-						  			return;
-						  		}
-						  		//console.log(game2, ' user saveded exit');
-					  		});
-							//game.users.push(data);
-							/*Game.findOneAndUpdate({'_id':gameID},{ 
-							        "$set": {
-							            "users": data
-							        }
-							    } ,function(err, game2){
-						  		if(err){
-						  			console.log(err);
-						  			return;
-						  		}
-						  		console.log(game2, ' user saveded exit');
-					  		});*/
-						  		
-
-						}
-						
-					  	//res.render('bingo90', {Bingo:Bingo});
-					  	//return;
-					});
-				} 
-				if(!Bingo.cards) {
-					res.render('bingo90', {Bingo:Bingo});
-				}
-				console.log(req.session.user_bought_card,'111');
-				if(req.session.user_bought_card) {
-					Game.findOne({'_id':gameID,'users.user':req.session.user},{'users.user.$': 1} , function(err, game3){
-			        	if(err){
-							console.log(err);
-							return;
-						}
-					console.log('3333');	
-					if(game3){
-						Bingo.table = game3.users[0].cards_table;
-						Bingo.card_name = game3.users[0].playing_card;
-						//Bingo.user_bought_card = req.session.user_bought_card;
-						
+		        Game.findOne({type:'bingo90', started:false, completed:false}, function(err, gameinplay){
+		        	if(err){
+						console.log(err);
+						return;
 					}
-					res.render('bingo90', {Bingo:Bingo});
-				  	//return;
-					});
-					//console.log(req.session.user_bought_card,'3344433');
-				}
-				
-				 
-				
-				
-			})
-		
-		})
-	    
-	})
+				Bingo.gameinplay = gameinplay;
+					//console.log(Bingo.card_name,'object -- Bingo');
+					/*var game = new Game();
+					game.room_id = req.query.room;
+					game.users = {
+						user: req.session.user,
+						cards_table:Bingo.table,
+						playing_card:Bingo.card_name
+					}*/
+					var gameID = req.query.game;
+					req.session.user_bought_card = false;
+					
+					
+					if(Bingo.cards > 0 && !req.session.user_bought_card){
+					req.session.user_bought_card = true;
+					bingo90 = new Bingo90(Bingo.cards, 'none');
+	        		Bingo.table = bingo90.newCards();
+	        		//Bingo.user_bought_card = req.session.user_bought_card;
+	        		Bingo.card_name = JSON.stringify(bingo90.getCard_name());
+						Game.findOne({'_id':gameID},  function(err, game){
+				        	if(err){
+								res.status(500).send(err);
+								return;
+							}
+							
+							var user_exit = false;
+							var game_user_id = '';
+							console.log(game, 'from game');
+							if(game.users){
+								for(var i=0;i<game.users.length;i++){
+									if(game.users[i].user == req.session.user){
+										user_exit = true;
+										game_user_id = game.users[i]._id;
+									} 
+								}
+							}
+							var get_cards = [];
+							var user_playing_cards = [];
+							if(!user_exit){
+								
+						
+								game.users.push({user: req.session.user, cards_table:Bingo.table, playing_card:Bingo.card_name, pattern:'none'});
+							//game.started = true;
+								game.save(function(err){
+							  		if(err){
+							  			console.log(err);
+							  			return;
+							  		}
+							  		//console.log(game2, ' user saveded exit');
+						  		});
+								//game.users.push(data);
+								/*Game.findOneAndUpdate({'_id':gameID},{ 
+								        "$set": {
+								            "users": data
+								        }
+								    } ,function(err, game2){
+							  		if(err){
+							  			console.log(err);
+							  			return;
+							  		}
+							  		console.log(game2, ' user saveded exit');
+						  		});*/
+							  		
+
+							}
+							
+						  	//res.render('bingo90', {Bingo:Bingo});
+						  	//return;
+						});
+					} 
+					if(!Bingo.cards) {
+						res.render('bingo90', {Bingo:Bingo});
+					}
+					console.log(req.session.user_bought_card,'111');
+					if(req.session.user_bought_card) {
+						Game.findOne({'_id':gameID,'users.user':req.session.user},{'users.user.$': 1} , function(err, game3){
+				        	if(err){
+								console.log(err);
+								return;
+							}
+						console.log('3333');	
+						if(game3){
+							Bingo.table = game3.users[0].cards_table;
+							Bingo.card_name = game3.users[0].playing_card;
+							//Bingo.user_bought_card = req.session.user_bought_card;
+							
+						}
+						res.render('bingo90', {Bingo:Bingo});
+					  	//return;
+						});
+						//console.log(req.session.user_bought_card,'3344433');
+					}
+
+				}) //gamein play ends
+			}) // user finds ends
+		}) //room ends
+	}) //app get
 	
 
 }
