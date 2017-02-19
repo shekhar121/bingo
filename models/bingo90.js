@@ -119,43 +119,84 @@ var Bingo90 = function(cards, pattern){
         return table;
 	}
     this.winner90 = function(data){
-        var obj_length = Object.keys(data.card_name).length;
-        for(key in data.card_name){
-            if(data.card_name[key] == data.counter_ball){
-                data.card_name[key] = 'matched';
-            }
-        }
-        for(i=0;i<obj_length;i++){
-            //line 1 winner
-            if(!data.winnerLine1){
-                if(data.card_name["card_"+i+"_square0"] == 'matched'  &&
-                    data.card_name["card_"+i+"_square2"] == 'matched' &&
-                    data.card_name["card_"+i+"_square3"] == 'matched' &&
-                    data.card_name["card_"+i+"_square7"] == 'matched' &&
-                    data.card_name["card_"+i+"_square8"] == 'matched'){
-                    data.winnerLine1 = 1;
-                    //data.winnerLine1Shown = 1;
-                }
-                if(data.card_name["card_"+i+"_square11"]  == 'matched' &&
-                    data.card_name["card_"+i+"_square12"] == 'matched' &&
-                    data.card_name["card_"+i+"_square14"] == 'matched' &&
-                    data.card_name["card_"+i+"_square15"] == 'matched' &&
-                    data.card_name["card_"+i+"_square16"] == 'matched'){
-                    data.winnerLine1 = 1;
-                    //data.winnerLine1Shown = 1;
-                }
-                if(data.card_name["card_"+i+"_square20"] == 'matched' &&
-                    data.card_name["card_"+i+"_square21"] == 'matched' &&
-                    data.card_name["card_"+i+"_square23"] == 'matched' &&
-                    data.card_name["card_"+i+"_square25"] == 'matched' &&
-                    data.card_name["card_"+i+"_square28"] == 'matched'){
-                    data.winnerLine1 = 1;
-                    //data.winnerLine1Shown = 1;
+        //console.log(data, this, 'in bingo 90 winner')
+        
+        for(usr in data.users){
+            data.card_name = data.users[usr];
+            var obj_length = Object.keys(data.card_name).length;
+            for(key in data.card_name){
+                if(data.card_name[key] == data.counter_ball){
+                    data.card_name[key] = 'matched';
                 }
             }
-            //2 lines winner
-            if(!data.winnerLine2){
-                if((data.card_name["card_"+i+"_square0"] == 'matched' &&
+            for(i=0;i<obj_length;i++){
+                //line 1 winner
+                if(!data.winnerLine1){
+                    if(data.card_name["card_"+i+"_square0"] == 'matched'  &&
+                        data.card_name["card_"+i+"_square2"] == 'matched' &&
+                        data.card_name["card_"+i+"_square3"] == 'matched' &&
+                        data.card_name["card_"+i+"_square7"] == 'matched' &&
+                        data.card_name["card_"+i+"_square8"] == 'matched'){
+                        data.winnerLine1 = 1;
+                        data.winnerLine1User = usr;
+                    }
+                    if(data.card_name["card_"+i+"_square11"]  == 'matched' &&
+                        data.card_name["card_"+i+"_square12"] == 'matched' &&
+                        data.card_name["card_"+i+"_square14"] == 'matched' &&
+                        data.card_name["card_"+i+"_square15"] == 'matched' &&
+                        data.card_name["card_"+i+"_square16"] == 'matched'){
+                        data.winnerLine1 = 1;
+                        data.winnerLine1User = usr;
+                    }
+                    if(data.card_name["card_"+i+"_square20"] == 'matched' &&
+                        data.card_name["card_"+i+"_square21"] == 'matched' &&
+                        data.card_name["card_"+i+"_square23"] == 'matched' &&
+                        data.card_name["card_"+i+"_square25"] == 'matched' &&
+                        data.card_name["card_"+i+"_square28"] == 'matched'){
+                        data.winnerLine1 = 1;
+                        data.winnerLine1User = usr;
+                    }
+                }
+                //2 lines winner
+                if(!data.winnerLine2){
+                    if((data.card_name["card_"+i+"_square0"] == 'matched' &&
+                        data.card_name["card_"+i+"_square2"] == 'matched' &&
+                        data.card_name["card_"+i+"_square3"] == 'matched' &&
+                        data.card_name["card_"+i+"_square7"] == 'matched' &&
+                        data.card_name["card_"+i+"_square8"] == 'matched' && 
+                        data.card_name["card_"+i+"_square11"] == 'matched' &&
+                        data.card_name["card_"+i+"_square12"] == 'matched' &&
+                        data.card_name["card_"+i+"_square14"] == 'matched' &&
+                        data.card_name["card_"+i+"_square15"] == 'matched' &&
+                        data.card_name["card_"+i+"_square16"] == 'matched') 
+                    ||
+                    (   data.card_name["card_"+i+"_square11"] == 'matched' &&
+                        data.card_name["card_"+i+"_square12"] == 'matched' &&
+                        data.card_name["card_"+i+"_square14"] == 'matched' &&
+                        data.card_name["card_"+i+"_square15"] == 'matched' &&
+                        data.card_name["card_"+i+"_square16"] == 'matched' &&
+                        data.card_name["card_"+i+"_square20"] == 'matched' &&
+                        data.card_name["card_"+i+"_square21"] == 'matched' &&
+                        data.card_name["card_"+i+"_square23"] == 'matched' &&
+                        data.card_name["card_"+i+"_square25"] == 'matched' &&
+                        data.card_name["card_"+i+"_square28"] == 'matched')
+                    ||
+                    (   data.card_name["card_"+i+"_square0"] == 'matched' &&
+                        data.card_name["card_"+i+"_square2"] == 'matched' &&
+                        data.card_name["card_"+i+"_square3"] == 'matched' &&
+                        data.card_name["card_"+i+"_square7"] == 'matched' &&
+                        data.card_name["card_"+i+"_square8"] == 'matched' && 
+                        data.card_name["card_"+i+"_square20"] == 'matched' &&
+                        data.card_name["card_"+i+"_square21"] == 'matched' &&
+                        data.card_name["card_"+i+"_square23"] == 'matched' &&
+                        data.card_name["card_"+i+"_square25"] == 'matched' &&
+                        data.card_name["card_"+i+"_square28"] == 'matched')){
+                        data.winnerLine2 = 1;
+                        data.winnerLine2User = usr;
+                    }
+                }
+                //full house win
+                if( data.card_name["card_"+i+"_square0"] == 'matched' &&
                     data.card_name["card_"+i+"_square2"] == 'matched' &&
                     data.card_name["card_"+i+"_square3"] == 'matched' &&
                     data.card_name["card_"+i+"_square7"] == 'matched' &&
@@ -164,53 +205,19 @@ var Bingo90 = function(cards, pattern){
                     data.card_name["card_"+i+"_square12"] == 'matched' &&
                     data.card_name["card_"+i+"_square14"] == 'matched' &&
                     data.card_name["card_"+i+"_square15"] == 'matched' &&
-                    data.card_name["card_"+i+"_square16"] == 'matched') 
-                ||
-                (   data.card_name["card_"+i+"_square11"] == 'matched' &&
-                    data.card_name["card_"+i+"_square12"] == 'matched' &&
-                    data.card_name["card_"+i+"_square14"] == 'matched' &&
-                    data.card_name["card_"+i+"_square15"] == 'matched' &&
                     data.card_name["card_"+i+"_square16"] == 'matched' &&
                     data.card_name["card_"+i+"_square20"] == 'matched' &&
                     data.card_name["card_"+i+"_square21"] == 'matched' &&
                     data.card_name["card_"+i+"_square23"] == 'matched' &&
                     data.card_name["card_"+i+"_square25"] == 'matched' &&
-                    data.card_name["card_"+i+"_square28"] == 'matched')
-                ||
-                (   data.card_name["card_"+i+"_square0"] == 'matched' &&
-                    data.card_name["card_"+i+"_square2"] == 'matched' &&
-                    data.card_name["card_"+i+"_square3"] == 'matched' &&
-                    data.card_name["card_"+i+"_square7"] == 'matched' &&
-                    data.card_name["card_"+i+"_square8"] == 'matched' && 
-                    data.card_name["card_"+i+"_square20"] == 'matched' &&
-                    data.card_name["card_"+i+"_square21"] == 'matched' &&
-                    data.card_name["card_"+i+"_square23"] == 'matched' &&
-                    data.card_name["card_"+i+"_square25"] == 'matched' &&
-                    data.card_name["card_"+i+"_square28"] == 'matched')){
-                    data.winnerLine2 = 1;
-                    //data.winnerLine2Shown = 1;
+                    data.card_name["card_"+i+"_square28"] == 'matched'){
+                    data.winnerLine3 = 1;
+                    data.winnerLine3User = usr;
                 }
-            }
-            //full house win
-            if( data.card_name["card_"+i+"_square0"] == 'matched' &&
-                data.card_name["card_"+i+"_square2"] == 'matched' &&
-                data.card_name["card_"+i+"_square3"] == 'matched' &&
-                data.card_name["card_"+i+"_square7"] == 'matched' &&
-                data.card_name["card_"+i+"_square8"] == 'matched' && 
-                data.card_name["card_"+i+"_square11"] == 'matched' &&
-                data.card_name["card_"+i+"_square12"] == 'matched' &&
-                data.card_name["card_"+i+"_square14"] == 'matched' &&
-                data.card_name["card_"+i+"_square15"] == 'matched' &&
-                data.card_name["card_"+i+"_square16"] == 'matched' &&
-                data.card_name["card_"+i+"_square20"] == 'matched' &&
-                data.card_name["card_"+i+"_square21"] == 'matched' &&
-                data.card_name["card_"+i+"_square23"] == 'matched' &&
-                data.card_name["card_"+i+"_square25"] == 'matched' &&
-                data.card_name["card_"+i+"_square28"] == 'matched'){
-                data.winnerLine3 = 1;
-                //data.winnerLine3Shown = 1;
-            }
-        } // for loop 
+            } // for loop
+        }
+
+         
         
         return data;
     }

@@ -112,7 +112,7 @@ module.exports = function(app){
 								var pattern = ['T','TB'];
 	        					var selected_pattern = pattern[Math.floor(Math.random()*pattern.length)];
 								game.users.push({user: req.session.user, cards_table:Bingo.table, playing_card:Bingo.card_name,pattern:selected_pattern});
-							//game.started = true;
+							    game.room_id = req.query.room; //game.started = true;
 								game.save(function(err){
 							  		if(err){
 							  			console.log(err);
@@ -127,7 +127,7 @@ module.exports = function(app){
 						res.render('bingo75', {Bingo:Bingo});
 						return;
 					}
-					console.log(req.session.user_bought_card,'111');
+					//console.log(req.session.user_bought_card,'111');
 
 					if(req.session.user_bought_card) {
 						Game.findOne({'_id':gameID, 'users.user':req.session.user},{'users.user.$': 1} , function(err, game3){
@@ -135,7 +135,7 @@ module.exports = function(app){
 								console.log(err);
 								return;
 							}
-						console.log(game3, '3333');	
+						//console.log(game3, '3333');	
 						if(game3){
 							Bingo.table = game3.users[0].cards_table;
 							Bingo.card_name = game3.users[0].playing_card;
@@ -198,7 +198,8 @@ module.exports = function(app){
 						console.log(err);
 						return;
 					}
-				Bingo.gameinplay = gameinplay;
+				Bingo.gameinplay = gameinplay; //used along with room - header90.ejs
+
 					//console.log(Bingo.card_name,'object -- Bingo');
 					/*var game = new Game();
 					game.room_id = req.query.room;
@@ -225,7 +226,7 @@ module.exports = function(app){
 							
 							var user_exit = false;
 							var game_user_id = '';
-							console.log(game, 'from game');
+							//console.log(game, 'from game');
 							if(game.users){
 								for(var i=0;i<game.users.length;i++){
 									if(game.users[i].user == req.session.user){
@@ -240,7 +241,7 @@ module.exports = function(app){
 								
 						
 								game.users.push({user: req.session.user, cards_table:Bingo.table, playing_card:Bingo.card_name, pattern:'none'});
-							//game.started = true;
+								game.room_id = req.query.room;
 								game.save(function(err){
 							  		if(err){
 							  			console.log(err);
@@ -271,17 +272,18 @@ module.exports = function(app){
 					if(!Bingo.cards) {
 						res.render('bingo90', {Bingo:Bingo});
 					}
-					console.log(req.session.user_bought_card,'111');
+					//console.log(req.session.user_bought_card,'111');
 					if(req.session.user_bought_card) {
 						Game.findOne({'_id':gameID,'users.user':req.session.user},{'users.user.$': 1} , function(err, game3){
 				        	if(err){
 								console.log(err);
 								return;
 							}
-						console.log('3333');	
+						//console.log('3333');	
 						if(game3){
 							Bingo.table = game3.users[0].cards_table;
 							Bingo.card_name = game3.users[0].playing_card;
+							Bingo.room_id = 'game3.room_id';
 							//Bingo.user_bought_card = req.session.user_bought_card;
 							
 						}

@@ -142,10 +142,12 @@ $( document ).ready(function() {
         var bingo90 = {};
         var pattern = 'none';
         var selected_pattern = pattern[Math.floor(Math.random()*pattern.length)];
-
+        //alert('<%= Bingo.room_id %>');
+        //console.log('<%= Bingo.room_id %>')
+        //console.log('<%= Bingo.user_room %>')
         bingo90.user_room = '<%= Bingo.user_room %>';
         bingo90.game_id = '<%= Bingo.game_id %>';
-        bingo90.card_name = JSON.parse('<%- Bingo.card_name %>');
+        //bingo90.card_name = JSON.parse('<%- Bingo.card_name %>');
         var winnerLine1Shown = 0;
         var winnerLine2Shown = 0;
         var winnerLine3Shown = 0;
@@ -174,9 +176,10 @@ $( document ).ready(function() {
             }
             for(key in data.card_name){
             //console.log(data, Object.keys(data.card_name).length, 'show counter ball');
-            console.log(data.card_name[key]);
+            console.log(key, 'key');
                     if(data.card_name[key] == 'matched'){
-                        document.getElementById(key).className ='matched-cell';
+                        //document.getElementById(key).className ='matched-cell';
+                        $('#'+key).addClass('matched-cell');
                     }
                 }
              cnt++;
@@ -188,13 +191,14 @@ $( document ).ready(function() {
      
             jQuery('svg .ballcolor'+cnt).css('fill',colors[~~(Math.random()*colors.length)]);
 
-            animate(cnt);
+            animate(cnt); 
             //winner
             if(!winnerLine1Shown){
                 if (data.winnerLine1 == 1 || data.winnerLine2 == 1 || data.winnerLine3 == 1){
                     console.log("Hurray! We have a 1 line winner!");
                     $('#modalWinnerLine1').modal('show');
                        winnerLine1Shown = 1;
+                       alert(data.winnerLine1User);
                    }
             }
             if(!winnerLine2Shown){
@@ -202,13 +206,14 @@ $( document ).ready(function() {
                     console.log("Hurray! We have a 2 lines winner!");
                     $('#modalWinnerLine2').modal('show');
                     winnerLine2Shown = 1;
+                    alert(data.winnerLine2User);
                 }
             }
             if(!winnerLine3Shown){
                 if (data.winnerLine3 == 1){
                     console.log("Yay..! We have a full house winner");
                     $('#modalWinnerLine3').modal('show');
-                    winnerLine3Shown = 1;
+                    winnerLine3Shown = 1; alert(data.winnerLine3User);
 
                 }
             }
