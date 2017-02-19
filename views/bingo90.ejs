@@ -143,11 +143,9 @@ $( document ).ready(function() {
         var pattern = 'none';
         var selected_pattern = pattern[Math.floor(Math.random()*pattern.length)];
         //alert('<%= Bingo.room_id %>');
-        //console.log('<%= Bingo.room_id %>')
-        //console.log('<%= Bingo.user_room %>')
+
         bingo90.user_room = '<%= Bingo.user_room %>';
         bingo90.game_id = '<%= Bingo.game_id %>';
-        //bingo90.card_name = JSON.parse('<%- Bingo.card_name %>');
         var winnerLine1Shown = 0;
         var winnerLine2Shown = 0;
         var winnerLine3Shown = 0;
@@ -160,6 +158,7 @@ $( document ).ready(function() {
         
 
         socket.on('show counter ball', function(data){ 
+            //$('#show_winner_msg').hide('slow');
             console.log(data, 'from server in ');
             if (performance.navigation.type == 1) { console.log(data, 'show counter ball');
                 console.info( "This page is reloaded" );
@@ -170,14 +169,14 @@ $( document ).ready(function() {
             if(data.game_completed){
                 //performance.navigation.type = 0;
                 setTimeout(function(){ 
-                    window.location = '/bingo90?game_c=yes&game_c_id='+data.game_id; }, 
-                3000);
+                    //window.location = '/bingo90?game_c=yes&game_c_id='+data.game_id; 
+                },  3000);
                 console.info( "game completed");
             }
-            for(key in data.card_name){
-            //console.log(data, Object.keys(data.card_name).length, 'show counter ball');
+            var user = '<%= Bingo.user %>';
+            for(key in data.card_name[user]){
             console.log(key, 'key');
-                    if(data.card_name[key] == 'matched'){
+                    if(data.card_name[user][key] == 'matched'){
                         //document.getElementById(key).className ='matched-cell';
                         $('#'+key).addClass('matched-cell');
                     }
@@ -196,24 +195,31 @@ $( document ).ready(function() {
             if(!winnerLine1Shown){
                 if (data.winnerLine1 == 1 || data.winnerLine2 == 1 || data.winnerLine3 == 1){
                     console.log("Hurray! We have a 1 line winner!");
-                    $('#modalWinnerLine1').modal('show');
+                    //$('#modalWinnerLine1').modal('show');
                        winnerLine1Shown = 1;
-                       alert(data.winnerLine1User);
+                       $('#show_winner_msg').show('slow');
+                       $('#show_winner_msg').html('<h2>Hurray! We have a 1 line winner - '+data.winnerLine1User+'</h2>');
+                       //alert("Hurray! We have a 1 line winner - "+data.winnerLine1User);
                    }
             }
             if(!winnerLine2Shown){
                 if (data.winnerLine2 == 1){
                     console.log("Hurray! We have a 2 lines winner!");
-                    $('#modalWinnerLine2').modal('show');
+                    //$('#modalWinnerLine2').modal('show');
                     winnerLine2Shown = 1;
-                    alert(data.winnerLine2User);
+                    $('#show_winner_msg').show('slow');
+                    $('#show_winner_msg').html('<h2>Hurray! We have a 2 lines winner - '+data.winnerLine2User+'</h2>');
+                    //alert("Hurray! We have a 2 lines winner - "+data.winnerLine2User);
                 }
             }
             if(!winnerLine3Shown){
                 if (data.winnerLine3 == 1){
                     console.log("Yay..! We have a full house winner");
-                    $('#modalWinnerLine3').modal('show');
-                    winnerLine3Shown = 1; alert(data.winnerLine3User);
+                    //$('#modalWinnerLine3').modal('show');
+                    winnerLine3Shown = 1; 
+                    $('#show_winner_msg').show('slow');
+                    $('#show_winner_msg').html('<h2>Yay..! We have a full house winner - '+data.winnerLine3User+'</h2>');
+                    //alert("Yay..! We have a full house winner - "+data.winnerLine3User);
 
                 }
             }

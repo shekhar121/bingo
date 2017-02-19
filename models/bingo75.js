@@ -102,26 +102,34 @@ var Bingo75 = function(cards, pattern){
         return table;
 	}
     this.winner75 = function(data){
-        var obj_length = Object.keys(data.card_name).length;
-        for(key in data.card_name){
-            if(data.card_name[key] == data.counter_ball){
-                data.card_name[key] = 'matched';
-            }
-        }
-        if(data.pattern == 'T'){
-            for(i=0;i<obj_length;i++){
-                //T patter winner
-                if( data.card_name["card_"+i+"_square0"] == 'matched' &&
-                    data.card_name["card_"+i+"_square1"] == 'matched' &&
-                    data.card_name["card_"+i+"_square2"] == 'matched' &&
-                    data.card_name["card_"+i+"_square3"] == 'matched' &&
-                    data.card_name["card_"+i+"_square4"] == 'matched' && 
-                    data.card_name["card_"+i+"_square7"] == 'matched' &&
-                    data.card_name["card_"+i+"_square16"] == 'matched' &&
-                    data.card_name["card_"+i+"_square21"] == 'matched'){
-                    data.winner75 = 1;
+        //console.log(data.users, 'from hee'); return;
+        for(usr in data.users){
+            //data.card_name = data.users[usr];
+
+            var obj_length = Object.keys(data.users[usr]).length;
+            console.log(obj_length, 'in winner75..');
+            for(key in data.users[usr]){
+                if(data.users[usr][key] == data.counter_ball){
+                    data.users[usr][key] = 'matched';
                 }
-            } 
+            }
+            if(data.pattern == 'T'){
+                for(i=0;i<obj_length;i++){
+                    //T patter winner
+                    if( data.users[usr]["card_"+i+"_square0"] == 'matched' &&
+                        data.users[usr]["card_"+i+"_square1"] == 'matched' &&
+                        data.users[usr]["card_"+i+"_square2"] == 'matched' &&
+                        data.users[usr]["card_"+i+"_square3"] == 'matched' &&
+                        data.users[usr]["card_"+i+"_square4"] == 'matched' && 
+                        data.users[usr]["card_"+i+"_square7"] == 'matched' &&
+                        data.users[usr]["card_"+i+"_square16"] == 'matched' &&
+                        data.users[usr]["card_"+i+"_square21"] == 'matched'){
+                        data.winner75 = 1;
+                        data.winner75User = usr;
+                    }
+                } 
+            }
+            data.card_name[usr] = data.users[usr];
         }
         
         return data;

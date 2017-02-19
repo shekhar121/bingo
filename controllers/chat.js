@@ -57,6 +57,7 @@ module.exports = function(http){
 		socket.on('game counter', function(data){
 			//console.log(data.user_room,  'game counter');
 			data.users = {};
+			data.card_name = {};
 			Game.findOne({'_id':data.game_id},  function(err, game){
 	        	if(err){
 					res.status(500).send(err);
@@ -94,7 +95,7 @@ module.exports = function(http){
 				}, 4000);*/
 
 				io.to(data.user_room).emit('show counter ball', data);
-			}, 3000);
+				}, 3000);
 
 			});	//game find ends
 			
@@ -117,32 +118,47 @@ module.exports = function(http){
 	    });
 		socket.on('game counter75', function(data){
 			console.log(data.user_room,  'game counter');
-			
-			stopCounter75 = setInterval(function(){
-				var ball= array75[Math.floor(Math.random()*array75.length)];
-				var index = array75.indexOf(ball);
-				if (index > -1) {
-					array75.splice(index, 1);
+			data.users = {};
+			data.card_name = {};
+			Game.findOne({'_id':data.game_id},  function(err, game){
+	        	if(err){
+					res.status(500).send(err);
+					return;
 				}
-				data.counter_ball = ball;
-				
-				if(array75.length == 0 || data.winner75 == 1){
-	                data.game_completed = true;
-	                console.log(data.counter_ball, array75.length, 'LAST - data.counter_ball');
-	                io.to(data.user_room).emit('show counter ball75', data);
-	                data = null;
-	                clearInterval(stopCounter75);
-	                return;
-            	}
-            	//data.user_bought_card = true;
-				//console.log(data, 'data from client');
-				data = bingo75.winner75(data);
-				console.log(data.counter_ball, array75.length, 'data.counter_ball');
+				if(game.users){
+					//data.users = game.users;
+					for(var i=0;i<game.users.length;i++){
+						//game.users[i].user 
+						data.users[game.users[i].user] = JSON.parse(game.users[i].playing_card);
+					}
+				}
+			
+				stopCounter75 = setInterval(function(){
+					var ball= array75[Math.floor(Math.random()*array75.length)];
+					var index = array75.indexOf(ball);
+					if (index > -1) {
+						array75.splice(index, 1);
+					}
+					data.counter_ball = ball;
+					
+					if(array75.length == 0 || data.winner75 == 1){
+		                data.game_completed = true;
+		                console.log(data.counter_ball, data.pattern, array75.length, 'LAST - data.counter_ball');
+		                io.to(data.user_room).emit('show counter ball75', data);
+		                data = null;
+		                clearInterval(stopCounter75);
+		                return;
+	            	}
+	            	//data.user_bought_card = true;
+					//console.log(data, 'data from client');
+					data = bingo75.winner75(data);
+					console.log(data.counter_ball, data.pattern, array75.length, 'data.counter_ball');
 
 
-				io.to(data.user_room).emit('show counter ball75', data);
-			}, 2500);
+					io.to(data.user_room).emit('show counter ball75', data);
+				}, 2500);
 			//bingo90 = new Bingo90();
+			});	//game find ends
 			
 		});
 		// bingo 75 ---------------------------------------------- End

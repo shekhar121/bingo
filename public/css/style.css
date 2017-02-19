@@ -62,9 +62,9 @@ body {
 }
 .matched-cell{
     border-radius: 50%;
-    background: -webkit-radial-gradient(5px 5px, circle, #f80, yellow);
-    background: -moz-radial-gradient(5px 5px, circle, #f80, yellow);
-    background: radial-gradient(5px 5px, circle, #f80, yellow);
+    background: -webkit-radial-gradient(5px 5px, circle, #f80, yellow) !important;
+    background: -moz-radial-gradient(5px 5px, circle, #f80, yellow) !important;
+    background: radial-gradient(5px 5px, circle, #f80, yellow) !important;
     color: #ddd;
 }
 .green{

@@ -109,7 +109,8 @@ module.exports = function(app){
 							var get_cards = [];
 							var user_playing_cards = [];
 							if(!user_exit){
-								var pattern = ['T','TB'];
+								//var pattern = ['T','TB'];
+								var pattern = ['T'];
 	        					var selected_pattern = pattern[Math.floor(Math.random()*pattern.length)];
 								game.users.push({user: req.session.user, cards_table:Bingo.table, playing_card:Bingo.card_name,pattern:selected_pattern});
 							    game.room_id = req.query.room; //game.started = true;

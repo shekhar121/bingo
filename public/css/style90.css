@@ -105,9 +105,9 @@ body {
 .matched-cell{
     background-color: #04B431; 
     border-radius: 50%;
-    background: -webkit-radial-gradient(5px 5px, circle, #04B431, #333);
-    background: -moz-radial-gradient(5px 5px, circle, #04B431, #333);
-    background: radial-gradient(5px 5px, circle, #04B431, #333);
+    background: -webkit-radial-gradient(5px 5px, circle, #04B431, #333) !important;
+    background: -moz-radial-gradient(5px 5px, circle, #04B431, #333) !important;
+    background: radial-gradient(5px 5px, circle, #04B431, #333) !important;
     color: #fff;
     /*font-size: 1rem;*/
 }

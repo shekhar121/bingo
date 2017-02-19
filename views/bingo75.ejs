@@ -281,7 +281,7 @@ $( document ).ready(function() {
         
         bingo75.user_room = '<%= Bingo.user_room %>';
         bingo75.game_id = '<%= Bingo.game_id %>';
-        bingo75.card_name = JSON.parse('<%- Bingo.card_name %>');
+        //bingo75.card_name = JSON.parse('<%- Bingo.card_name %>');
         bingo75.pattern = '<%- Bingo.pattern %>';
         var winner75 = 0;
 
@@ -300,15 +300,16 @@ $( document ).ready(function() {
             if(data.game_completed){
                 //performance.navigation.type = 0;
                 setTimeout(function(){ 
-                    window.location = '/bingo75?game_c=yes&game_c_id='+data.game_id; }, 
-                3000);
+                //window.location = '/bingo75?game_c=yes&game_c_id='+data.game_id;
+                },  5000);
                 console.info( "game completed");
             }
-            for(key in data.card_name){
+            var user = '<%= Bingo.user %>';
+            for(key in data.card_name[user]){
             //console.log(data, Object.keys(data.card_name).length, 'show counter ball');
-            console.log(data.card_name[key]);
-                    if(data.card_name[key] == 'matched'){
-                        document.getElementById(key).className ='matched-cell';
+                    if(data.card_name[user][key] == 'matched'){
+                        //document.getElementById(key).className ='matched-cell';
+                        $('#'+key).addClass('matched-cell');
                     }
                 }
              cnt++;
@@ -326,8 +327,8 @@ $( document ).ready(function() {
             if(!winner75){
                 if (data.winner75 == 1){
                     console.log("Yay..! We have a winner");
-                    //$('#modalWinnerLine3').modal('show');
-                    alert('We got a winner!');
+                    $('#show_winner_msg').show('slow');
+                    $('#show_winner_msg').html('<h2>Yay..! We have a winner - '+data.winner75User+'</h2>');
                     winner75 = 1;
                 }
             }
