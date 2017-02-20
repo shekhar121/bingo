@@ -61,6 +61,29 @@ app.use(jsonParser);
 	  		return res.status(200).json({username:data.username});
 	  	});
 	})
+	// POST /api/total_credits gets JSON bodies
+	app.post('/api/total_credits', jsonParser, function (req, res) {
+	  if (!req.body) return res.sendStatus(400);
+	  	var total_credits = req.body.total_credits;
+	  	var username = req.body.username;
+
+	  	User.findOne({'_id':username},  function(err, user){
+        	if(err){
+				res.status(500).send(err);
+				return;
+			}
+			user.total_credits = total_credits;
+			user.save(function(err, data){
+		  		if(err){
+		  			res.status(500).send(err);
+		  			return;
+		  		}
+		  		return res.status(200).json({username:data.username});
+	  		});
+		});
+
+	  	
+	})
 	app.get('/api/user/:id', function(req, res){
 	    //res.send('<h1>'+req.params.id+'</h1>')
 	    res.render('user', {ID : req.params.id, URL:req.url, Q:req.query.q})

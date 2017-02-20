@@ -113,7 +113,7 @@ var Bingo75 = function(cards, pattern){
                     data.users[usr][key] = 'matched';
                 }
             }
-            if(data.pattern == 'T'){
+            if(data.users[usr].pattern == 'T'){
                 for(i=0;i<obj_length;i++){
                     //T patter winner
                     if( data.users[usr]["card_"+i+"_square0"] == 'matched' &&
@@ -129,6 +129,7 @@ var Bingo75 = function(cards, pattern){
                     }
                 } 
             }
+            data.pattern = data.users[usr].pattern;
             data.card_name[usr] = data.users[usr];
         }
         

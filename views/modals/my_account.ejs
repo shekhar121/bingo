@@ -6,6 +6,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="loginLabel">Welcome <%= Bingo.user %></h4>
+        <div class="bg-success" id="success_msg" ></div>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -18,7 +19,10 @@
                   <a href="#change_password" aria-controls="change_password" role="tab" data-toggle="tab">Change Password</a>
                 </li>
                 <li role="presentation">
-                  <a href="#payment" aria-controls="payment" role="tab" data-toggle="tab">Payment</a>
+                  <a href="#payment" aria-controls="payment" role="tab" data-toggle="tab">Payment Details</a>
+                </li>
+                <li role="presentation">
+                  <a href="#credits" aria-controls="credits" role="tab" data-toggle="tab">Credits</a>
                 </li>
               </ul>
               <br>
@@ -29,19 +33,19 @@
                     <div class="form-group">
                       <label for="inputEmail3" class="col-sm-4 control-label">Email/Username</label>
                       <div class="col-sm-8">
-                        <input type="email" name="email" class="form-control" id="email" value="<%= Bingo.user_details[0].username %>" placeholder="Email">
+                        <input type="email" disabled="disabled" readonly name="email" class="form-control" id="email" value="<%= Bingo.user_details.username %>" placeholder="Email" >
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="inputPassword3" class="col-sm-4 control-label">First Name</label>
                       <div class="col-sm-8">
-                        <input type="text" value="<%= Bingo.user_details[0].firstname %>" name="firstname" class="form-control" id="password" placeholder="First Name">
+                        <input type="text" value="<%= Bingo.user_details.firstname %>" name="firstname" class="form-control" id="password" placeholder="First Name">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="inputPassword3" class="col-sm-4 control-label">Last Name</label>
                       <div class="col-sm-8">
-                        <input type="text" name="lastname" class="form-control" id="lastname" value="<%= Bingo.user_details[0].lastname %>" placeholder="Last Name">
+                        <input type="text" name="lastname" class="form-control" id="lastname" value="<%= Bingo.user_details.lastname %>" placeholder="Last Name">
                       </div>
                     </div>
                     <!-- <div class="form-group">
@@ -56,7 +60,7 @@
                     <hr>
                     <div class="form-group">
                       <div class="col-sm-offset-4 col-sm-8">
-                        <button type="submit" id="login_btn" class="btn btn-primary">Save</button>
+                        <button  id="profile_btn" class="btn btn-primary">Save</button>
                       </div>
                     </div>
                   </div>
@@ -89,16 +93,40 @@
                     <hr>
                     <div class="form-group">
                       <div class="col-sm-offset-4 col-sm-8">
-                        <button type="submit" id="login_btn" class="btn btn-primary">Change</button>
+                        <button  id="change_password_btn" class="btn btn-primary">Change</button>
                       </div>
                     </div>
                   </div>
 
 
                 </div>
+
+
                 <div role="tabpanel" class="tab-pane" id="payment">
                   <h2>Payment related stuff</h2>
                 </div>
+
+                <div role="tabpanel" class="tab-pane" id="credits">
+                  <h2>Add Credits (testing purpose only)</h2>
+                  <div class="form-group">
+                      <label for="inputPassword3" class="col-sm-4 control-label">
+                        Add Credit
+                      </label>
+                      <div class="col-sm-8">
+                        <input type="text" value="<%= Bingo.user_details.total_credits %>" name="total_credits" class="form-control" id="total_credits" placeholder="total_credits">
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                      <div class="col-sm-offset-4 col-sm-8">
+                        <button id="add_credit_btn" class="btn btn-primary">Add</button>
+                      </div>
+                    </div>
+                </div>
+                
+
+
+
               </div>
 
                 
@@ -119,4 +147,30 @@
   e.preventDefault()
   $(this).tab('show')
 })
+
+  $('#add_credit_btn').on('click', function(){
+        var total_credits = $('#total_credits').val();
+        var username = '<%= Bingo.user_details._id %>';
+
+        if($('#total_credits').val() == ''){
+            $('#total_credits').addClass('error-red');
+            return;
+        } else {
+            $.ajax({
+              type: "POST",
+              url: '/api/total_credits',
+              data: JSON.stringify({total_credits:total_credits, username:username}),
+              success: function(res){
+                console.log('logged in'+ res);
+                $('#success_msg').html('Credits Added!')
+              },
+              error:function(xhr){
+                $('#success_msg').addClass('error-red red').html('Error.!');
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+            });
+        }
+
+  })
 </script>

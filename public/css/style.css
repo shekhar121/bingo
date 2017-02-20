@@ -28,6 +28,7 @@ body {
 .table75-container{
     max-height: 180px;
     overflow: auto;
+    margin-bottom: 0.5rem;
 }
 
 .table75 {
@@ -54,7 +55,15 @@ body {
 .table75-ball-counter, .table90-ball-counter{
     width:100%;
 }
-
+.table75-ball-counter2{
+    width:100%;
+}
+.table75-ball-counter2 div{
+    width:20%;
+    float: left;
+    border: 1px solid #666;
+    text-align: center;
+}
 .free_square{
     background-color: #04B431; 
     color: #fff;

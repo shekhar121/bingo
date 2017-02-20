@@ -65,11 +65,18 @@ module.exports = function(app){
 				return;
 			}
 			Bingo.rooms = rooms;
-			User.find({username:req.session.user}, function(err, user){
+			User.findOne({username:req.session.user}, function(err, user){
 				if(err){
 					res.status(500).send(err);
 					return;
 				}
+				user.total_credits = (user.total_credits - req.query.cards);
+				user.save(function(err){
+			  		if(err){
+			  			console.log(err);
+			  			return;
+			  		}
+		  		});
 				Bingo.user_details = user;
 				Game.findOne({type:'bingo75', started:false, completed:false}, function(err, gameinplay){
 		        	if(err){
@@ -140,7 +147,7 @@ module.exports = function(app){
 						if(game3){
 							Bingo.table = game3.users[0].cards_table;
 							Bingo.card_name = game3.users[0].playing_card;
-							Bingo.pattern = game3.users[0].pattern;
+							//Bingo.pattern = game3.users[0].pattern;
 						}
 						res.render('bingo75', {Bingo:Bingo});
 					  	//return;
@@ -188,11 +195,18 @@ module.exports = function(app){
 				return;
 			}
 			Bingo.rooms = rooms;
-			User.find({username:req.session.user}, function(err, user){
+			User.findOne({username:req.session.user}, function(err, user){
 				if(err){
 					res.status(500).send(err);
 					return;
 				}
+				user.total_credits = (user.total_credits - req.query.cards);
+				user.save(function(err){
+			  		if(err){
+			  			console.log(err);
+			  			return;
+			  		}
+		  		});
 				Bingo.user_details = user;
 		        Game.findOne({type:'bingo90', started:false, completed:false}, function(err, gameinplay){
 		        	if(err){

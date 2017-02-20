@@ -9,12 +9,12 @@
 
                     <div class="list-group card75">
                         <a class="btn btn-pink">
-                            <i class="fa fa-star left"></i> Winners
+                            <i class="fa fa-star left"></i> Winners 
                         </a>
-                        <ul class="nav nav-pills nav-stacked" >
-                            <li><a >Player 1</a></li>
+                        <ul class="nav nav-pills nav-stacked" id="game_winner">
+                            <!-- <li><a >Player 1</a></li>
                             <li><a >Player 2</a></li>
-                            <li><a >Player 3</a></li>
+                            <li><a >Player 3</a></li> -->
                         </ul>
                     </div>
                 <div>
@@ -72,6 +72,10 @@
                 </div>
                  <% } else { %>
                 <div class="card75 text-center" style="text-align: center">
+                <p class="bg-success">
+                    Total Credits Available:
+                    <span id="total_credits_available"><%= Bingo.user_details.total_credits %></span>
+                </p>
                     <h4>Rooms: Choose cards and click on Play to enter the room. </h4>
                     <select name="cards" id="cards" style="width:100px;margin: 0 auto;" class="form-control">
                             <%  for(var j=1; j < 21; j++) {   %>
@@ -103,120 +107,15 @@
              }%>
             </div>
             <div class="col-md-3">
-                <div class="card75">
-                    <table class="table75-ball-counter" >
-                        <tr>
-                            <td width="100%" colspan="5" class="counter-ball-th">
-                                <b>Balls (<span id="counter_ball">0</span>)</b>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_1">1</td>
-                            <td id="counter_ball_2">2</td>
-                            <td id="counter_ball_3">3</td>
-                            <td id="counter_ball_4">4</td>
-                            <td id="counter_ball_5">5</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_6">6</td>
-                            <td id="counter_ball_7">7</td>
-                            <td id="counter_ball_8">8</td>
-                            <td id="counter_ball_9">9</td>
-                            <td id="counter_ball_10">10</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_11">11</td>
-                            <td id="counter_ball_12">12</td>
-                            <td id="counter_ball_13">13</td>
-                            <td id="counter_ball_14">14</td>
-                            <td id="counter_ball_15">15</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_16">16</td>
-                            <td id="counter_ball_17">17</td>
-                            <td id="counter_ball_18">18</td>
-                            <td id="counter_ball_19">19</td>
-                            <td id="counter_ball_20">20</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_21">21</td>
-                            <td id="counter_ball_22">22</td>
-                            <td id="counter_ball_23">23</td>
-                            <td id="counter_ball_24">24</td>
-                            <td id="counter_ball_25">25</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_26">26</td>
-                            <td id="counter_ball_27">27</td>
-                            <td id="counter_ball_28">28</td>
-                            <td id="counter_ball_29">29</td>
-                            <td id="counter_ball_30">30</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_31">31</td>
-                            <td id="counter_ball_32">32</td>
-                            <td id="counter_ball_33">33</td>
-                            <td id="counter_ball_34">34</td>
-                            <td id="counter_ball_35">35</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_36">36</td>
-                            <td id="counter_ball_37">37</td>
-                            <td id="counter_ball_38">38</td>
-                            <td id="counter_ball_39">39</td>
-                            <td id="counter_ball_40">40</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_41">41</td>
-                            <td id="counter_ball_42">42</td>
-                            <td id="counter_ball_43">43</td>
-                            <td id="counter_ball_44">44</td>
-                            <td id="counter_ball_45">45</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_46">46</td>
-                            <td id="counter_ball_47">47</td>
-                            <td id="counter_ball_48">48</td>
-                            <td id="counter_ball_49">49</td>
-                            <td id="counter_ball_50">50</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_51">51</td>
-                            <td id="counter_ball_52">52</td>
-                            <td id="counter_ball_53">53</td>
-                            <td id="counter_ball_54">54</td>
-                            <td id="counter_ball_55">55</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_56">56</td>
-                            <td id="counter_ball_57">57</td>
-                            <td id="counter_ball_58">58</td>
-                            <td id="counter_ball_59">59</td>
-                            <td id="counter_ball_60">60</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_61">61</td>
-                            <td id="counter_ball_62">62</td>
-                            <td id="counter_ball_63">63</td>
-                            <td id="counter_ball_64">64</td>
-                            <td id="counter_ball_65">65</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_66">66</td>
-                            <td id="counter_ball_67">67</td>
-                            <td id="counter_ball_68">68</td>
-                            <td id="counter_ball_69">69</td>
-                            <td id="counter_ball_70">70</td>
-                        </tr>
-                        <tr>
-                            <td id="counter_ball_71">71</td>
-                            <td id="counter_ball_72">72</td>
-                            <td id="counter_ball_73">73</td>
-                            <td id="counter_ball_74">74</td>
-                            <td id="counter_ball_75">75</td>
-                        </tr>
-                    </table>
+                <div >
+                    <div width="100%" class="counter-ball-th">
+                        <b>Balls (<span id="counter_ball">0</span>)</b>
+                    </div>
+                    <div class="table75-ball-counter2">
+                        <% for(i=1;i<76;i++) {    %>
+                            <div id="counter_ball_<%= i %>" > <%= i %> </div>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </div>
@@ -282,7 +181,7 @@ $( document ).ready(function() {
         bingo75.user_room = '<%= Bingo.user_room %>';
         bingo75.game_id = '<%= Bingo.game_id %>';
         //bingo75.card_name = JSON.parse('<%- Bingo.card_name %>');
-        bingo75.pattern = '<%- Bingo.pattern %>';
+        //bingo75.pattern = '<%= Bingo.pattern %>';
         var winner75 = 0;
 
         var cnt = 0;
@@ -300,7 +199,7 @@ $( document ).ready(function() {
             if(data.game_completed){
                 //performance.navigation.type = 0;
                 setTimeout(function(){ 
-                //window.location = '/bingo75?game_c=yes&game_c_id='+data.game_id;
+                    window.location = '/bingo75?game_c=yes&game_c_id='+data.game_id;
                 },  5000);
                 console.info( "game completed");
             }
@@ -320,7 +219,7 @@ $( document ).ready(function() {
             var colors=["blue","orange","red","green","yellow","pink","aqua","lime","purple","cyan","brown","grey","darkred","deeppink","gold","indigo"];
      
             jQuery('svg .ballcolor'+cnt).css('fill',colors[~~(Math.random()*colors.length)]);
-
+            $("#counter_ball").html(cnt);
             animate(cnt);
             //winner
             
@@ -330,6 +229,7 @@ $( document ).ready(function() {
                     $('#show_winner_msg').show('slow');
                     $('#show_winner_msg').html('<h2>Yay..! We have a winner - '+data.winner75User+'</h2>');
                     winner75 = 1;
+                    $('#game_winner').html('<li><a class="btn btn-orange">'+data.winner75User+'</a></li>')
                 }
             }
             //socket.emit('game counter', bingo90);

@@ -29,10 +29,12 @@
                             <a class="btn btn-pink">
                                 <i class="fa fa-star left"></i> Winners
                             </a>
-                            <div class="clearfix"></div>
-                            <span class="label label-warning">Peter</span>
-                            <span class="label label-info">John</span>
-                            <span class="label label-success">Ravi</span>
+                            <div id="game_winner" class="clearfix">
+                                <!-- <span class="label label-warning">Peter</span>
+                                <span class="label label-info">John</span>
+                                <span class="label label-success">Ravi</span> -->
+                            </div>
+                            
                         </td>
                     </tr>
                 </table> 
@@ -169,13 +171,13 @@ $( document ).ready(function() {
             if(data.game_completed){
                 //performance.navigation.type = 0;
                 setTimeout(function(){ 
-                    //window.location = '/bingo90?game_c=yes&game_c_id='+data.game_id; 
-                },  3000);
+                    window.location = '/bingo90?game_c=yes&game_c_id='+data.game_id; 
+                },  5000);
                 console.info( "game completed");
             }
             var user = '<%= Bingo.user %>';
             for(key in data.card_name[user]){
-            console.log(key, 'key');
+            //console.log(key, 'key');
                     if(data.card_name[user][key] == 'matched'){
                         //document.getElementById(key).className ='matched-cell';
                         $('#'+key).addClass('matched-cell');
@@ -199,6 +201,8 @@ $( document ).ready(function() {
                        winnerLine1Shown = 1;
                        $('#show_winner_msg').show('slow');
                        $('#show_winner_msg').html('<h2>Hurray! We have a 1 line winner - '+data.winnerLine1User+'</h2>');
+                       $('#game_winner').append('<span class="label label-warning">'+data.winnerLine1User+'</span>');
+                     
                        //alert("Hurray! We have a 1 line winner - "+data.winnerLine1User);
                    }
             }
@@ -209,6 +213,7 @@ $( document ).ready(function() {
                     winnerLine2Shown = 1;
                     $('#show_winner_msg').show('slow');
                     $('#show_winner_msg').html('<h2>Hurray! We have a 2 lines winner - '+data.winnerLine2User+'</h2>');
+                    $('#game_winner').append('<span class="label label-info">'+data.winnerLine2User+'</span>');
                     //alert("Hurray! We have a 2 lines winner - "+data.winnerLine2User);
                 }
             }
@@ -219,6 +224,7 @@ $( document ).ready(function() {
                     winnerLine3Shown = 1; 
                     $('#show_winner_msg').show('slow');
                     $('#show_winner_msg').html('<h2>Yay..! We have a full house winner - '+data.winnerLine3User+'</h2>');
+                    $('#game_winner').append('<span class="label label-success">'+data.winnerLine3User+'</span>');
                     //alert("Yay..! We have a full house winner - "+data.winnerLine3User);
 
                 }

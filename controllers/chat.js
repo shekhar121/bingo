@@ -68,6 +68,7 @@ module.exports = function(http){
 					for(var i=0;i<game.users.length;i++){
 						//game.users[i].user 
 						data.users[game.users[i].user] = JSON.parse(game.users[i].playing_card);
+
 					}
 				}
 				stopCounter = setInterval(function(){
@@ -130,6 +131,7 @@ module.exports = function(http){
 					for(var i=0;i<game.users.length;i++){
 						//game.users[i].user 
 						data.users[game.users[i].user] = JSON.parse(game.users[i].playing_card);
+						data.users[game.users[i].user].pattern = game.users[i].pattern;
 					}
 				}
 			
