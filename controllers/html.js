@@ -43,6 +43,21 @@ module.exports = function(app){
 			card_name : {},
 			url : 'bingo75' //req.url
 		}
+	  	//console.log(User);
+	  	// starts remove later - just to insert some testing games
+	  	var g = new Game();
+	  	g.title = 'This is new game..';
+	  	g.date = new Date();
+	  	g.started = false;
+	  	g.completed = false;
+	  	g.type = 'bingo75';
+	  	g.save(function(err, g){
+	  		if(err){
+	  			res.status(500).send(err);
+	  			return;
+	  		}
+	  	});
+	  	// ends remove later - just to insert some testing games
 		if(req.query.game_c == 'yes' && req.query.game_c_id){
 			Game.findOne({'_id':req.query.game_c_id},  function(err, game){
 	        	if(err){
@@ -173,6 +188,20 @@ module.exports = function(app){
 			card_name : {},
 			url : 'bingo90' //req.url
 		}
+		// starts remove later - just to insert some testing games
+	  	var g = new Game();
+	  	g.title = 'This is new game..';
+	  	g.date = new Date();
+	  	g.started = false;
+	  	g.completed = false;
+	  	g.type = 'bingo90';
+	  	g.save(function(err, g){
+	  		if(err){
+	  			res.status(500).send(err);
+	  			return;
+	  		}
+	  	});
+	  	// ends remove later - just to insert some testing games
 		if(req.query.game_c == 'yes' && req.query.game_c_id){
 			Game.findOne({'_id':req.query.game_c_id},  function(err, game){
 	        	if(err){
