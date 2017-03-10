@@ -164,6 +164,15 @@ module.exports = function(http){
 			
 		});
 		// bingo 75 ---------------------------------------------- End
+
+		//private chat
+		socket.on('pchat', function(data, callback) {
+			console.log(data, 'in private char')
+			//socket.join(data.to);
+			//socket.join(data.from);
+			io.sockets.to(data.room).emit('new message', data);
+		});
+		//pchat end
 		socket.on('disconnect', function(data){
 			//users.splice(users.indexOf(socket.username), 1);
 			//update_user_list(socket.user_room);

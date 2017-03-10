@@ -1,6 +1,7 @@
 var bodyParser = require('body-parser');
 var User = require('../models/user');
-
+var Pchat= require('../models/pchat');
+var passwordHash = require('password-hash');
 // create parser
 
 var jsonParser = bodyParser.json();
@@ -18,22 +19,30 @@ app.use(jsonParser);
 		if (!req.body) return res.sendStatus(400)
 		var username = req.body.username;
 	  	var password = req.body.password;
-
-	  	var user = new User();
+	  	//var hashedPassword = passwordHash.generate(password);
+		//passwordHash.verify('password123', hashedPassword)
+	  	/*var user = new User();
 	  	user.username = username;
-	  	user.password = password;
+	  	user.password = password;*/
 
-	  	User.findOne({username:username,password:password}, function(err, user){
+	  	//User.findOne({username:username,password:password}, function(err, user){
+	  	User.findOne({username:username}, function(err, user){
 	  		if(err){
 	  			res.status(500).send(err);
 	  			return;
 	  		}
 	  		if(!user){
-	  			res.status(404).send(err);
+	  			res.status(404).send('username do not match');
 	  			return;
 	  		}
-	  		//console.log(user);
+	  		//console.log(password, user);
+	  		if(!passwordHash.verify(password, user.password)){
+	  			res.status(404).send('password do not match');
+	  			return;
+	  		}
+	  		//console.log(user,'user.role');
 	  		req.session.user = user.username;
+	  		req.session.user_role = (user.role)?user.role:'user';
 	  		//Bingo.username = user.username;
 	  		app.set('settings', { username: user.username });
 	  		return res.status(200).json({username:user.username});
@@ -47,10 +56,11 @@ app.use(jsonParser);
 	  	var password = req.body.password;
 	  	var firstname = req.body.fname;
 	  	var lastname = req.body.lname;
+	  	var hashedPassword = passwordHash.generate(password);
 	  	//console.log(User);
 	  	var newuser = new User();
 	  	newuser.username = username;
-	  	newuser.password = password;
+	  	newuser.password = hashedPassword;
 	  	newuser.firstname = firstname;
 	  	newuser.lastname = lastname;
 	  	newuser.save(function(err, data){
@@ -64,7 +74,7 @@ app.use(jsonParser);
 	// POST /api/total_credits gets JSON bodies
 	app.post('/api/total_credits', jsonParser, function (req, res) {
 	  if (!req.body) return res.sendStatus(400);
-	  	var total_credits = req.body.total_credits;
+	  	var total_credits = parseInt(req.body.total_credits);
 	  	var username = req.body.username;
 
 	  	User.findOne({'_id':username},  function(err, user){
@@ -96,6 +106,76 @@ app.use(jsonParser);
 	  // create user in req.body
 	})
 
+	// POST /api/ gets JSON bodies
+	app.post('/api/pchat', jsonParser, function (req, res) {
+	  if (!req.body) return res.sendStatus(400);
+	  	var sender = req.body.sender;
+	  	var receiver = req.body.receiver;
+	  	var msg = req.body.msg;
+	  	var date = new Date();
+	  	var read = false;
+	  	//console.log(User);
+	  	var pchat = new Pchat();
+	  	pchat.sender = sender;
+	  	pchat.receiver = receiver;
+	  	pchat.msg = msg;
+	  	pchat.date = date;
+	  	pchat.read = read;
+	  	pchat.save(function(err, data){
+	  		if(err){
+	  			res.status(500).send(err);
+	  			return;
+	  		}
+	  		return res.status(200).json({data:data});
+	  	});
+	})
+
+	app.post('/api/get_chat_buddies', jsonParser, function(req, res){
+		if (!req.body) return res.sendStatus(400)
+		var username = req.body.username;
+		Pchat.aggregate(
+		    [	
+		    	{ "$match": { "receiver": username , read: false}  },
+		        // Grouping pipeline
+		        { "$group": { 
+		            "_id": '$sender', 
+		            "count": { "$sum": 1 }
+		        }},
+		        // Sorting pipeline
+		        { "$sort": { "sender": -1 } }
+		        // Optionally limit results
+		        //{ "$limit": 5 }
+		    ],
+		    function(err,result) {
+		    	return res.status(200).json({data:result});
+		    }
+		);
+	})
+	app.post('/api/get_chat_data', jsonParser, function(req, res){
+
+		if (!req.body) return res.sendStatus(400)
+		var username = req.body.username;
+		var sender= req.body.sender;
+		//{ $or:[ {'_id':objId}, {'name':param}, {'nickname':param} ]}
+	  	//Pchat.find({receiver:username, sender:sender}).limit(5).exec(function(err, data){
+	  	Pchat.find({
+			      $or: [
+			          { $and: [{receiver:username}, {sender:sender}] },
+			          { $and: [{receiver:sender}, {sender:username}] }
+			      ]
+			  }).limit(10).sort('-date').exec(function(err, data){
+	  		if(err){
+	  			res.status(500).send(err);
+	  			return;
+	  		}
+	  		if(!data){
+	  			res.status(404).send(err);
+	  			return;
+	  		}
+	  		//console.log(data)
+	  		return res.status(200).json({data:data});
+	  	});
+	})
 	
 	app.get('/api/login', function (req, res) {
 	  //if (!req.body) return res.sendStatus(400)

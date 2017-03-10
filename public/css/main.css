@@ -1,0 +1,130 @@
+/* YOUR CUSTOM STYLES */
+body{
+	background: linear-gradient(to bottom, rgba(251,193,76,1) 0%, rgba(241,142,77,1) 100%) !important;
+}
+.container .logo {
+    width: 100%;
+    max-width: 300px;
+    padding-left: 30px;
+    float: left;
+}
+.row .list{
+    background: #fff;
+    padding: 1rem;
+    border-bottom: 1px solid #e3e3e3;
+}    
+.container .jumbotron, .container .jumbotron1 {
+    padding: 20px 100px 130px;
+    height: 100%;
+}
+.jumbotron {
+    background-image: url(../img/jumbotron-bg.jpg);
+    background-size: cover;
+    background-position: bottom center;
+    padding: 100px 100px 20px;
+    position: relative;
+    box-shadow: 0 8px 16px -1px rgba(0,0,0,.3);
+}
+.jumbotron1 {
+    background: #33b5e5 !important;
+    background-position: bottom center;
+    padding: 100px 100px 20px;
+    position: relative;
+    box-shadow: 0 8px 16px -1px rgba(0,0,0,.3);
+}
+.jumbotron .jackpot {
+    width: 50%;
+    float: left;
+ }
+ .jumbotron>.jackpot>img {
+    width: 100%;
+}
+ .jackpot{
+ 	padding: 65px 0px 0px 20px;
+    height: 223px;
+ }
+ .jumbotron .bonus {
+    width: 30%;
+    margin-left: 15%;
+    margin-top: 10%;
+    float: left;
+    text-align: center;
+    margin-bottom: 1rem;
+ }
+ .jumbotron>.bonus>img {
+    width: 100%;
+}
+.top-menu-color{
+	background:  #2c3e50;
+}
+.jumbotron > .flag {
+    height: auto;
+    position: absolute;
+    right: -15px;
+    top: 0;
+    width: 50%;
+}
+.jumbotron1>.flag {
+    position: absolute;
+    bottom: 0;
+    left: -17px;
+    width: 500px;
+    height: auto;
+}
+.background {
+    width: 100%;
+    height: auto;
+}
+.introduction-background {
+    width: 35%;
+    height: auto;
+    float: left;
+}
+.character {
+    width: auto;
+    height: 90% !important;
+    position: absolute !important;
+    bottom: 0;
+    right: -15px;
+}
+.stars {
+    width: 60%;
+    margin: 10px 0;
+}
+.stars .star {
+    width: 20%;
+    float: left;
+}
+.card-block h3 {
+	clear: both;
+    font-size: 1.1rem !important;
+    padding: 15px 5px !important;
+}
+.fa-icon{
+	font-size: 2rem;
+}
+.primary-color-dark {
+    background-color: #2c3e50!important;
+}
+.view {
+    overflow: visible
+}   
+.footer.page-footer{
+	margin-top: 1px !important;
+} 
+/*media*/
+@media only screen and (min-width: 700){
+	.jumbotron {
+	    display:none;
+	    overflow: hidden;
+	}
+}
+@media screen and (min-width: 0px) and (max-width: 600px) {
+  .jumbotron { display: none; }  /* show it on small screens */
+  .introduction-background{display: none;}
+  .introduction-content{width: 100% !important;text-align: center !important;}
+}
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .jumbotron { display: block; }   /* hide it elsewhere */
+}

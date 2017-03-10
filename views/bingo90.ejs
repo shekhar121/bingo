@@ -53,6 +53,11 @@
                     </a>
                 </div>
             </div>
+            
+     
+                
+               
+          
         </div>
         <div class="col-md-8">
             <div class="row table90-container">
@@ -71,16 +76,25 @@
                 <div class="clearfix"></div>
            </div>
         </div>
+
     </div>
     <!--chat row-->
     <div class="row">
         <div class="col-md-9"></div>
-        <div class="col-md-3"></div>
+        <div class="col-md-3">
+        <div>
+            <a class="btn btn-indigo" >
+                <i class="fa fa-wechat left"> </i> Chat Friends
+            </a>
+            <div id="get_chat_users"></div>
+        </div>
+        </div>
     </div>
 </div>
 <!-- /.container -->
 
 <%- include('footer90'); %>
+
 <!-- chat socket starts -->
 <script>
 var socket = io();
@@ -116,12 +130,17 @@ var data = {};
         console.log(users);
         var user_list = '';
         for(i=0;i<users.length;i++){
-            user_list += '<li class="active"><a href="#">'+users[i]+'</a></li>';
+            if(users[i] != "<%= Bingo.user %>"){
+                user_list += '<li class="active"><a id="'+users[i]+'" href="#">'+users[i]+'</a></li>';
+            }
         }
+        user_list += '<li class="active"><a id="abhi" href="#">abhi</a></li>';
+        user_list += '<li class="active"><a id="sabhi" href="#">sabhi</a></li>';
         if(user_list){
             $('#users_in_room').html(user_list);
         }
     });
+
 <% } %>
 </script>
 <!-- chat socket ends -->
@@ -255,5 +274,5 @@ $( document ).ready(function() {
     
 });
 </script>
-
+<%- include('chat'); %>
 

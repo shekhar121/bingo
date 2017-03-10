@@ -1,0 +1,45 @@
+<%- include('../header'); %>
+<main>
+	<div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <%- include('admin_menu'); %>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container" style="min-height: 550px">
+        <div class="row z-depth-5">
+        	<h5><%- Bingo.title %></h5>
+        	<form action="/admin/setting/edit" method="post" style="width: 100%;">
+        	<div class="col-md-12">
+        		<div class="row list">
+		            <div class="col-md-12">
+			            <div class="md-form">
+						    <input type="text" name="bingo75_broadcast_msg" id="bingo75_broadcast_msg"  class="form-control" value="<%- Bingo.setting.bingo75_broadcast_msg %>">
+						    <label for="form1" class="">Bingo 75 Message</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+						    <input type="text" name="bingo90_broadcast_msg" id="bingo90_broadcast_msg" class="form-control" value="<%- Bingo.setting.bingo90_broadcast_msg %>">
+						    <label for="form1" class="">Bingo 90 Message</label>
+						</div>
+					</div>
+					
+					<div class="col-md-12">
+						<input type="hidden" name="setting_id" value="<%- Bingo.setting._id %>">
+						<input type="submit" name="submit" id="submit" class="btn btn-primary" value=" Update ">
+					</div>
+				</div>
+			</div>
+			</form>
+			
+
+
+
+		</div>
+	</div>
+	<hr>
+</main>
+<%- include('../footer'); %>	

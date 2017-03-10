@@ -31,6 +31,9 @@ app.use(session({
 
 controllers.html(app);
 controllers.api(app);
+controllers.cbingo75(app);
+controllers.cbingo90(app);
+controllers.admin(app);
 controllers.chat(http);
 //html(app);
 

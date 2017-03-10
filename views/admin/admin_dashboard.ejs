@@ -1,0 +1,91 @@
+<%- include('../header'); %>
+    <main>
+
+        <!--Main layout-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <%- include('admin_menu'); %>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="container" style="min-height: 550px">
+            <!--First row-->
+            <div class="row">
+                <div class="col-md-12">
+                    
+
+                </div>
+            </div>
+        </div>
+        <hr>
+
+
+    </main>
+
+   <%- include('../footer'); %>
+
+ 
+<script type="text/javascript">
+$('#myTabs a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+    $('#login_btn').on('click', function(){
+        var email = $('#email').val();
+        var pass = $('#password').val();
+        if($('#email').val() == '' || $('#password').val() == ''){
+            $('#email, #password').addClass('error-red');
+            return;
+        } else {
+            $.ajax({
+              type: "POST",
+              url: '/api/login',
+              data: JSON.stringify({username:email, password:pass}),
+              success: function(res){
+                console.log('logged in'+ res);
+                window.location.href = '/bingo75';
+              },
+              error:function(xhr){
+                $('#loginLabel').addClass('error-red red').html('Username/password is wrong.!');
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+            });
+        }
+    });
+    $('#register_btn').on('click', function(){
+        var remail = $('#remail').val();
+        var rpass = $('#rpassword').val();
+        var fname = $('#fname').val();
+        var lname = $('#lname').val();
+        if(remail == '' || rpass == ''){
+            $('#remail, #rpassword, #registerLabel').addClass('error-red');
+            return;
+        } else {
+            $.ajax({
+              type: "POST",
+              url: '/api/register',
+              data: JSON.stringify({username:remail, password:rpass,fname:fname,lname:lname}),
+              success: function(res){
+                $('#registerLabel').addClass('green_clr').html('Thanks for registering.!');
+                
+                setTimeout(function(){ $('#regModal').modal('hide'); }, 1000);
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+              error:function(res){ 
+                /*if(res.responseJSON.code == '11000'){
+                   $('#registerLabel').addClass('red').html('User exits already.'); 
+                   return;
+                }*/
+                $('#registerLabel').addClass('error-red red').html('User can\'t be created.');
+              },
+              complete:function(res){
+                $('#login').modal('show');
+              }
+            });
+        }
+    });
+</script>

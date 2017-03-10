@@ -1,0 +1,111 @@
+<%- include('../header'); %>
+<main>
+	<div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <%- include('admin_menu'); %>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container" style="min-height: 550px">
+        <div class="row z-depth-5">
+        	<h5><%- Bingo.title %></h5>
+        	<form action="/admin/room/edit" method="post" style="width: 100%;">
+        	<div class="col-md-12">
+        		<div class="row list">
+		            <div class="col-md-12">
+			            <div class="md-form">
+						    <input type="text" name="name" id="name" class="form-control" value="<%- Bingo.room.name %>">
+						    <label for="form1" class="">Room Name</label>
+						</div>
+					</div>
+					<div class="col-md-12">
+			            <div class="md-form">
+			            	<textarea type="text" name="description" id="description" class="md-textarea"><%- Bingo.room.description %></textarea>
+						    <label for="form1" class="">Room Description</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+			            	<input type="text" name="book1_cost" id="book1_cost" class="form-control" value="<%- Bingo.room.book1_cost %>">
+						    <label for="form1" class="">Book 1 - Cost</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+			            	<input type="text" name="book2_cost" id="book2_cost" class="form-control" value="<%- Bingo.room.book2_cost %>">
+						    <label for="form1" class="">Book 2 - Cost</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+			            	<input type="text" name="book3_cost" id="book3_cost" class="form-control" value="<%- Bingo.room.book3_cost %>">
+						    <label for="form1" class="">Book 3 - Cost</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+			            	<input type="text" name="book4_cost" id="book4_cost" class="form-control" value="<%- Bingo.room.book4_cost %>">
+						    <label for="form1" class="">Book 4 - Cost</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+			            	<input type="text" name="book5_cost" id="book5_cost" class="form-control" value="<%- Bingo.room.book5_cost %>">
+						    <label for="form1" class="">Book 5 - Cost</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+			            	<input type="text" name="book6_cost" id="book6_cost" class="form-control" value="<%- Bingo.room.book6_cost %>">
+						    <label for="form1" class="">Book 6 - Cost</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+			            	<input type="text" name="line1_prize" id="line1_prize" class="form-control" value="<%- Bingo.room.line1_prize %>">
+						    <label for="form1" class="">Line 1 Prize</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+			            	<input type="text" name="line2_prize" id="line2_prize" class="form-control" value="<%- Bingo.room.line2_prize %>">
+						    <label for="form1" class="">Line 3 Prize</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+			            	<input type="text" name="fullhouse_prize" id="fullhouse_prize" class="form-control" value="<%- Bingo.room.fullhouse_prize %>">
+						    <label for="form1" class="">Fullhouse Prize</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+			            	<input type="text" name="jackpot_prize" id="jackpot_prize" class="form-control" value="<%- Bingo.room.jackpot_prize %>">
+						    <label for="form1" class="">Jackpot Prize</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+			            	<input type="text" name="jackpot_ball" id="jackpot_ball" class="form-control" value="<%- Bingo.room.jackpot_ball %>">
+						    <label for="form1" class="">Jackpot Ball</label>
+						</div>
+					</div>
+
+					<div class="col-md-12">
+						<input type="hidden" name="room_id" value="<%- Bingo.room._id %>">
+						<input type="submit" name="submit" id="submit" class="btn btn-primary" value=" Update ">
+					</div>
+				</div>
+			</div>
+			</form>
+			
+
+
+
+		</div>
+	</div>
+	<hr>
+</main>
+<%- include('../footer'); %>	

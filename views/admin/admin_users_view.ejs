@@ -1,0 +1,50 @@
+<%- include('../header'); %>
+<main>
+	<div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <%- include('admin_menu'); %>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container" style="min-height: 550px">
+        <div class="row z-depth-5">
+        	<h5><%- Bingo.title %></h5>
+        	<form action="/admin/user/edit" method="post" style="width: 100%;">
+        	<div class="col-md-12">
+        		<div class="row list">
+		            <div class="col-md-12">
+			            <div class="md-form">
+						    <input type="text" name="username" id="username" disabled="disabled" class="form-control" value="<%- Bingo.player.username %>">
+						    <label for="form1" class="">Username/Email</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+						    <input type="text" name="firstname" id="firstname" class="form-control" value="<%- Bingo.player.firstname %>">
+						    <label for="form1" class="">First Name</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+			            <div class="md-form">
+						    <input type="text" name="lastname" id="lastname" class="form-control" value="<%- Bingo.player.lastname %>">
+						    <label for="form1" class="">Last Name</label>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<input type="hidden" name="user_id" value="<%- Bingo.player._id %>">
+						<input type="submit" name="submit" id="submit" class="btn btn-primary" value=" Update ">
+					</div>
+				</div>
+			</div>
+			</form>
+			
+
+
+
+		</div>
+	</div>
+	<hr>
+</main>
+<%- include('../footer'); %>	
