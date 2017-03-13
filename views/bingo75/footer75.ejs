@@ -1,0 +1,128 @@
+  <!--Footer-->
+    <footer class="page-footer center-on-small-only primary-color-dark" style="margin-top: 0px;">
+
+        <!--Footer Links-->
+        <div class="container-fluid">
+            <div class="row">
+
+                <!--First column-->
+                <div class="col-lg-3 offset-lg-1 hidden-lg-down">
+                    <h4 class="title">Wood Bingo</h4>
+                    <p>Nothing beats the thrill of watching your numbers come up daily. </p>
+                </div>
+                <!--/.First column-->
+
+                <hr class="hidden-md-up">
+
+                <!--Second column-->
+                <div class="col-lg-2 col-md-4 offset-lg-1">
+                    <!-- <h5 class="title">First column</h5> -->
+                    <ul>
+                        <li><a href="#!">Terms & Conditions</a></li>
+                        <li><a href="#!">Privacy Policy</a></li>
+                        <li><a href="#!">Copyright</a></li>
+                        <li><a href="#!">Responsible gaming</a></li>
+                    </ul>
+                </div>
+                <!--/.Second column-->
+
+                <hr class="hidden-md-up">
+
+                <!--Third column-->
+                <div class="col-lg-2 col-md-4">
+                    <!-- <h5 class="title">Second column</h5> -->
+                    <ul>
+                        <li><a href="#!">Rounds Silver Room</a></li>
+                        <li><a href="#!">Rounds Bingo 75</a></li>
+                        <li><a href="#!">Rounds Booklet Bingo</a></li>
+                        <li><a href="#!">Deposit Bonus</a></li>
+                    </ul>
+                </div>
+                <!--/.Third column-->
+
+                <hr class="hidden-md-up">
+
+                <!--Fourth column-->
+                <div class="col-lg-2 col-md-4">
+                    <!-- <h5 class="title">Third column</h5> -->
+                    <ul>
+                        <li><a href="#!">Support</a></li>
+                        <li><a href="#!">Contact Us</a></li>
+                        <li><a href="#!">About Us</a></li>
+                    </ul>
+                </div>
+                <!--/.Fourth column-->
+
+            </div>
+        </div>
+        <!--/.Footer Links-->
+
+        <hr>
+
+        <!--Call to action-->
+        <div class="call-to-action">
+            <h4>Secure payment methods</h4>
+            <i class="fa fa-cc-paypal fa-icon" aria-hidden="true"></i>
+            <i class="fa fa-cc-visa fa-icon" aria-hidden="true"></i>
+            <i class="fa fa-cc-mastercard fa-icon" aria-hidden="true"></i>
+            <i class="fa fa-credit-card-alt fa-icon" aria-hidden="true"></i>
+           
+        </div>
+        <!--/.Call to action-->
+
+        <!--Copyright-->
+        <div class="footer-copyright">
+            <div class="container-fluid small">
+                 Woodbingo.com is operated by Throwing Wood Media N.V. and licensed in Curacao, licence number 8048/JAZ2014-050
+Our games are approved by GLI/TST
+<br>
+© 2015 Copyright
+
+            </div>
+        </div>
+        <!--/.Copyright-->
+
+    </footer>
+    <!--/.Footer-->
+
+
+    <!-- SCRIPTS -->
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/js/jquery-2.2.3.min.js"></script>
+
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/js/tether.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/js/mdb.min.js"></script>
+
+<script type="text/javascript">
+    $('#loginModal').on('shown.bs.modal', function () {
+      $('#myInput').focus()
+    })
+</script>
+    <!-- index -->
+    <% if(Bingo.url == 'index') { %>
+        <%- include('modals/login'); %>
+        <%- include('modals/register'); %>
+    <% } %>
+
+    <!-- bingo75 -->
+    <% if(Bingo.url == 'bingo75') { %>
+        <script src="/assets/js/bingo75.js"></script>
+    <% } %>
+
+
+    <!-- bingo90 -->
+    <% if(Bingo.url == 'bingo90') { %>
+        <script src="/assets/js/bingo90.js"></script>
+    <% } %>
+</body>
+
+</html>  
+
+

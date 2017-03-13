@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 // create parser
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });*/
+var async = require('async');
 var Room = require('../models/room');
 var User = require('../models/user');
 var Game = require('../models/game');
@@ -21,6 +22,66 @@ var Bingo = Bingo || {};
 //console.log(app.get('settings'), 'session');
 module.exports = function(app){
 //console.log(app.get('settings'), 'session2');
+	
+	app.get('/bingo75/rooms', function(req, res){ 
+		//console.log(app.get('settings'), 'session3');
+		//req.session.user_bought_card = false;
+		if(!req.session.user){
+			res.redirect('/');
+			return;
+		}
+		Bingo = {
+			user : req.session.user,
+			//cards : req.query.cards,
+			//user_room : req.query.room,
+			//game_id : req.query.game,
+			//card_name : {},
+			url : 'bingo75/rooms' //req.url
+		}
+		/*Room.find({type:'bingo75'}, function(err, rooms){
+			if(err){
+				res.status(500).send(err);
+				return;
+			}
+			console.log(rooms);
+			Bingo.rooms = rooms;
+			Game.findOne({type:'bingo75', started:false, completed:false}, function(err, gameinplay){
+		        	if(err){
+						console.log(err);
+						return;
+					}
+				Bingo.gameinplay = gameinplay;
+				res.render('bingo75/rooms', {Bingo:Bingo});
+			})
+			
+		});*/
+
+		//try with async
+		async.parallel([
+		    function(callback) { 
+		    	Room.find({type:'bingo75'}, function(err, data){
+					if (err) {
+			            throw callback(err);
+			        }
+			        callback(null, data);
+		    	});
+		    },
+		    function(callback) {
+		    	Game.findOne({type:'bingo75', started:false, completed:false}, function(err, data){
+		        	if (err) {
+			            throw callback(err);
+			        }
+			        callback(null, data);
+				});
+		    }
+		], function(err, results) {
+		    // optional callback
+		    Bingo.rooms  = results[0]; //rooms
+		    Bingo.gameinplay  = results[1]; //gameinplay
+		    res.render('bingo75/rooms', {Bingo:Bingo});
+		});
+		//asyncs ends
+	});
 
 	app.get('/bingo75', function(req, res){
 		if(!req.session.user){
@@ -66,12 +127,12 @@ module.exports = function(app){
 		  		});
 			});
 		}
-		Room.find({type:'bingo75'}, function(err, rooms){
+		/*Room.find({type:'bingo75'}, function(err, rooms){
 			if(err){
 				res.status(500).send(err);
 				return;
 			}
-			Bingo.rooms = rooms;
+			Bingo.rooms = rooms;*/
 			User.findOne({username:req.session.user}, function(err, user){
 				if(err){
 					res.status(500).send(err);
@@ -163,7 +224,7 @@ module.exports = function(app){
 				
 				}) //gamein play	ends			
 			}) //User.find close
-		}) //Room.find close
+		//}) //Room.find close
 	}) //app.get close 
 	//app get
 	

@@ -7,8 +7,9 @@
                         <h3 class="panel-title" id="chat_box_title"><!-- <span class="glyphicon glyphicon-comment"></span> Chat - Miguel --></h3>
                     </div>
                     <div class="col-md-4 col-xs-4" style="text-align: right;">
-                        <a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>
-                        <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window"></span></a>
+                        <a href="#"><span id="minim_chat_window" class="fa fa-minus icon_minim"></span>
+                        </a>
+                        <a href="#"><span class="fa fa-times icon_close" data-id="chat_window"></span></a>
                     </div>
                 </div>
                 <div class="panel-body msg_container_base">
@@ -58,7 +59,7 @@ function get_chat_buddies() {
                 //console.log('logged in'+ res.data);
                 var user_list = '<ul id="chat_user_list">';
                 for(i=0;i<res.data.length;i++){
-                    user_list += '<li class="active"><a id="'+res.data[i]._id+'" href="#">'+res.data[i]._id+'</a>'+res.data[i].count+' new message(s)</li>';
+                    user_list += '<li class="active"><a id="'+res.data[i]._id+'" href="#" class="dropdown-item waves-effect waves-light">'+res.data[i]._id+'<span class="badge">'+res.data[i].count+'</span></a> </li>';
                 }
                 user_list += '</ul>';
                 $('#get_chat_users').html(user_list);
@@ -70,7 +71,7 @@ function get_chat_buddies() {
               contentType: "application/json; charset=utf-8",
             });
   }
-setInterval(get_chat_buddies, 10000);
+setInterval(get_chat_buddies, 3000);
 $(document).on('click', '.panel-heading span.icon_minim', function (e) {
     var $this = $(this);
     if (!$this.hasClass('panel-collapsed')) {
@@ -327,7 +328,7 @@ $('#chat_container').on('keypress', '.chat-btn-input', function(e){ //console.lo
 }
 img {
     display: block;
-    width: 100%;
+
 }
 .avatar1 {
     position: relative;

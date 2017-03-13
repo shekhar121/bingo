@@ -1,4 +1,18 @@
-
+<% if(Bingo.url == 'bingo90') { %>
+<div class="container-fluid">
+       <div class="row">
+      <div class="botom_infoTxt">
+            <a href="#" class=""><i class="fa fa-lock left"></i> Logged in As: test</a>
+            <a href="#" class="" data-toggle="modal" data-target="#myModal"><i class="fa fa-user left"></i> My Account</a>
+            <a href="#" class=""><i class="fa fa-gear left"></i> Credits: €640</a>
+            <a href="#" class=""><i class="fa fa-gift left"></i> Won: €00.0</a>
+            <a href="#" class=""><i class="fa fa-money left"></i> Pay Desk</a>
+            <a href="#" class=""><i class="fa fa-info left"></i> Help</a>
+            
+            </div>          
+    </div>
+</div>
+<% } %>
     <!-- common libs -->
     <script src="/assets/js/jquery-3.1.1.min.js"></script>
     <script src="/assets/js/tether.min.js"></script>
@@ -7,19 +21,10 @@
 
 
     <!-- index -->
-    <%- include('modals/help'); %>
-    <%- include('modals/my_account'); %>
+    <%- include('../modals/help'); %>
+   
+    <script src="/assets/js/bingo90.js"></script>
 
-    <!-- bingo75 -->
-    <% if(Bingo.url == 'bingo75') { %>
-        <script src="/assets/js/bingo75.js"></script>
-    <% } %>
-
-
-    <!-- bingo90 -->
-    <% if(Bingo.url == 'bingo90') { %>
-        <script src="/assets/js/bingo90.js"></script>
-    <% } %>
 
 
 <!--//modals-->

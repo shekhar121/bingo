@@ -1,0 +1,183 @@
+<%- include('header90'); %> 
+<script src="/socket.io/socket.io.js"></script>
+    <!-- Page Content -->
+<div class="container-fluid bgcolor" style="margin-top: -0.75rem;">
+       <div class="row">
+       <% if(Bingo.rooms.length > 0){ 
+            for(i=0;i<Bingo.rooms.length;i++){
+        %>
+           <div class="col-md-15 colBorder">
+                <div class="roomHead"><%= Bingo.rooms[i].name %> (<span>0</span>)</div>
+                <div class="roomTxtBox">
+                    <div class="titleTxt">Status: <span class="status">Busy...</span></div>
+                    <div class="roominfoTxt">Game Starts: <span class="Time">2016-12-14, 20:00:00</span></div>
+                    <div class="roominfoTxt">Rounds to go: <span class="rounds">0</span><span class="clearfix"></span></div>
+                    <!--**********************************-->
+                    <div class="titleTxt">Books:</div>
+                    <div class="roominfoTxt">1 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book1_cost %></span><span class="clearfix"></span></div>
+                    <div class="roominfoTxt">2 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book2_cost %></span><span class="clearfix"></span></div>
+                    <div class="roominfoTxt">3 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book3_cost %></span><span class="clearfix"></span></div>
+                    <div class="roominfoTxt">4 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book4_cost %></span><span class="clearfix"></span></div>
+                    <div class="roominfoTxt">5 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book5_cost %>0</span><span class="clearfix"></span></div>
+                    <div class="roominfoTxt">6 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book6_cost %></span><span class="clearfix"></span></div>
+                    <!--**********************************-->
+                    <div class="titleTxt">Priced in the room:</div>
+                    <span class="roomPrice elven">Line 1 - &euro; <%= Bingo.rooms[i].line1_prize %></span>
+                    <span class="roomPrice elven">Line 2 - &euro; <%= Bingo.rooms[i].line2_prize %></span>
+                    <span class="roomPrice elven">Full House - &euro; <%= Bingo.rooms[i].fullhouse_prize %></span>
+                    <span class="roomPrice elven">Jackpot - &euro; <%= Bingo.rooms[i].jackpot_prize %></span>
+                    <!-- <span class="roomPrice">6 x &euro; 30.00,</span>
+                    <span class="roomPrice">5 x &euro; 100.00</span> -->
+                    <!--**********************************-->
+                    <div class="titleTxt">Buy Books!</div>
+                    <div id="btn_card" class="btnWrap">
+                        <a href="javascript:void(0)" class="blackglass" data-val="1">1</a> 
+                        <a href="javascript:void(0)" class="blackglass" data-val="2">2</a>
+                        <a href="javascript:void(0)" class="blackglass" data-val="3">3</a>
+                        <a href="javascript:void(0)" class="blackglass" data-val="4">4</a>
+                        <a href="javascript:void(0)" class="blackglass" data-val="5">5</a>
+                        <a href="javascript:void(0)" class="blackglass" data-val="6">6</a>
+                    </div>
+                    <div class="BuyBook">
+                        <i class="fa fa-chevron-down"></i>
+                        <span id="selected_card" class="selectedBook">1</span>
+                        <i class="fa fa-chevron-down"></i>
+                    </div> 
+                    <!--**********************************-->
+                    <span class="clearfix"></span>
+                    <div class="titleTxt">Select Blackground</div>
+                    <div id="body_bg" class="btnWrap">
+                        <a  class="colorBox color_1" data-bg="#e80000"></a> 
+                        <a  class="colorBox color_2" data-bg="#000000"></a> 
+                        <a  class="colorBox color_3" data-bg="#66ffff"></a> 
+                        <a  class="colorBox color_4" data-bg="#dc248e"></a> 
+                        <a  class="colorBox color_5" data-bg="#ffd700"></a> 
+                        <a  class="colorBox color_6" data-bg="#49b41a"></a> 
+                        <a  class="colorBox color_7" data-bg="#022b84"></a> 
+                        <a  class="colorBox color_8" data-bg="#3e1314"></a> 
+                    </div>
+                    <div class="BuyBook">
+                        <i class="fa fa-chevron-down"></i>
+                        <span id="selected_body_bg" class="selectedColor_1 selectedBook">&nbsp;</span>
+                        <i class="fa fa-chevron-down"></i>
+                    </div> 
+                    <!--**********************************-->
+                    <span class="clearfix"></span>
+                    <div class="titleTxt">Click on pin you want to use:</div>
+                    <div id="pin_bg" class="btnWrap pinWrap">
+                    <a href="javascript:void(0)" class="pin_3" data-bg="#66ffff"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="pin_1" data-bg="#e80000"> <i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="pin_2" data-bg="#000000"><i class="fa fa-map-marker" aria-hidden="true"></i></a> 
+                         
+                        <a href="javascript:void(0)" class="pin_4" data-bg="#dc248e"><i class="fa fa-map-marker" aria-hidden="true"></i></a> 
+                        <a href="javascript:void(0)" class="pin_5" data-bg="#ffd700"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="pin_6" data-bg="#49b41a"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="pin_7" data-bg="#022b84"><i class="fa fa-map-marker" aria-hidden="true"></i></a> 
+                        <a href="javascript:void(0)" class="pin_8" data-bg="#3e1314"><i class="fa fa-map-marker" aria-hidden="true"></i></a> 
+                        <a href="javascript:void(0)" class="pin_9" data-bg="#ea2300"><i class="fa fa-map-marker" aria-hidden="true"></i></a> 
+                        <a href="javascript:void(0)" class="pin_10" data-bg="#004209"><i class="fa fa-map-marker" aria-hidden="true"></i></a>  
+                    </div>
+                    <div class="BuyBook">
+                        <i class="fa fa-chevron-down"></i>
+                        <span id="selected_pin_bg" class="selectedColor_2">&nbsp;</span>
+                        <i class="fa fa-chevron-down"></i>
+                    </div> 
+                    <!--**********************************-->
+                    <span class="clearfix"></span>
+                    <div class="enterRoom"><a id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Enter Room</a></div>
+                    
+                    <!--Closed-->                  
+                </div>
+           </div>
+        <% }  } %>
+         
+           
+        <!-- rooms for loop end - -->
+           
+            
+       </div>
+</div>
+<div class="bg_load"></div>
+<div class="wrapper">
+    <div class="inner">
+        <span>L</span>
+        <span>o</span>
+        <span>a</span>
+        <span>d</span>
+        <span>i</span>
+        <span>n</span>
+        <span>g</span>
+    </div>
+</div>
+
+
+
+
+<!-- /.container -->
+
+<%- include('footer90'); %>
+<script type="text/javascript">
+$(".bg_load, .wrapper").hide();
+    Room = {
+        body_bg: '#e80000',
+        pin_bg: '#66ffff',
+        cards:1,
+        room_id: false,
+        game_id:false
+    };
+    $('#body_bg a').on('click', function(e){
+        Room.body_bg = $(this).attr('data-bg');
+        $('#selected_body_bg').css('background',Room.body_bg);
+        
+    })
+    $('#pin_bg a').on('click', function(e){
+        Room.pin_bg = $(this).attr('data-bg');
+        $('#selected_pin_bg').css('background',Room.pin_bg);
+    })
+    $('#btn_card a').on('click', function(e){
+        Room.cards = $(this).attr('data-val');
+        $('#selected_card').text(Room.cards);
+    })
+    $('#room_id').on('click', function(e){
+        e.preventDefault();
+        $(".bg_load, .wrapper").show();
+        $(".bg_load").fadeOut("slow");
+        $(".wrapper").fadeOut("slow");
+        Room.room_id = $(this).attr('data-room');
+        Room.game_id = $(this).attr('data-game');
+        if(Room.room_id && Room.game_id){
+            //window.location = '/bingo90?cards='+Room.cards+'&room='+Room.room_id+'&game='+Room.game_id;
+            
+            $.ajax({
+              type: "POST",
+              url: '/api/gotobingo90',
+              data: JSON.stringify({Room}),
+              /*start:function(){
+                    $(".bg_load, .wrapper").show();
+                    $(".bg_load").fadeOut("slow");
+                    $(".wrapper").fadeOut("slow");
+              },*/
+              success: function(res){
+                console.log('logged in'+ res);
+                window.location.href = '/bingo90';
+                return;
+              },
+              error:function(xhr){
+                $('#error').addClass('error-red red').html('There is some issue!');
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+            });
+        } else{
+            alert('oops! something went wrong!');
+        }
+        //$("form").submit();
+    });
+    
+    //console.log(Room);
+</script>
+
+
+
+
+

@@ -1,0 +1,340 @@
+<%- include('header90'); %> 
+<script src="/socket.io/socket.io.js"></script>
+
+
+
+
+<!-- Main Section Five Cols -->
+<div class="container-fluid allCardsWrap">
+       <div class="row">
+            
+            <%  if(Bingo.cards_type){ %>
+                <div class="col-md-12">
+
+                    <div class="row" id="full_view">
+                        <div class="col-md-12" style="margin-bottom: -1rem;">
+                            <a class="btn btn-yellow" id="all_cards_close">Close</a>
+                        </div>
+                        <%  if(Bingo.cards > 0){ %>
+                            <%- Bingo.table %>
+                        <%  }  %>
+                            
+                    </div>
+                </div>
+            <%  } else { %>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="infoBoxWrap winnerBox playerOverFlow">
+                                    <div class="boxtitle">
+                                        <i class="fa fa-users left"></i> Players
+                                    </div>
+                                    <ul id="users_in_room" class="playersList">
+                                    <!-- <li><i class="online"></i> Player 01</li>
+                                     -->                 
+                                    </ul>
+                                    
+                                </div><!--infoBoxWrap closed-->
+                            </div>
+                            <div class="col-md-6">
+                            <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="infoBoxWrap winnerBox">
+                                    <div class="boxtitle">
+                                        <i class="fa fa-gift"></i> Prize
+                                    </div>
+                                    <div class="roominfoTxt">First Line <span class="rounds price">Full</span><span class="clearfix"></span></div>
+                                    <div class="roominfoTxt">Second Line <span class="rounds price">€ 00.00</span><span class="clearfix"></span></div>
+                                    <div class="roominfoTxt">Full Card <span class="rounds price">€ 00.00</span><span class="clearfix"></span></div>                                    
+                                    
+                                </div><!--infoBoxWrap closed-->
+                                </div><!--col-md-12-->
+                                <div class="col-md-12">
+                                <div class="infoBoxWrap winnerBox">
+                                    <div class="boxtitle">
+                                        <i class="fa fa-star"></i> Winner
+                                    </div>
+                                    <div id="game_winner">
+                                        
+                                    </div>
+                                    
+                                </div><!--infoBoxWrap closed-->
+                                </div><!--col-md-12-->
+                                
+                                
+                                </div><!--row-->
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="infoBoxWrap winnerBox">
+                                    <div class="boxtitle">
+                                        <i class="fa fa-comments"></i> Chat Box
+                                    </div>
+                                    <div class="chatRoomTxt">
+                                        <!-- <div>play and win, this is it!</div> -->
+                                        <ul id="messages" >
+                                        </ul>
+                                        
+                                    </div>
+                                    <div class="md-form floatLedt">
+                                        <input type="text" id="message" name="message" class="form-control">
+                                        <label for="form1" class="">Type your massage here</label>
+                                    </div>
+                                    <a href="#" class="action-button shadow animate sendBtn blue" id="send_msg_btn">Send</a>
+  <a href="#" class="action-button shadow animate sendBtn blue" id="start_game">Start</a>
+                                    <span class="clearfix"></span>
+                                </div><!--infoBoxWrap closed-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--Col end-->
+                    <div class="col-md-8" style="max-height: 650px;   overflow: scroll;">
+                     <div class="row">
+                            
+                            <div class="col-md-4" style="margin-bottom: -1rem;" >
+                                     <a class="btn btn-yellow dropdown-toggle waves-effect waves-light" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-weixin" aria-hidden="true"></i></a>
+                                    <div class="dropdown-menu dropdown-warning" aria-labelledby="dropdownMenu4" id="get_chat_users">
+                                        <!-- <a class="dropdown-item waves-effect waves-light">Action</a>
+                                        <a class="dropdown-item waves-effect waves-light">Another action</a>
+                                        <a class="dropdown-item waves-effect waves-light">Something else here</a> -->
+                                        <a class="dropdown-item waves-effect waves-light">No New Message</a>
+                                    </div>
+                           
+                            </div>
+                            <div class="col-md-8" style="margin-bottom: -1rem; text-align: right;">
+                                <a class="btn btn-yellow" id="all_cards">All Cards</a>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        <%  if(Bingo.cards > 0){ %>
+                            <%- Bingo.table %>
+                        <%  }  %>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%  }  %>
+       </div>
+       
+</div> 
+
+
+
+    <!-- Page Content -->
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-3">
+        <div>
+            <a class="btn btn-indigo" >
+                <i class="fa fa-wechat left"> </i> Chat Friends
+            </a>
+            <div id="get_chat_users"></div>
+        </div>
+        </div>
+    </div>
+</div> -->
+<!-- /.container -->
+
+<%- include('footer90'); %>
+
+<!-- chat socket starts -->
+<script>
+var socket = io();
+$('#send_msg_btn').hide();
+$('#message').hide();
+$('#all_cards').on('click', function(){
+    window.location = '/bingo90?cards_type=true';
+});
+$('#all_cards_close').on('click', function(){
+    window.location = '/bingo90';
+});
+var data = {};
+<% if(Bingo.user_room && (Bingo.cards > 0)){ %>
+    console.log('here90')
+    data.user = "<%= Bingo.user %>";
+    data.user_room = "<%= Bingo.user_room %>";
+        console.log(data);
+        socket.emit('get user list', data);
+    $('#send_msg_btn').show();
+    $('#message').show();   
+  
+    $('#send_msg_btn').on('click', function(){
+        
+        var message = $('#message').val();
+        data.message = message;
+        socket.emit('send message', data);
+        $('#message').val('');
+        return false;
+    });
+    socket.on('show message', function(data){
+        $('#messages').append($('<li>').html('<b>'+data.user+'</b>: '+data.message));
+        $("#messages").animate({
+          "scrollTop": $('#messages')[0].scrollHeight
+        }, "fast");
+        //user list
+        
+    });
+    socket.on('show user list', function(users){ 
+        console.log(users);
+        var user_list = '';
+        for(i=0;i<users.length;i++){
+            if(users[i] != "<%= Bingo.user %>"){
+                user_list += '<li class="active"><i class="online"></i><a id="'+users[i]+'" href="#">'+users[i]+'</a></li>';
+            }
+        }
+        user_list += '<li class="active"><i class="online"></i><a id="abhi" href="#">abhi</a></li>';
+        user_list += '<li class="active"><i class="online"></i><a id="sabhi" href="#">sabhi</a></li>';
+        if(user_list){
+            $('#users_in_room').html(user_list);
+        }
+    });
+
+<% } %>
+</script>
+<!-- chat socket ends -->
+
+<script type="text/javascript">
+//$('.bg_gradient').css('background','<%= Bingo.body_bg %>');
+$( document ).ready(function() {
+    $('.play90').on('click', function(e){ 
+        
+        //return;
+        var room = e.target.title;
+        var card = $('#cards').val(); //alert(card);
+        var gid =  $(this).attr('data');
+        window.location = '/bingo90?cards='+card+'&room='+room+'&game='+gid;
+    })
+    <% if(Bingo.cards > 0){ %>
+
+        //console.log(JSON.parse('<%- Bingo.card_name %>'), 'lplplpp');
+        var num = <%= Bingo.cards %>;
+        $('#btn_tick').attr('disabled','disabled');
+        var bingo90 = {};
+        var pattern = 'none';
+        var selected_pattern = pattern[Math.floor(Math.random()*pattern.length)];
+        //alert('<%= Bingo.room_id %>');
+
+        bingo90.user_room = '<%= Bingo.user_room %>';
+        bingo90.game_id = '<%= Bingo.game_id %>';
+        var winnerLine1Shown = 0;
+        var winnerLine2Shown = 0;
+        var winnerLine3Shown = 0;
+       
+        var cnt = 0;
+        
+        $('#start_game').on('click', function(){
+           socket.emit('game counter', bingo90); 
+        })
+        
+
+        socket.on('show counter ball', function(data){ 
+            //$('#show_winner_msg').hide('slow');
+            console.log(data, 'from server in ');
+            if (performance.navigation.type == 1) { console.log(data, 'show counter ball');
+                console.info( "This page is reloaded" );
+                socket.emit('stop counter', bingo90);
+            } else {
+                console.info( "This page is not reloaded");
+            }
+            if(data.game_completed){
+                //performance.navigation.type = 0;
+                /*setTimeout(function(){ 
+                    window.location = '/bingo90?game_c=yes&game_c_id='+data.game_id; 
+                },  10000);*/
+                console.info( "game completed");
+            }
+            var user = '<%= Bingo.user %>';
+            for(key in data.card_name[user]){
+            //console.log(key, 'key');
+                    if(data.card_name[user][key] == 'matched'){
+                        //document.getElementById(key).className ='matched-cell';
+                        $('#'+key).css('background','<%= Bingo.pin_bg %>');;
+                        //$('#'+key).addClass('matched-cell');
+                    }
+                }
+             cnt++;
+            var bingoballHTML = '<div class="bingoball'+cnt+'"><h3 class="ball_num'+cnt+'"></h3><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 206.2 206.2"><defs><style>  .ball{isolation:isolate;}.ballcolor{fill:grey;}.cls-3{opacity:0.48;fill:url(#linear-gradient);}.cls-3,.cls-6{mix-blend-mode:screen;}.cls-4{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:4px;}.cls-5{fill:#fff;opacity:0.8;}.cls-6{fill:url(#radial-gradient);}</style><linearGradient id="linear-gradient" x1="103.1" x2="103.1" y2="206.2" gradientTransform="rotate(.02 114.612 114.572)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"></stop><stop offset="1" stop-color="#2483c5" stop-opacity="0"></stop></linearGradient><radialGradient id="radial-gradient" cx="72.1" cy="64.1" r="53" gradientTransform="rotate(.02 114.612 114.572)" xlink:href="#linear-gradient"></radialGradient></defs><g class="ball"><g id="Laag_1" data-name="Laag 1"><path d="M206.2 102.2a103 103 0 0 1-104 104C46.2 205.7.5 160 0 104A103 103 0 0 1 104 0c56 .5 101.7 46.3 102.2 102.2z" class="ballcolor'+cnt+'"></path><path d="M206.2 102.2a103 103 0 0 1-104 104C46.2 205.7.5 160 0 104A103 103 0 0 1 104 0c56 .5 101.7 46.3 102.2 102.2z" class="cls-3"></path><path d="M175.3 102.5A72.2 72.2 0 1 1 103.7 31a72.2 72.2 0 0 1 71.6 71.5z" class="cls-4"></path><path d="M169 102.5A66 66 0 1 1 103.8 37a66 66 0 0 1 65.4 65.5z" class="cls-5"></path><path d="M125 63.6A53 53 0 1 1 72.7 11 53 53 0 0 1 125 63.7z" class="cls-6"></path></g></g></div>';
+            $('#rolling_ball').append(bingoballHTML);   
+            $("#counter_ball_"  + data.counter_ball).addClass('green');
+            $('.ball_num'+cnt).html(data.counter_ball);
+            $('#balls').html(cnt);
+            var colors=["blue","orange","red","green","yellow","pink","aqua","lime","purple","cyan","brown","grey","darkred","deeppink","gold","indigo"];
+     
+            jQuery('svg .ballcolor'+cnt).css('fill',colors[~~(Math.random()*colors.length)]);
+
+            animate(cnt); 
+            //winner
+            if(!winnerLine1Shown){
+                if (data.winnerLine1 == 1 || data.winnerLine2 == 1 || data.winnerLine3 == 1){
+                    console.log("Hurray! We have a 1 line winner!");
+                    //$('#modalWinnerLine1').modal('show');
+                       winnerLine1Shown = 1;
+                       $('#show_winner_msg').show('slow');
+                       $('#show_winner_msg').html('<h2>Hurray! We have a 1 line winner - '+data.winnerLine1User+'</h2>');
+                      /* $('#game_winner').append('<span class="label label-warning">'+data.winnerLine1User+'</span>');*/
+                       $('#game_winner').append('<div class="roominfoTxt">'+data.winnerLine1User+' <span class="rounds price"><i class="fa fa-star"></i></span><span class="clearfix"></span></div>');
+                     
+                       //alert("Hurray! We have a 1 line winner - "+data.winnerLine1User);
+                   }
+            }
+            if(!winnerLine2Shown){
+                if (data.winnerLine2 == 1){
+                    console.log("Hurray! We have a 2 lines winner!");
+                    //$('#modalWinnerLine2').modal('show');
+                    winnerLine2Shown = 1;
+                    $('#show_winner_msg').show('slow');
+                    $('#show_winner_msg').html('<h2>Hurray! We have a 2 lines winner - '+data.winnerLine2User+'</h2>');
+                    /*$('#game_winner').append('<span class="label label-info">'+data.winnerLine2User+'</span>');*/
+                    $('#game_winner').append('<div class="roominfoTxt">'+data.winnerLine2User+' <span class="rounds price"><i class="fa fa-star"></i></span><span class="clearfix"></span></div>');
+                    //alert("Hurray! We have a 2 lines winner - "+data.winnerLine2User);
+                }
+            }
+            if(!winnerLine3Shown){
+                if (data.winnerLine3 == 1){
+                    console.log("Yay..! We have a full house winner");
+                    //$('#modalWinnerLine3').modal('show');
+                    winnerLine3Shown = 1; 
+                    $('#show_winner_msg').show('slow');
+                    $('#show_winner_msg').html('<h2>Yay..! We have a full house winner - '+data.winnerLine3User+'</h2>');
+                    /*$('#game_winner').append('<span class="label label-success">'+data.winnerLine3User+'</span>');*/
+                    $('#game_winner').append('<div class="roominfoTxt">'+data.winnerLine3User+' <span class="rounds price"><i class="fa fa-star"></i></span><span class="clearfix"></span></div>');
+                    //alert("Yay..! We have a full house winner - "+data.winnerLine3User);
+
+                }
+            }
+            //socket.emit('game counter', bingo90);
+        });
+        function animate(cnt){
+            
+            var z = cnt - 1; 
+            var y = cnt - 2;
+            var x = cnt - 3;
+            if(cnt == 1){
+                $('.bingoball'+cnt).animate({right: '1050px',opacity:'1'}, 500, animate);
+            } else if(cnt == 2) {
+                $('.bingoball'+cnt).animate({right: '950px',opacity:'1'}, 500, animate);
+            } else if(cnt == 3) {
+                $('.bingoball'+cnt).animate({right: '850px',opacity:'1'}, 500, animate);
+            } else {
+                $('.bingoball'+cnt).animate({right: '650px',opacity:'1'}, 500, animate);
+
+                $('.bingoball'+z).css('right','850px');
+                $('.bingoball'+z).addClass('smallball');
+                $('.bingoball'+y).css('right','950px');
+                $('.bingoball'+x).css('right','1050px');
+            }
+        }
+    <% } %>
+    
+});
+</script>
+<%- include('../chat'); %>
+

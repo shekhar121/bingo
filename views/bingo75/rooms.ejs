@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>WoodBingo - Bingo 75 Rooms</title>
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/css/mdb.min.css" rel="stylesheet">
+    <!-- Custom -->
+    <link href="/assets/css/bingo75.css" rel="stylesheet">
+
+    <!-- Template styles -->
+    <style rel="stylesheet">
+        
+        html,
+        body {
+            height: 100%;
+        }
+      
+    </style>
+
+</head>
+
+<body>
+
+
+   
+
+
+    <!--Content-->
+    <div class="container boxWrap">
+        <div class="row">
+            <!-- <div class="col-md-3">
+               <div class="row">
+               <div class="leftSideBox">
+                        <div class="boxTitle">Filter</div>
+                        
+                        <ul class="allRommsList">
+                            <li><a href="#" class="selected">All Rooms <i class="fa fa-angle-double-right"></i></a></li>
+                            <li><a href="#">0.00 <i class="fa fa-angle-double-right"></i></a></li>
+                            <li><a href="#">0.01 <i class="fa fa-angle-double-right"></i></a></li>
+                            <li><a href="#">0.05 <i class="fa fa-angle-double-right"></i></a></li>
+                            <li><a href="#">0.10 <i class="fa fa-angle-double-right"></i></a></li>
+                            <li><a href="#">0.15 <i class="fa fa-angle-double-right"></i></a></li>
+                            <li><a href="#">0.25 <i class="fa fa-angle-double-right"></i></a></li>
+                            <li><a href="#">0.50 <i class="fa fa-angle-double-right"></i></a></li>
+                        </ul>
+                        <div class="adsWrap"><img src="img/ads.png" alt=""></div>
+                        <div class="refreshBtn"><a href="#">Refresh</a></div>
+                        
+                        </div>
+                    </div>
+               
+            </div> -->
+            <div class="col-md-12">
+                <!-- <div class="row">
+                  <div class="col-md-12"> -->
+                    <div class="rightSideBox">
+                        <div class="boxTitle">Account Information</div>
+                        
+                        <!-- a/c info box-->
+                        <div class="accountInfoBox">
+                            <div class="accountInfoBoxWhite">
+                                <!-- <h3>Account Information</h3> -->
+                                <div class="userName"><span>User Name:</span><span>Opamart</span></div>
+                                <div class="userName"><span>Total Credits:</span><span>138</span></div>
+                                <hr>
+                                <div class="inputBox">
+                                    <label for="form1" class="">Credit Transfer</label>
+                                    <input type="text" id="form1" class="txt" placeholder="0.00">
+                                </div>
+                                <div class="inputBox">
+                                    <label for="form1" class="">Bingo Credit</label>
+                                    <input type="text" id="form1" class="txt" placeholder="0.00">
+                                </div>
+                                <div class="clearfix"></div>
+                                <a href="#" class="transferBtn"><i class="fa fa-angle-double-right"></i></a>
+                                
+                            </div>
+                            <div class="boxTitle">Bingo rooms</div>
+                            <!-- <div class="accountInfoBoxWhite">
+                                <div class="inputBox">
+                                    <label for="form1" class="">Credit Transfer</label>
+                                    <input type="text" id="form1" class="txt" placeholder="0.00">
+                                </div>
+                                <div class="inputBox">
+                                    <label for="form1" class="">Bingo Credit</label>
+                                    <input type="text" id="form1" class="txt" placeholder="0.00">
+                                </div>
+                                <div class="clearfix"></div>
+                                <a href="#" class="transferBtn"><i class="fa fa-angle-double-right"></i></a>
+                                
+                            </div> -->
+                        </div>
+                    <!-- </div>
+                </div> -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="roomBoxWrap">
+                        <% if(Bingo.rooms.length > 0){ 
+                            for(i=0;i<Bingo.rooms.length;i++){
+                        %>
+                        
+                             <div class="roomListRow">
+                                <a href="#">
+                                  <div class="row">
+                                  <div class="col-md-2">
+                                    <img src="/assets/img/list_img.png" alt="">
+                                   </div>
+                                   <div class="col-md-4">
+                                   <div class="roomDetailsLeft">
+                                        <span class="roomTitle"><%= Bingo.rooms[i].name %></span>
+                                        
+                                        <span class="cardsRoom">Upto <%= Bingo.rooms[i].cards_upto %> cards per room</span>       
+                                        <span class="cardsRoom">Card Price <i class="cardPrice"><%= Bingo.rooms[i].card_price %></i> <!-- Previous round <i class="cardPrice">0.10</i> --></span>        
+                                   </div> 
+                                   </div>
+                                   <div class="col-md-3">
+                                   <div class="roomDetailsLeft">
+                                    <span class="roomStatus"><i class="busy"></i>Busy</span>
+                                    </div>
+                                   </div>
+                                   <div class="col-md-3">
+                                   <div class="roomDetailsRight">
+                                        <span class="cardsRoom">Players</span>      
+                                        <span class="cardsRoom">
+                                            <i class="numofPlayers">7</i> | <i class="numofPlayers">45</i>
+                                        </span> 
+                                        <span class="cardsRoom">Number of Balls</span>      
+                                        <span class="cardsRoom">
+                                            <i class="numofBalls"><%= Bingo.rooms[i].card_balls_to_roll %></i>
+                                        </span>    
+                                   </div>
+                                   </div>
+                                   </div>
+                                   <!-- <span class="clearfix"></span> -->
+                                   </a>                                               
+                             </div><!--roomBoxWrap list row closed here-->
+                             <% }  
+                             } %>
+                             
+                    </div>
+                  </div>
+                </div>
+
+
+          </div>
+        </div>
+
+
+</div>
+        
+
+    <!--/.Content-->
+    
+          
+
+
+    <!--Footer-->
+    <footer class="center-on-small-only">
+
+       
+
+   
+
+        <!--Copyright-->
+        
+            <div class="container">
+            <div class="footer-copyright">
+                Copyright © Bingo 2017
+
+            </div>
+        </div>
+        <!--/.Copyright-->
+
+    </footer>
+    <!--/.Footer-->
+
+
+    <!-- SCRIPTS -->
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/tether.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+
+
+</body>
+
+</html>

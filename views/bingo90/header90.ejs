@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Bingo 90 - Rooms!!</title>
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/css/mdb.min.css" rel="stylesheet">
+    <!-- Custom -->
+    <link href="/assets/css/bingo90.css" rel="stylesheet">
+
+    <!-- Template styles -->
+    <style rel="stylesheet">
+        /* TEMPLATE STYLES */
+        /* Necessary for full page carousel*/
+        
+        html,
+        body {
+            height: 100%;
+            line-height: 1.25 !important;
+        }
+        /* Navigation*/
+        
+        .navbar {
+            background-color: transparent;
+        }
+        
+       .navbar-fixed-bottom{position:fixed; bottom:0px; background: rgba(255, 255, 255, 0.8); width:100%;}
+
+.bg_gradient {
+  background: <%= Bingo.body_bg %>; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(-90deg, <%= Bingo.body_bg %>, #461415); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(-90deg, <%= Bingo.body_bg %>, #461415); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(-90deg, <%= Bingo.body_bg %>, #461415); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(-90deg, <%= Bingo.body_bg %>, #461415); /* Standard syntax */
+}
+    </style>
+
+</head>
+<body>
+<% if(Bingo.url == 'bingo90/rooms') { %>
+<div class="container-fluid bgcolor noborder">
+  <div class="col-md-12">
+       <div class="row">
+            <div class="col-md-6">
+              <div class="chatSec"><img src="/assets/img/chat1.png" alt=""> Welcome at “<span class="redColor">Bingo</span>” our game is based on traditional bingo game.</div>
+              <div class="msgBox">
+                <span class="msg">Do you have questions, consult a chat moderator or our helpdesk</span>
+                <span class="userName">Welcome: <span class="nam"><%- Bingo.user %></span></span>
+              </div>
+            </div>
+            
+            <div class="col-md-3">
+              <div class="chatSec"><img src="/assets/img/user1.png" alt=""> Welcome : <span class="nam"><%- Bingo.user %></span></div>
+              <div class="msgBox">
+                <div class="creditBox">
+                    <span>Credit:</span><span class="euro">&euro; 0.00</span><a href="#" class="glass">Log out</a>
+                    <span class="clearfix"></span>
+                </div>
+                <div class="creditBox">
+                    <span>Won:</span><span class="euro">&euro; 0.00</span><a href="#" class="glass">Pay-out</a>
+                    <span class="clearfix"></span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-3">
+              <div class="chatSec"><img src="/assets/img/euro.png" alt=""> Option: </div>
+              <div class="msgBox option"><a href="#" class="glass">Pay Desk</a> <a href="#" class="glass">Help Desk</a> <a href="#" class="glass">Deposit</a></div>
+            </div>
+        </div>
+  </div>
+</div>
+<% } 
+if(Bingo.url == 'bingo90') { %>
+<div class="container-fluid bg_gradient">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <img src="/assets/img/bg_head.svg" style="height: 98px;width: 35%;display: inline;    opacity: 0.5;">
+            <div class="topLeftBtnWrap">
+                <a class="topLeftBtn" href="/bingo90/rooms">Room List <i class="fa fa-times closeWindow" aria-hidden="true"></i></a>
+                <a class="topLeftBtn" href="#">Sound</a>
+                <a class="topLeftBtn" href="#">Balls <i id="balls" class="balls">0</i></a>
+                <a class="topLeftBtn" href="#">Rounds <i class="balls rounds">1</i></a>
+            </div>
+            <div class="balls_wrp" > 
+                <div id="rolling_ball"> </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-md-12">
+            
+            <div >Balls Balls Balls </div>
+        </div>
+    </div> -->
+</div>
+<% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -235,14 +235,14 @@ module.exports = function(app){
 		})
 	})
 	//room 90  ends
-	//rooms view to edit
-	app.get('/admin/rooms/view/:id', function(req, res){ 
+	//rooms 75 view to edit
+	app.get('/admin/rooms75/view/:id', function(req, res){ 
 		//if(!req.session.user){ res.redirect('/'); return; }
 		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 
 		Bingo = {
 			user : 'req.session.user',
-			url : '/admin/rooms', //req.url
+			url : '/admin/rooms/view75', //req.url
 			title : 'View Room'
 		} 
 		Room.findOne({_id:req.params.id},  function(err,room){
@@ -252,13 +252,66 @@ module.exports = function(app){
 			}
 
 			Bingo.room = room;
-			res.render('admin/admin_rooms_view', {Bingo:Bingo});
+			res.render('admin/admin_rooms_view75', {Bingo:Bingo});
 		})
 		
 	})
-	//rooms view ends
-	//rooom edit view 
-	app.post('/admin/room/edit', jsonParser, function (req, res) {
+	//rooms 75  view ends
+	//rooms 90 view to edit
+	app.get('/admin/rooms90/view/:id', function(req, res){ 
+		//if(!req.session.user){ res.redirect('/'); return; }
+		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+
+		Bingo = {
+			user : 'req.session.user',
+			url : '/admin/rooms/view90', //req.url
+			title : 'View Room'
+		} 
+		Room.findOne({_id:req.params.id},  function(err,room){
+			if(err){ 
+				res.status(500).send(err); 
+				return; 
+			}
+
+			Bingo.room = room;
+			res.render('admin/admin_rooms_view90', {Bingo:Bingo});
+		})
+		
+	})
+	//rooms 990  view ends
+	//rooom 75 edit view 
+	app.post('/admin/room75/edit', jsonParser, function (req, res) {
+	  if (!req.body) return res.sendStatus(400);
+	  	var firstname = req.body.name;
+	  	var _id = req.body.room_id;
+
+
+	  	Room.findOne({'_id':_id},  function(err, room){
+        	if(err){
+				res.status(500).send(err);
+				return;
+			}
+			room.name = req.body.name;
+			room.description = req.body.description;
+			room.card_price= req.body.card_price;
+			room.cards_upto = req.body.cards_upto;
+			room.card_balls_to_roll = req.body.card_balls_to_roll;
+
+			
+			room.save(function(err, data){
+		  		if(err){
+		  			res.status(500).send(err);
+		  			return;
+		  		}
+		  		//return res.status(200).json({username:data.username});
+		  		res.redirect('/admin/rooms75/view/'+req.body.room_id);
+				return;
+	  		});
+		});
+	})
+	//rooom 75 edit view
+
+	app.post('/admin/room90/edit', jsonParser, function (req, res) {
 	  if (!req.body) return res.sendStatus(400);
 	  	var firstname = req.body.name;
 	  	var _id = req.body.room_id;
@@ -289,14 +342,14 @@ module.exports = function(app){
 		  			return;
 		  		}
 		  		//return res.status(200).json({username:data.username});
-		  		res.redirect('/admin/rooms/view/'+req.body.room_id);
+		  		res.redirect('/admin/rooms90/view/'+req.body.room_id);
 				return;
 	  		});
 		});
 
 	  	
 	})
-	//room edit nds
+	//room 90 edit nds
 	//setting view 
 	app.get('/admin/setting/view', function(req, res){ 
 		//if(!req.session.user){ res.redirect('/'); return; }

@@ -25,7 +25,7 @@ function createCards(obj){
 }
 
 var Bingo90 = function(cards, pattern){
-	this.cards = cards;
+	this.cards = cards*6;
 	this.pattern = pattern;
 	this.card_name = {};
 
@@ -42,6 +42,7 @@ var Bingo90 = function(cards, pattern){
         createCards(this);
 		var table = '';
         var nm = 0;
+
 		if(this.cards > 0){
             for(var i=0; i < this.cards; i++) {
                 
@@ -78,7 +79,40 @@ var Bingo90 = function(cards, pattern){
                 var num28 = this.getRandomInt(81, 90);
                 this.card_name['card_'+i+'_square28'] = num28;
 
-		table += '<div class="col-md-6 card-nm'+nm+'>">\
+        table += '<div class="col-md-6">\
+                    <div class="cardBoxT ChatCol">\
+                    <span id="card_'+i+'_square0" class="selectedBox">'+num0+'</span>\
+                    <span id="card_'+i+'_square1"></span>\
+                    <span id="card_'+i+'_square2" class="selectedBox">'+num2+'</span>\
+                    <span id="card_'+i+'_square3" class="selectedBox">'+num3+'</span>\
+                    <span id="card_'+i+'_square4"></span>\
+                    <span id="card_'+i+'_square5"></span>\
+                    <span id="card_'+i+'_square6"></span>\
+                    <span id="card_'+i+'_square7" class="selectedBox">'+num7+'</span>\
+                    <span id="card_'+i+'_square8" class="selectedBox">'+num8+'</span>\
+                    \
+                    <span id="card_'+i+'_square10"></span>\
+                    <span id="card_'+i+'_square11" class="selectedBox">'+num11+'</span>\
+                    <span id="card_'+i+'_square12" class="selectedBox">'+num12+'</span>\
+                    <span id="card_'+i+'_square13"></span>\
+                    <span id="card_'+i+'_square14" class="selectedBox">'+num14+'</span>\
+                    <span id="card_'+i+'_square15" class="selectedBox">'+num15+'</span>\
+                    <span id="card_'+i+'_square16" class="selectedBox">'+num16+'</span>\
+                    <span id="card_'+i+'_square17"></span>\
+                    <span id="card_'+i+'_square18"></span>\
+                    \
+                    <span id="card_'+i+'_square20" class="selectedBox">'+num20+'</span>\
+                    <span id="card_'+i+'_square21" class="selectedBox">'+num21+'</span>\
+                    <span id="card_'+i+'_square22"></span>\
+                    <span id="card_'+i+'_square23" class="selectedBox">'+num23+'</span>\
+                    <span id="card_'+i+'_square24"></span>\
+                    <span id="card_'+i+'_square25" class="selectedBox">'+num25+'</span>\
+                    <span id="card_'+i+'_square26"></span>\
+                    <span id="card_'+i+'_square27"></span>\
+                    <span id="card_'+i+'_square28" class="selectedBox">'+num28+'</span>';
+             table +=  '<div class="clearfix"></div><img src="assets/img/bingoBall.png" alt=""></div></div>';
+
+		/*table += '<div class="col-md-6 card-nm'+nm+'>">\
                     <div class="card90"><table class="table90 pattern" id="card_'+i+'">\
                         <tr>\
                         <td id="card_'+i+'_square0">'+num0+'</td>\
@@ -113,7 +147,7 @@ var Bingo90 = function(cards, pattern){
                             <td id="card_'+i+'_square27">&nbsp;</td>\
                             <td id="card_'+i+'_square28">'+num28+'</td>\
                         </tr>\
-                    </table></div></div>';
+                    </table></div></div>';*/
                 }
             }
         return table;

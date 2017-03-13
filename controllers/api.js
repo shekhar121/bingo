@@ -1,5 +1,6 @@
 var bodyParser = require('body-parser');
 var User = require('../models/user');
+var Room = require('../models/room');
 var Pchat= require('../models/pchat');
 var passwordHash = require('password-hash');
 // create parser
@@ -71,6 +72,15 @@ app.use(jsonParser);
 	  		return res.status(200).json({username:data.username});
 	  	});
 	})
+	app.post('/api/gotobingo90', jsonParser, function(req, res){
+		if (!req.body) return res.sendStatus(400)
+			req.session.body_bg = req.body.Room.body_bg;
+			req.session.pin_bg = req.body.Room.pin_bg;
+			req.session.cards = req.body.Room.cards;
+			req.session.room_id = req.body.Room.room_id;
+			req.session.game_id =  req.body.Room.game_id;
+			return res.status(200).json({status:true});
+	});
 	// POST /api/total_credits gets JSON bodies
 	app.post('/api/total_credits', jsonParser, function (req, res) {
 	  if (!req.body) return res.sendStatus(400);
@@ -135,6 +145,7 @@ app.use(jsonParser);
 		var username = req.body.username;
 		Pchat.aggregate(
 		    [	
+		    	//{ "$match": { "receiver": username , read: false}  },
 		    	{ "$match": { "receiver": username , read: false}  },
 		        // Grouping pipeline
 		        { "$group": { 
@@ -142,9 +153,9 @@ app.use(jsonParser);
 		            "count": { "$sum": 1 }
 		        }},
 		        // Sorting pipeline
-		        { "$sort": { "sender": -1 } }
+		        { "$sort": { "sender": -1 } },
 		        // Optionally limit results
-		        //{ "$limit": 5 }
+		        { "$limit": 5 }
 		    ],
 		    function(err,result) {
 		    	return res.status(200).json({data:result});
@@ -172,6 +183,15 @@ app.use(jsonParser);
 	  			res.status(404).send(err);
 	  			return;
 	  		}
+	  		//update read status
+	  		Pchat.update({receiver:username,sender:sender}, { read: true }, { multi: true }, function (err, raw) {
+			  if (err){
+			  	res.status(404).send(err); 
+			  	return;
+			  } 
+			  console.log('The raw response from Mongo was ', raw);
+			});
+
 	  		//console.log(data)
 	  		return res.status(200).json({data:data});
 	  	});

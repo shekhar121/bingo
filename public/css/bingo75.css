@@ -1,0 +1,135 @@
+/* YOUR CUSTOM STYLES */
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+body{
+background: url(/assets/img/bg75.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;}
+/* bg Box */
+.boxWrap { margin-top:2%; background: #0099cc;position: relative; width:55%;}
+.boxWrap:after,.boxWrap:before {  content: '';  background: #005776; position: absolute;}
+.boxWrap:after { width: 100%; height: 20px; left: 10px; bottom: 0; transform: translatey(100%) skewx(45deg);}
+.boxWrap:before { width: 20px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 10px;}  
+
+/* bg Box closed */
+.boxTitle {
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#0086b6, #00698f); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#0086b6, #00698f); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#0086b6, #00698f); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#0086b6, #00698f); /* Standard syntax */
+    font-family: 'Oswald', sans-serif; text-align:center; 
+    color:#fff; font-size:24px; padding:6px 15px; text-transform:uppercase; font-weight: normal;
+}
+.leftSideBox, .rightSideBox{width:100%;}
+.leftSideBox{border-right:1px solid #005776; padding-bottom:50px;}
+.adsWrap{ margin:0 auto; width:235px;}
+.adsWrap img{border:4px solid #23a7d3;}
+.allRommsList a{padding:3px 12px; font:14px; color:#FFF; display:block; width:50%;}
+.allRommsList li{margin-top:7px;}
+
+.allRommsList{padding:10px 20px;}
+.allRommsList a.selected { background: #ff6600;position: relative;}
+.allRommsList a.selected:after,.allRommsList a.selected:before {  content: '';  background: #a84300; position: absolute;}
+.allRommsList a.selected:after { width: 100%; height: 4px; left: 3px; bottom: 0; transform: translatey(100%) skewx(45deg);}
+.allRommsList a.selected:before { width: 5px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 2px;} 
+
+
+.accountInfoBox{padding:15px; width:102%;}
+.accountInfoBox { background: #ff6600;position: relative;}
+.accountInfoBox:after,.accountInfoBox:before {  content: '';  background: #a84300; position: absolute;}
+.accountInfoBox:after { width: 100%; height: 20px; left: 10px; bottom: 0; transform: translatey(100%) skewx(45deg);}
+.accountInfoBox:before { width: 20px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 10px;} 
+
+.accountInfoBoxWhite{background-color:#FFF; padding:20px;
+ border-left:12px solid #94300e;
+  border-top:13px solid #d64214;
+   border-bottom:4px solid #94300e;
+    border-right:2px solid #94300e; margin-bottom:15px;
+ }
+.accountInfoBoxWhite span{padding-right:10px;}
+.inputBox{float:left;     width: 45%;    margin-right: 18px;;}
+.accountInfoBoxWhite .inputBox .txt{padding: 5px 10px;box-sizing: border-box;
+ border-left:4px solid #999;
+  border-top:4px solid #999;
+   border-bottom:1px solid #ddd;
+    border-right:1px solid #ddd;
+}
+{}
+.transferBtn{background: #2fb3eb;position: relative; color:#FFF;text-transform:uppercase;text-align:center; display:block; width:30%; padding:0px 8px; margin:0 auto; font-size:28px; line-height:28px; clear:both; margin-top:20px; margin-bottom:10px;}
+.transferBtn:after,.transferBtn:before {  content: '';  background: #036182; position: absolute;}
+.transferBtn:after { width: 100%; height: 4px; left: 3px; bottom: 0; transform: translatey(100%) skewx(45deg);}
+.transferBtn:before { width: 5px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 2px;} 
+
+.roomListRow:hover{ background: #ff6600 !important;position: relative;}
+.roomListRow:hover:after,.allRommsList a:hover:before {  content: '';  background: #a84300; position: absolute;}
+.roomListRow:hover:after { width: 100%; height: 4px; left: 3px; bottom: 0; transform: translatey(100%) skewx(45deg);}
+.roomListRow:hover:before { width: 5px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 2px;}
+
+.allRommsList a:hover{ background: #ff6600;position: relative;}
+.allRommsList a:hover:after,.allRommsList a:hover:before {  content: '';  background: #a84300; position: absolute;}
+.allRommsList a:hover:after { width: 100%; height: 4px; left: 3px; bottom: 0; transform: translatey(100%) skewx(45deg);}
+.allRommsList a:hover:before { width: 5px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 2px;}
+
+.refreshBtn{margin-top:20px;}
+.refreshBtn a{ background: #2fb3eb;position: relative; color:#FFF;text-transform:uppercase;font-family: 'Oswald', sans-serif; text-align:center; display:block; width:50%; padding:4px 15px; margin:0 auto;}
+.refreshBtn a:after,.refreshBtn a:before {  content: '';  background: #036182; position: absolute;}
+.refreshBtn a:after { width: 100%; height: 4px; left: 3px; bottom: 0; transform: translatey(100%) skewx(45deg);}
+.refreshBtn a:before { width: 5px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 2px;} 
+
+.footer-copyright{text-align:center; color:#FFF; font-size:12px;}
+.roomBoxWrap{padding:20px; height:628px; overflow:auto;}
+.roomListRow { border-bottom:1px solid #03a4da;
+  background: #059dcf; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#059dcf, #18a4d2, #019ccd); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#059dcf, #18a4d2, #019ccd); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#059dcf, #18a4d2, #019ccd); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#059dcf, #18a4d2, #019ccd); /* Standard syntax */ padding:10px;
+}
+.roomDetailsLeft,.roomDetailsRight{float:left; padding-left:10px; padding-top:5px; color:#FFF; }
+.roomDetailsRight{ text-align:center;}
+.roomListRow img{float:left;}
+.roomDetailsLeft span{ padding-right:20px; font-size:24px;}
+.roomTitle{color:#733991;}
+.roomDetailsLeft span.cardsRoom, .roomDetailsRight span.cardsRoom{display:block; font-size:16px; clear:both;}
+.roomDetailsLeft i.cardPrice{color:#733991; padding-right:24px;font-style: normal;}
+.open{background: #035c21;
+    background: -webkit-radial-gradient(#1bd158, #059836, #035c21);
+    background: -o-radial-gradient(#1bd158, #059836, #035c21);
+    background: -moz-radial-gradient(#1bd158, #059836, #035c21);
+    background: radial-gradient(#1bd158, #059836, #035c21);
+    height: 15px;
+    width: 15px;
+    float: left;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-right: 5px;}
+.busy{background: #f3272c;
+    background: -webkit-radial-gradient(#f3272c, #c91217, #650205);
+    background: -o-radial-gradient(#f3272c, #c91217, #650205);
+    background: -moz-radial-gradient(#f3272c, #c91217, #650205);
+    background: radial-gradient(#f3272c, #c91217, #650205);
+    height: 15px;
+    width: 15px;
+    float: left;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-right: 5px;} 
+.numofPlayers,.numofBalls{color:#733991;font-style: normal;}    
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+@media only screen  and (max-width : 767px) {
+
+}   

@@ -21,8 +21,7 @@ var Bingo = Bingo || {};
 //console.log(app.get('settings'), 'session');
 module.exports = function(app){
 //console.log(app.get('settings'), 'session2');
-	
-	app.get('/bingo90', function(req, res){ 
+	app.get('/bingo90/rooms', function(req, res){ 
 		//console.log(app.get('settings'), 'session3');
 		//req.session.user_bought_card = false;
 		if(!req.session.user){
@@ -31,10 +30,47 @@ module.exports = function(app){
 		}
 		Bingo = {
 			user : req.session.user,
-			cards : req.query.cards,
-			user_room : req.query.room,
-			game_id : req.query.game,
+			//cards : req.query.cards,
+			//user_room : req.query.room,
+			//game_id : req.query.game,
+			//card_name : {},
+			url : 'bingo90/rooms' //req.url
+		}
+		Room.find({type:'bingo90'}, function(err, rooms){
+			if(err){
+				res.status(500).send(err);
+				return;
+			}
+			Bingo.rooms = rooms;
+			Game.findOne({type:'bingo90', started:false, completed:false}, function(err, gameinplay){
+		        	if(err){
+						console.log(err);
+						return;
+					}
+				Bingo.gameinplay = gameinplay;
+				res.render('bingo90/rooms', {Bingo:Bingo});
+			})
+			
+		});
+	});
+	
+	app.get('/bingo90', function(req, res){ 
+		//console.log(app.get('settings'), 'session3');
+		//req.session.user_bought_card = false;
+		if(!req.session.user){
+			res.redirect('/');
+			return;
+		}
+		var cards_type = (req.query.cards_type)? true:false;
+		Bingo = {
+			user : req.session.user,
+			cards : req.session.cards,
+			user_room : req.session.room_id,
+			game_id : req.session.game_id,
 			card_name : {},
+			body_bg: req.session.body_bg,
+			pin_bg: req.session.pin_bg,
+			cards_type : cards_type,
 			url : 'bingo90' //req.url
 		}
 		// starts remove later - just to insert some testing games
@@ -67,18 +103,18 @@ module.exports = function(app){
 		  		});
 			});
 		}
-		Room.find({type:'bingo90'}, function(err, rooms){
+		/*Room.find({type:'bingo90'}, function(err, rooms){
 			if(err){
 				res.status(500).send(err);
 				return;
 			}
-			Bingo.rooms = rooms;
+			Bingo.rooms = rooms;*/
 			User.findOne({username:req.session.user}, function(err, user){
 				if(err){
 					res.status(500).send(err);
 					return;
 				}
-				user.total_credits = (user.total_credits - req.query.cards);
+				user.total_credits = (user.total_credits - req.session.cards);
 				user.save(function(err){
 			  		if(err){
 			  			console.log(err);
@@ -101,7 +137,7 @@ module.exports = function(app){
 						cards_table:Bingo.table,
 						playing_card:Bingo.card_name
 					}*/
-					var gameID = req.query.game;
+					var gameID = req.session.game_id;
 					req.session.user_bought_card = false;
 					
 					
@@ -134,7 +170,7 @@ module.exports = function(app){
 								
 						
 								game.users.push({user: req.session.user, cards_table:Bingo.table, playing_card:Bingo.card_name, pattern:'none'});
-								game.room_id = req.query.room;
+								game.room_id = req.session.room_id;
 								game.save(function(err){
 							  		if(err){
 							  			console.log(err);
@@ -163,7 +199,7 @@ module.exports = function(app){
 						});
 					} 
 					if(!Bingo.cards) {
-						res.render('bingo90', {Bingo:Bingo});
+						res.render('bingo90/bingo90', {Bingo:Bingo});
 					}
 					//console.log(req.session.user_bought_card,'111');
 					if(req.session.user_bought_card) {
@@ -180,7 +216,7 @@ module.exports = function(app){
 							//Bingo.user_bought_card = req.session.user_bought_card;
 							
 						}
-						res.render('bingo90', {Bingo:Bingo});
+						res.render('bingo90/bingo90', {Bingo:Bingo});
 					  	//return;
 						});
 						//console.log(req.session.user_bought_card,'3344433');
@@ -188,7 +224,7 @@ module.exports = function(app){
 
 				}) //gamein play ends
 			}) // user finds ends
-		}) //room ends
+		//}) //room ends
 	}) //app get
 	
 

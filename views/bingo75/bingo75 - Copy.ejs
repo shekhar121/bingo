@@ -1,0 +1,265 @@
+
+<%- include('header'); %>
+<script src="/socket.io/socket.io.js"></script>
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- <p class="lead">Players</p> -->
+
+                    <div class="list-group card75">
+                        <a class="btn btn-pink">
+                            <i class="fa fa-star left"></i> Winners 
+                        </a>
+                        <ul class="nav nav-pills nav-stacked" id="game_winner">
+                            <!-- <li><a >Player 1</a></li>
+                            <li><a >Player 2</a></li>
+                            <li><a >Player 3</a></li> -->
+                        </ul>
+                    </div>
+                <div>
+                   <a id="start_game" class="btn btn-pink">S</a>
+                </div> 
+            </div>
+            <div class="col-md-9">
+            
+                <div class="row no-gutter table75-container">
+                    <%  
+                        if(Bingo.cards > 0){
+                    %>
+                    <%- Bingo.table %>
+                    
+                    <%    
+                        } else {
+                        for(var i=1; i < 9; i++) {
+                    %>
+<div class="col-md-3" ><div class="card75" style="height: 175px;">Card <%= i %></div></div>
+                    <%  }    } %>
+                </div>
+            </div>
+
+
+
+
+        </div>
+        <!--chat row-->
+        <div class="row">
+            <div class="col-md-9">
+                <div id="rolling_ball" class="card75 ball-container">
+                    <!-- <div class="bingoball"></div> -->
+                    
+                </div>
+                <%  if(Bingo.cards > 0){ %>
+                <div class="card75" style="width:25%; height: 335px;float: left;">
+                    <a class="btn btn-orange">
+                                <i class="fa fa-users left"></i> Players
+                            </a>
+                            <ul id="users_in_room" class="nav nav-pills nav-stacked" style="max-height: 120px;overflow-y: scroll;width:150px">
+                            </ul>
+                </div>
+                <div id="chat_box" class="card75" style="width:70%; height: 335px;float: right;">
+                        <a class="btn btn-indigo" style="width: 95%;">
+                            <i class="fa fa-wechat left"> </i> Chat Box
+                        </a>
+                        <ul id="messages" style="padding: 0.5rem;overflow-y:scroll;max-height: 180px">
+                        </ul>
+                        <div class="chat-form" style="position: absolute;bottom: 0;">
+                            <input type="text" id="message" name="message" style="margin-right: 0.25rem;border: 1px solid #ddd;">
+                            <a class="btn btn-indigo pull-right" id="send_msg_btn">
+                                <i class="fa fa-send left"></i> Send
+                            </a>
+                        </div>
+                </div>
+                 <% } else { %>
+                <div class="card75 text-center" style="text-align: center">
+                <p class="bg-success">
+                    Total Credits Available:
+                    <span id="total_credits_available"><%= Bingo.user_details.total_credits %></span>
+                </p>
+                    <h4>Rooms: Choose cards and click on Play to enter the room. </h4>
+                    <select name="cards" id="cards" style="width:100px;margin: 0 auto;" class="form-control">
+                            <%  for(var j=1; j < 21; j++) {   %>
+                            <option value="<%= j %>"><%= j %></option>
+                            <%  }  %>
+                    </select>
+                </div>
+                <div class="card75-old">
+                
+                    <% if(Bingo.rooms.length > 0){ 
+                        for(i=0;i<Bingo.rooms.length;i++){
+                    %>
+                    <div class="row card75">
+                        <div class="col-md-4 room-name">
+                            <h5>Room : <%= Bingo.rooms[i].name %></h5></div>
+                        <div class="col-md-4 room-desc">
+                            <%= Bingo.rooms[i].description %>
+                        </div>
+                        <div class="col-md-2 room-name">
+                            
+                        </div>
+                        <div class="col-md-2">
+                            <a title="<%= Bingo.rooms[i]._id %>" data="<%= Bingo.gameinplay._id %>" class="play75 btn btn-primary pull-right">Play</a>
+                        </div>
+                    </div>
+                    <% }  %>
+                </div>
+                <% } 
+             }%>
+            </div>
+            <div class="col-md-3">
+                <div >
+                    <div width="100%" class="counter-ball-th">
+                        <b>Balls (<span id="counter_ball">0</span>)</b>
+                    </div>
+                    <div class="table75-ball-counter2">
+                        <% for(i=1;i<76;i++) {    %>
+                            <div id="counter_ball_<%= i %>" > <%= i %> </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+   <%- include('footer'); %>
+<!-- chat socket starts -->
+<script>
+var socket = io();
+    $('#send_msg_btn').hide();
+    $('#message').hide();
+    var data = {};
+<% if(Bingo.user_room && (Bingo.cards > 0)){ %>
+    data.user = "<%= Bingo.user %>";
+    data.user_room = "<%= Bingo.user_room %>";
+        console.log(data);
+        socket.emit('get user list', data);
+    $('#send_msg_btn').show();
+    $('#message').show();   
+    $('#send_msg_btn').on('click', function(){
+        var message = $('#message').val();
+        data.message = message;
+        socket.emit('send message', data);
+        $('#message').val('');
+        return false;
+    });
+    socket.on('show message', function(data){
+        $('#messages').append($('<li>').html('<b>'+data.user+'</b>: '+data.message));
+        $("#messages").animate({
+          "scrollTop": $('#messages')[0].scrollHeight
+        }, "fast");
+    });
+    socket.on('show user list', function(users){ 
+        console.log(users);
+        var user_list = '';
+        for(i=0;i<users.length;i++){
+            user_list += '<li class="active"><a href="#">'+users[i]+'</a></li>';
+        }
+        if(user_list){
+            $('#users_in_room').html(user_list);
+        }
+    });
+<% } %>
+</script>
+<!-- chat socket ends -->
+
+<script type="text/javascript">
+$( document ).ready(function() {
+    $('.play75').on('click', function(e){ 
+        var room = e.target.title;
+        var card = $('#cards').val();
+        //alert($(this).attr('data')); return;
+        var gid =  $(this).attr('data');
+        window.location = '/bingo75?cards='+card+'&room='+room+'&game='+gid;
+    })
+    <% if(Bingo.cards > 0){ %>
+        var num = <%= Bingo.cards %>;
+        $('#btn_tick').attr('disabled','disabled');
+        var bingo75 = {};
+        
+        bingo75.user_room = '<%= Bingo.user_room %>';
+        bingo75.game_id = '<%= Bingo.game_id %>';
+        //bingo75.card_name = JSON.parse('<%- Bingo.card_name %>');
+        //bingo75.pattern = '<%= Bingo.pattern %>';
+        var winner75 = 0;
+
+        var cnt = 0;
+        $('#start_game').on('click', function(){
+           socket.emit('game counter75', bingo75); 
+        })
+        socket.on('show counter ball75', function(data){ 
+            console.log(data, 'from server in ');
+            if (performance.navigation.type == 1) { console.log(data, 'show counter ball');
+                console.info( "This page is reloaded" );
+                socket.emit('stop counter', bingo75);
+            } else {
+                console.info( "This page is not reloaded");
+            }
+            if(data.game_completed){
+                //performance.navigation.type = 0;
+                setTimeout(function(){ 
+                    window.location = '/bingo75?game_c=yes&game_c_id='+data.game_id;
+                },  10000);
+                console.info( "game completed");
+            }
+            var user = '<%= Bingo.user %>';
+            for(key in data.card_name[user]){
+            //console.log(data, Object.keys(data.card_name).length, 'show counter ball');
+                    if(data.card_name[user][key] == 'matched'){
+                        //document.getElementById(key).className ='matched-cell';
+                        $('#'+key).addClass('matched-cell');
+                    }
+                }
+             cnt++;
+            var bingoballHTML = '<div class="bingoball'+cnt+'"><h3 class="ball_num'+cnt+'"></h3><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 206.2 206.2"><defs><style>  .ball{isolation:isolate;}.ballcolor{fill:grey;}.cls-3{opacity:0.48;fill:url(#linear-gradient);}.cls-3,.cls-6{mix-blend-mode:screen;}.cls-4{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:4px;}.cls-5{fill:#fff;opacity:0.8;}.cls-6{fill:url(#radial-gradient);}</style><linearGradient id="linear-gradient" x1="103.1" x2="103.1" y2="206.2" gradientTransform="rotate(.02 114.612 114.572)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"></stop><stop offset="1" stop-color="#2483c5" stop-opacity="0"></stop></linearGradient><radialGradient id="radial-gradient" cx="72.1" cy="64.1" r="53" gradientTransform="rotate(.02 114.612 114.572)" xlink:href="#linear-gradient"></radialGradient></defs><g class="ball"><g id="Laag_1" data-name="Laag 1"><path d="M206.2 102.2a103 103 0 0 1-104 104C46.2 205.7.5 160 0 104A103 103 0 0 1 104 0c56 .5 101.7 46.3 102.2 102.2z" class="ballcolor'+cnt+'"></path><path d="M206.2 102.2a103 103 0 0 1-104 104C46.2 205.7.5 160 0 104A103 103 0 0 1 104 0c56 .5 101.7 46.3 102.2 102.2z" class="cls-3"></path><path d="M175.3 102.5A72.2 72.2 0 1 1 103.7 31a72.2 72.2 0 0 1 71.6 71.5z" class="cls-4"></path><path d="M169 102.5A66 66 0 1 1 103.8 37a66 66 0 0 1 65.4 65.5z" class="cls-5"></path><path d="M125 63.6A53 53 0 1 1 72.7 11 53 53 0 0 1 125 63.7z" class="cls-6"></path></g></g></div>';
+            $('#rolling_ball').append(bingoballHTML);   
+            $("#counter_ball_"  + data.counter_ball).addClass('green');
+            $('.ball_num'+cnt).html(data.counter_ball);
+            var colors=["blue","orange","red","green","yellow","pink","aqua","lime","purple","cyan","brown","grey","darkred","deeppink","gold","indigo"];
+     
+            jQuery('svg .ballcolor'+cnt).css('fill',colors[~~(Math.random()*colors.length)]);
+            $("#counter_ball").html(cnt);
+            animate(cnt);
+            //winner
+            
+            if(!winner75){
+                if (data.winner75 == 1){
+                    console.log("Yay..! We have a winner");
+                    $('#show_winner_msg').show('slow');
+                    $('#show_winner_msg').html('<h2>Yay..! We have a winner - '+data.winner75User+'</h2>');
+                    winner75 = 1;
+                    $('#game_winner').html('<li><a class="btn btn-orange">'+data.winner75User+'</a></li>')
+                }
+            }
+            //socket.emit('game counter', bingo90);
+        });
+        function animate(cnt){
+            
+            var z = cnt - 1; //console.log(z);
+            var y = cnt - 2;
+            var x = cnt - 3;
+            if(cnt == 1){
+                $('.bingoball'+cnt).animate({left: '850px',opacity:'1'}, 500, animate);
+            } else if(cnt == 2) {
+                $('.bingoball'+cnt).animate({left: '750px',opacity:'1'}, 500, animate);
+            } else if(cnt == 3) {
+                $('.bingoball'+cnt).animate({left: '650px',opacity:'1'}, 500, animate);
+            } else {
+                $('.bingoball'+cnt).animate({left: '550px',opacity:'1'}, 500, animate);
+                
+                console.log(z);
+                //$('.bingoball'+z).css('left:650px','-webkit-animation:inherit','animation:inherit', 'transition:inherit');
+                $('.bingoball'+z).css('left','650px');
+                $('.bingoball'+z).addClass('smallball');
+                $('.bingoball'+y).css('left','750px');
+                //$('.bingoball1').addClass('smallball');
+                $('.bingoball'+x).css('left','850px');
+                //$('.bingoball2').addClass('smallball');
+            }
+        }
+
+    <% } %>
+
+});
+</script>
