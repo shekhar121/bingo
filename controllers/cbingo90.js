@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 // create parser
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });*/
+var async = require('async');
 var Room = require('../models/room');
 var User = require('../models/user');
 var Game = require('../models/game');
@@ -36,22 +37,25 @@ module.exports = function(app){
 			//card_name : {},
 			url : 'bingo90/rooms' //req.url
 		}
-		Room.find({type:'bingo90'}, function(err, rooms){
-			if(err){
-				res.status(500).send(err);
-				return;
-			}
-			Bingo.rooms = rooms;
-			Game.findOne({type:'bingo90', started:false, completed:false}, function(err, gameinplay){
-		        	if(err){
-						console.log(err);
-						return;
-					}
-				Bingo.gameinplay = gameinplay;
-				res.render('bingo90/rooms', {Bingo:Bingo});
-			})
-			
+
+		//try with async
+		async.parallel([
+		    function(callback) { 
+		    	Room.find({type:'bingo90'}, callback);
+		    },
+		    function(callback) {
+		    	Game.findOne({type:'bingo90', started:false, completed:false}, callback);
+		    }
+		], function(err, results) {
+	    	if (err) {
+	            throw callback(err);
+	            return;
+	        }
+		    Bingo.rooms  = results[0]; //rooms
+		    Bingo.gameinplay  = results[1]; //gameinplay
+		    res.render('bingo90/rooms', {Bingo:Bingo});
 		});
+		//asyncs ends
 	});
 	
 	app.get('/bingo90', function(req, res){ 
@@ -87,6 +91,8 @@ module.exports = function(app){
 	  		}
 	  	});
 	  	// ends remove later - just to insert some testing games
+	  	
+	  	// update after game is completed
 		if(req.query.game_c == 'yes' && req.query.game_c_id){
 			Game.findOne({'_id':req.query.game_c_id},  function(err, game){
 	        	if(err){

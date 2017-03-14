@@ -59,23 +59,23 @@ module.exports = function(app){
 		//try with async
 		async.parallel([
 		    function(callback) { 
-		    	Room.find({type:'bingo75'}, function(err, data){
+		    	/*Room.find({type:'bingo75'}, function(err, data){
 					if (err) {
 			            throw callback(err);
 			        }
 			        callback(null, data);
-		    	});
+		    	});*/
+		    	Room.find({type:'bingo75'}, callback);
 		    },
 		    function(callback) {
-		    	Game.findOne({type:'bingo75', started:false, completed:false}, function(err, data){
-		        	if (err) {
-			            throw callback(err);
-			        }
-			        callback(null, data);
-				});
+		    	Game.findOne({type:'bingo75', started:false, completed:false}, callback);
 		    }
 		], function(err, results) {
 		    // optional callback
+	    	if (err) {
+	            throw callback(err);
+	            return;
+	        }
 		    Bingo.rooms  = results[0]; //rooms
 		    Bingo.gameinplay  = results[1]; //gameinplay
 		    res.render('bingo75/rooms', {Bingo:Bingo});
