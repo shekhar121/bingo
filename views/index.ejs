@@ -25,7 +25,7 @@
 
             <!--Second row-->
             <div class="row">
-                <!--First columnn-->
+                <!--First columnn--><div class="col-lg-2">&nbsp;</div>
                 <div class="col-lg-4">
                     <!--Card-->
                     <div class="card">
@@ -90,21 +90,19 @@
                             <h3 class="card-title">90 BALL BINGO</h3>
                             <!--Text-->
                             <p class="card-text">90 BALL BINGO is perhaps our best bingo game. Throughout the day you play in one of our rooms. You could win high prizes daily. You buy a book, but this book does.</p>
-                            <a href="/bingo75/rooms" class="btn btn-danger">PLAY NOW</a>
+                            <a href="/bingo90/rooms" class="btn btn-danger">PLAY NOW</a>
                         </div>
                         <!--/.Card content-->
 
                     </div>
                     <!--/.Card-->
-                </div>
+                </div><div class="col-lg-2">&nbsp;</div>
                 <!--Second columnn-->
 
                 <!--Third columnn-->
-                <div class="col-lg-4">
-                    <!--Card-->
+               <!--  <div class="col-lg-4">
                     <div class="card">
 
-                        <!--Card image-->
                         <div class="view overlay hm-white-slight">
                             <img class="background" src="/assets/img/game-3-bg.jpg">
                             <img src="/assets/img/game-3-character.png" class="img-fluid character" alt="">
@@ -112,9 +110,6 @@
                                 <div class="mask"></div>
                             </a>
                         </div>
-                        <!--/.Card image-->
-
-                        <!--Card content-->
                         <div class="card-block">
                         <div class="stars">
                                 <img class="star" src="/assets/img/star-full.png">
@@ -123,18 +118,14 @@
                                 <img class="star" src="/assets/img/star-half.png">
                                 <img class="star" src="/assets/img/star-empty.png">
                             </div>
-                            <!--Title-->
                             <h3 class="card-title">CASINO GAMES</h3>
-                            <!--Text-->
                             <p class="card-text">Join Casino platform width other players, we have different games for different levels available to experience the game as if you are playing in a regular casino!</p>
                             <a href="#" class="btn btn-danger">PLAY NOW</a>
                         </div>
-                        <!--/.Card content-->
-
                     </div>
-                    <!--/.Card-->
-                </div>
-                <!--Third columnn-->
+                </div> -->
+
+
             </div>
             <!--/.Second row-->
             <hr class="extra-margins">
@@ -173,61 +164,3 @@
    <%- include('footer'); %>
 
  
-<script type="text/javascript">
-    $('#login_btn').on('click', function(){
-        var email = $('#email').val();
-        var pass = $('#password').val();
-        if($('#email').val() == '' || $('#password').val() == ''){
-            $('#email, #password').addClass('error-red');
-            return;
-        } else {
-            $.ajax({
-              type: "POST",
-              url: '/api/login',
-              data: JSON.stringify({username:email, password:pass}),
-              success: function(res){
-                console.log('logged in'+ res);
-                window.location.href = '/bingo75';
-              },
-              error:function(xhr){
-                $('#loginLabel').addClass('error-red red').html('Username/password is wrong.!');
-              },
-              dataType: 'json',
-              contentType: "application/json; charset=utf-8",
-            });
-        }
-    });
-    $('#register_btn').on('click', function(){
-        var remail = $('#remail').val();
-        var rpass = $('#rpassword').val();
-        var fname = $('#fname').val();
-        var lname = $('#lname').val();
-        if(remail == '' || rpass == ''){
-            $('#remail, #rpassword, #registerLabel').addClass('error-red');
-            return;
-        } else {
-            $.ajax({
-              type: "POST",
-              url: '/api/register',
-              data: JSON.stringify({username:remail, password:rpass,fname:fname,lname:lname}),
-              success: function(res){
-                $('#registerLabel').addClass('green_clr').html('Thanks for registering.!');
-                
-                setTimeout(function(){ $('#regModal').modal('hide'); }, 500);
-              },
-              dataType: 'json',
-              contentType: "application/json; charset=utf-8",
-              error:function(res){ 
-                /*if(res.responseJSON.code == '11000'){
-                   $('#registerLabel').addClass('red').html('User exits already.'); 
-                   return;
-                }*/
-                $('#registerLabel').addClass('error-red red').html('User can\'t be created.');
-              },
-              complete:function(res){
-                $('#login').modal('show');
-              }
-            });
-        }
-    });
-</script>

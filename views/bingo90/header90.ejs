@@ -60,16 +60,16 @@
                 <span class="userName">Welcome: <span class="nam"><%- Bingo.user %></span></span>
               </div>
             </div>
-            
+             
             <div class="col-md-3">
               <div class="chatSec"><img src="/assets/img/user1.png" alt=""> Welcome : <span class="nam"><%- Bingo.user %></span></div>
               <div class="msgBox">
                 <div class="creditBox">
-                    <span>Credit:</span><span class="euro">&euro; 0.00</span><a href="#" class="glass">Log out</a>
+                    <span>Total Credit:</span><span class="euro">&euro; 0 <!-- <%- Bingo.user_details.total_credits %> --> </span><a href="/api/logout" class="glass">Log out</a>
                     <span class="clearfix"></span>
                 </div>
                 <div class="creditBox">
-                    <span>Won:</span><span class="euro">&euro; 0.00</span><a href="#" class="glass">Pay-out</a>
+                    <span>Won:</span><span class="euro" id="won_credits">&euro; <%- Bingo.user_bingo_credits %> </span><a href="#" class="glass">Pay-out</a>
                     <span class="clearfix"></span>
                 </div>
               </div>
@@ -77,7 +77,7 @@
             
             <div class="col-md-3">
               <div class="chatSec"><img src="/assets/img/euro.png" alt=""> Option: </div>
-              <div class="msgBox option"><a href="#" class="glass">Pay Desk</a> <a href="#" class="glass">Help Desk</a> <a href="#" class="glass">Deposit</a></div>
+              <div class="msgBox option"><a href="#" data-toggle="modal" data-target="#paydeskModal" class="glass">Pay Desk</a> <a href="#" class="glass">Help Desk</a> <a href="#" class="glass">Deposit</a></div>
             </div>
         </div>
   </div>
@@ -108,6 +108,80 @@ if(Bingo.url == 'bingo90') { %>
     </div> -->
 </div>
 <% } %>
+
+
+
+<!-- pay-desk Modal -->
+<div class="modal fade" id="paydeskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <!-- <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4> -->
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <!--Form without header-->
+                <div class="card">
+                    <div class="card-block">
+
+                        <!--Header-->
+                        <div class="text-center">
+                            <h4><i class="fa fa-lock" ></i> Pay Desk</h4>
+                            <span id="loginLabel"></span>
+                            <span id="transfer_error"></span>
+                            <hr class="mt-2 mb-2">
+
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="md-form">
+                              <i class="fa fa-eur prefix"></i>
+                              <input type="email" name="total_credits"  id="total_credits" class="form-control" value="<%- Bingo.user_details.total_credits %>">
+                              <label for="form2">Total Credit</label>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="md-form">
+                              <i class="fa fa-eur prefix"></i>
+                              <input type="email" name="transfer_credits"  id="transfer_credits" class="form-control">
+                              <label for="form2">Transfer Credit</label>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="md-form">
+                              <i class="fa fa-eur prefix"></i>
+                              <input type="email" name="bingo_credits"  id="bingo_credits" class="form-control">
+                              <label for="form2">Bingo Credit</label>
+                            </div>
+                          </div>
+
+                        </div>
+                        
+
+                        <div class="text-center">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button id="transfer" class="btn btn-deep-purple"> >> </button>
+                        </div>
+
+                    </div>
+
+                </div>
+<!--/Form without header-->
+            </div>
+            
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!-- /.pay-desk modal preview-->
+
+
+
 
 
 

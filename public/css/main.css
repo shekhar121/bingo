@@ -108,7 +108,16 @@ body{
 }
 .view {
     overflow: visible
-}   
+}  
+.card-main{
+    background-color: #feeddd;
+} 
+.card-block h1{
+    padding:5px; 
+}
+.pages p{
+    margin-left: 2rem;
+}
 .footer.page-footer{
 	margin-top: 1px !important;
 } 

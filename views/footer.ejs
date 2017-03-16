@@ -18,10 +18,10 @@
                 <div class="col-lg-2 col-md-4 offset-lg-1">
                     <!-- <h5 class="title">First column</h5> -->
                     <ul>
-                        <li><a href="#!">Terms & Conditions</a></li>
-                        <li><a href="#!">Privacy Policy</a></li>
-                        <li><a href="#!">Copyright</a></li>
-                        <li><a href="#!">Responsible gaming</a></li>
+                        <li><a href="/terms-and-conditions">Terms & Conditions</a></li>
+                        <li><a href="/privacy-policy">Privacy Policy</a></li>
+                        <li><a href="/copyright">Copyright</a></li>
+                        <li><a href="/responsible-gaming">Responsible gaming</a></li>
                     </ul>
                 </div>
                 <!--/.Second column-->
@@ -35,7 +35,7 @@
                         <li><a href="#!">Rounds Silver Room</a></li>
                         <li><a href="#!">Rounds Bingo 75</a></li>
                         <li><a href="#!">Rounds Booklet Bingo</a></li>
-                        <li><a href="#!">Deposit Bonus</a></li>
+                        <li><a href="/depositbonus">Deposit Bonus</a></li>
                     </ul>
                 </div>
                 <!--/.Third column-->
@@ -46,9 +46,9 @@
                 <div class="col-lg-2 col-md-4">
                     <!-- <h5 class="title">Third column</h5> -->
                     <ul>
-                        <li><a href="#!">Support</a></li>
-                        <li><a href="#!">Contact Us</a></li>
-                        <li><a href="#!">About Us</a></li>
+                        <li><a href="contact">Support</a></li>
+                        <li><a href="contact">Contact Us</a></li>
+                        <li><a href="/about-us">About Us</a></li>
                     </ul>
                 </div>
                 <!--/.Fourth column-->
@@ -100,16 +100,16 @@ Our games are approved by GLI/TST
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="/assets/js/mdb.min.js"></script>
 
-<script type="text/javascript">
-    $('#loginModal').on('shown.bs.modal', function () {
-      $('#myInput').focus()
-    })
-</script>
+
     <!-- index -->
-    <% if(Bingo.url == 'index') { %>
+
         <%- include('modals/login'); %>
         <%- include('modals/register'); %>
-    <% } %>
+<script type="text/javascript">
+    $('#loginModal').on('shown.bs.modal', function () {
+      $('#email').focus()
+    })
+</script>
 
     <!-- bingo75 -->
     <% if(Bingo.url == 'bingo75') { %>
@@ -121,6 +121,65 @@ Our games are approved by GLI/TST
     <% if(Bingo.url == 'bingo90') { %>
         <script src="/assets/js/bingo90.js"></script>
     <% } %>
+
+    <script type="text/javascript">
+    $('#login_btn').on('click', function(){
+        var email = $('#email').val();
+        var pass = $('#password').val();
+        if($('#email').val() == '' || $('#password').val() == ''){
+            $('#email, #password').addClass('error-red');
+            return;
+        } else {
+            $.ajax({
+              type: "POST",
+              url: '/api/login',
+              data: JSON.stringify({username:email, password:pass}),
+              success: function(res){
+                console.log('logged in'+ res);
+                window.location.href = '/';
+              },
+              error:function(xhr){
+                $('#loginLabel').addClass('error-red red').html('Username/password is wrong.!');
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+            });
+        }
+    });
+    $('#register_btn').on('click', function(){
+        var remail = $('#remail').val();
+        var rpass = $('#rpassword').val();
+        var fname = $('#fname').val();
+        var lname = $('#lname').val();
+        if(remail == '' || rpass == ''){
+            $('#remail, #rpassword, #registerLabel').addClass('error-red');
+            return;
+        } else {
+            $.ajax({
+              type: "POST",
+              url: '/api/register',
+              data: JSON.stringify({username:remail, password:rpass,fname:fname,lname:lname}),
+              success: function(res){
+                $('#registerLabel').addClass('green_clr').html('Thanks for registering.!');
+                
+                setTimeout(function(){ $('#regModal').modal('hide'); }, 500);
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+              error:function(res){ 
+                /*if(res.responseJSON.code == '11000'){
+                   $('#registerLabel').addClass('red').html('User exits already.'); 
+                   return;
+                }*/
+                $('#registerLabel').addClass('error-red red').html('User can\'t be created.');
+              },
+              complete:function(res){
+                $('#login').modal('show');
+              }
+            });
+        }
+    });
+</script>
 </body>
 
 </html>  

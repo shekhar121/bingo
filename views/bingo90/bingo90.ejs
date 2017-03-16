@@ -87,6 +87,7 @@
                                     </div>
                                     <a href="#" class="action-button shadow animate sendBtn blue" id="send_msg_btn">Send</a>
   <a href="#" class="action-button shadow animate sendBtn blue" id="start_game">Start</a>
+  <a href="#" data-toggle="modal" data-target="#modalWinnerLine1" class="action-button shadow animate sendBtn blue" >winner</a>
                                     <span class="clearfix"></span>
                                 </div><!--infoBoxWrap closed-->
                             </div>
@@ -128,19 +129,7 @@
 
 
     <!-- Page Content -->
-<!-- <div class="container">
-    <div class="row">
-        <div class="col-md-9"></div>
-        <div class="col-md-3">
-        <div>
-            <a class="btn btn-indigo" >
-                <i class="fa fa-wechat left"> </i> Chat Friends
-            </a>
-            <div id="get_chat_users"></div>
-        </div>
-        </div>
-    </div>
-</div> -->
+
 <!-- /.container -->
 
 <%- include('footer90'); %>
@@ -204,19 +193,19 @@ var data = {};
 <script type="text/javascript">
 //$('.bg_gradient').css('background','<%= Bingo.body_bg %>');
 $( document ).ready(function() {
-    $('.play90').on('click', function(e){ 
+   /* $('.play90').on('click', function(e){ 
         
         //return;
         var room = e.target.title;
         var card = $('#cards').val(); //alert(card);
         var gid =  $(this).attr('data');
         window.location = '/bingo90?cards='+card+'&room='+room+'&game='+gid;
-    })
+    })*/
     <% if(Bingo.cards > 0){ %>
 
         //console.log(JSON.parse('<%- Bingo.card_name %>'), 'lplplpp');
         var num = <%= Bingo.cards %>;
-        $('#btn_tick').attr('disabled','disabled');
+        //$('#btn_tick').attr('disabled','disabled');
         var bingo90 = {};
         var pattern = 'none';
         var selected_pattern = pattern[Math.floor(Math.random()*pattern.length)];
@@ -246,9 +235,9 @@ $( document ).ready(function() {
             }
             if(data.game_completed){
                 //performance.navigation.type = 0;
-                /*setTimeout(function(){ 
-                    window.location = '/bingo90?game_c=yes&game_c_id='+data.game_id; 
-                },  10000);*/
+                setTimeout(function(){ 
+                    window.location = '/bingo90/rooms?game_c=yes&game_c_id='+data.game_id; 
+                },  10000);
                 console.info( "game completed");
             }
             var user = '<%= Bingo.user %>';
@@ -275,10 +264,10 @@ $( document ).ready(function() {
             if(!winnerLine1Shown){
                 if (data.winnerLine1 == 1 || data.winnerLine2 == 1 || data.winnerLine3 == 1){
                     console.log("Hurray! We have a 1 line winner!");
-                    //$('#modalWinnerLine1').modal('show');
+                    $('#modalWinnerLine1').modal('show');
                        winnerLine1Shown = 1;
-                       $('#show_winner_msg').show('slow');
-                       $('#show_winner_msg').html('<h2>Hurray! We have a 1 line winner - '+data.winnerLine1User+'</h2>');
+                       /*$('#show_winner_msg').show('slow');
+                       $('#show_winner_msg').html('<h2>Hurray! We have a 1 line winner - '+data.winnerLine1User+'</h2>');*/
                       /* $('#game_winner').append('<span class="label label-warning">'+data.winnerLine1User+'</span>');*/
                        $('#game_winner').append('<div class="roominfoTxt">'+data.winnerLine1User+' <span class="rounds price"><i class="fa fa-star"></i></span><span class="clearfix"></span></div>');
                      
@@ -288,10 +277,10 @@ $( document ).ready(function() {
             if(!winnerLine2Shown){
                 if (data.winnerLine2 == 1){
                     console.log("Hurray! We have a 2 lines winner!");
-                    //$('#modalWinnerLine2').modal('show');
+                    $('#modalWinnerLine2').modal('show');
                     winnerLine2Shown = 1;
-                    $('#show_winner_msg').show('slow');
-                    $('#show_winner_msg').html('<h2>Hurray! We have a 2 lines winner - '+data.winnerLine2User+'</h2>');
+                    /*$('#show_winner_msg').show('slow');
+                    $('#show_winner_msg').html('<h2>Hurray! We have a 2 lines winner - '+data.winnerLine2User+'</h2>');*/
                     /*$('#game_winner').append('<span class="label label-info">'+data.winnerLine2User+'</span>');*/
                     $('#game_winner').append('<div class="roominfoTxt">'+data.winnerLine2User+' <span class="rounds price"><i class="fa fa-star"></i></span><span class="clearfix"></span></div>');
                     //alert("Hurray! We have a 2 lines winner - "+data.winnerLine2User);
@@ -300,10 +289,10 @@ $( document ).ready(function() {
             if(!winnerLine3Shown){
                 if (data.winnerLine3 == 1){
                     console.log("Yay..! We have a full house winner");
-                    //$('#modalWinnerLine3').modal('show');
+                    $('#modalWinnerLine3').modal('show');
                     winnerLine3Shown = 1; 
-                    $('#show_winner_msg').show('slow');
-                    $('#show_winner_msg').html('<h2>Yay..! We have a full house winner - '+data.winnerLine3User+'</h2>');
+                    /*$('#show_winner_msg').show('slow');
+                    $('#show_winner_msg').html('<h2>Yay..! We have a full house winner - '+data.winnerLine3User+'</h2>');*/
                     /*$('#game_winner').append('<span class="label label-success">'+data.winnerLine3User+'</span>');*/
                     $('#game_winner').append('<div class="roominfoTxt">'+data.winnerLine3User+' <span class="rounds price"><i class="fa fa-star"></i></span><span class="clearfix"></span></div>');
                     //alert("Yay..! We have a full house winner - "+data.winnerLine3User);
@@ -335,6 +324,24 @@ $( document ).ready(function() {
     <% } %>
     
 });
+$('#modalWinnerLine1').on('shown.bs.modal', function (e) {
+    setTimeout(function(){
+        $('#modalWinnerLine1').modal('hide');
+    }, 1500);
+    
+})
+$('#modalWinnerLine2').on('shown.bs.modal', function (e) {
+    setTimeout(function(){
+        $('#modalWinnerLine2').modal('hide');
+    }, 1500);
+    
+})
+$('#modalWinnerLine3').on('shown.bs.modal', function (e) {
+    setTimeout(function(){
+        $('#modalWinnerLine3').modal('hide');
+    }, 1500);
+    
+})
 </script>
 <%- include('../chat'); %>
 

@@ -184,6 +184,14 @@ body{background-color:#000000; padding:10px;}
     background-color: #000;
     border-radius: 26px;
     padding: 0px 12px;}
+.winner-title{
+    font-family: 'Fascinate Inline', cursive;
+    font-size: 24px;
+    color: #fce540;
+    background-color: #000;
+    border-radius: 26px;
+    padding: 0px 12px; 
+}
 .online{    background: #035c21;
     background: -webkit-radial-gradient(#1bd158, #059836, #035c21);
     background: -o-radial-gradient(#1bd158, #059836, #035c21);

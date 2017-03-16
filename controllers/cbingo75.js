@@ -31,7 +31,8 @@ module.exports = function(app){
 			return;
 		}
 		Bingo = {
-			user : req.session.user,
+			user : req.session.user.username,
+			user_details : req.session.user,
 			//cards : req.query.cards,
 			//user_room : req.query.room,
 			//game_id : req.query.game,
@@ -89,7 +90,7 @@ module.exports = function(app){
 			return;
 		}
 		Bingo = {
-			user : req.session.user,
+			user : req.session.user.username,
 			cards : req.query.cards,
 			user_room : req.query.room,
 			game_id : req.query.game,
@@ -133,7 +134,7 @@ module.exports = function(app){
 				return;
 			}
 			Bingo.rooms = rooms;*/
-			User.findOne({username:req.session.user}, function(err, user){
+			User.findOne({username:req.session.user.username}, function(err, user){
 				if(err){
 					res.status(500).send(err);
 					return;
@@ -145,7 +146,8 @@ module.exports = function(app){
 			  			return;
 			  		}
 		  		});
-				Bingo.user_details = user;
+				//Bingo.user_details = user;
+				Bingo.user_details = req.session.user;
 				Game.findOne({type:'bingo75', started:false, completed:false}, function(err, gameinplay){
 		        	if(err){
 						console.log(err);
@@ -187,7 +189,7 @@ module.exports = function(app){
 								//var pattern = ['T','TB'];
 								var pattern = ['T'];
 	        					var selected_pattern = pattern[Math.floor(Math.random()*pattern.length)];
-								game.users.push({user: req.session.user, cards_table:Bingo.table, playing_card:Bingo.card_name,pattern:selected_pattern});
+								game.users.push({user: req.session.user.username, cards_table:Bingo.table, playing_card:Bingo.card_name,pattern:selected_pattern});
 							    game.room_id = req.query.room; //game.started = true;
 								game.save(function(err){
 							  		if(err){
@@ -206,7 +208,7 @@ module.exports = function(app){
 					//console.log(req.session.user_bought_card,'111');
 
 					if(req.session.user_bought_card) {
-						Game.findOne({'_id':gameID, 'users.user':req.session.user},{'users.user.$': 1} , function(err, game3){
+						Game.findOne({'_id':gameID, 'users.user':req.session.user.username},{'users.user.$': 1} , function(err, game3){
 				        	if(err){
 								console.log(err);
 								return;

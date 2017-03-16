@@ -22,24 +22,57 @@
 
     <!-- index -->
     <%- include('../modals/help'); %>
-   
+  
     <script src="/assets/js/bingo90.js"></script>
+<script type="text/javascript">
 
+<% if(!Bingo.user_bingo_credits) { %>
+  $('#paydeskModal').modal('show');
+<% } %>
+
+  $('#transfer').on('click', function(){
+    var total_credits = $('#total_credits').val();
+    var transfer_credits = $('#transfer_credits').val();
+    $.ajax({
+              type: "POST",
+              url: '/api/transfer_credits',
+              data: JSON.stringify({total_credits:total_credits, transfer_credits:transfer_credits}),
+              success: function(res){
+                console.log('logged in'+ res.transfer_credits);
+                  $('#bingo_credits').focus();
+                  $('#transfer_credits').val(0);
+                  $('#bingo_credits').val(res.transfer_credits);
+                  $('#won_credits').html(res.transfer_credits);
+                  $('#paydeskModal').modal('hide');
+              },
+              error:function(xhr){
+                $('#transfer_error').addClass('error-red red').html('Transfer error, try again!');
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+            });
+    
+    
+    
+  })
+</script>
 
 
 <!--//modals-->
 <div class="modal fade" id="modalWinnerLine1" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content bg_gradient" style="border:3px solid #333; border-radius: 15%;">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">One Line Winner!</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+        <img src="/assets/img/bg_head.svg" style="height: 98px;width: 100%;display: inline;    opacity: 0.5;">
+       </div>
+      <div class="modal-body text-center">
+      <h1 class="modal-title winner-title"><i class="fa fa-gift"></i> One Line Winner!</h1>
+        <p class="white-text">Hurray! We have a 1 line winner!</p>
       </div>
-      <div class="modal-body">
-        <p>Hurray! We have a 1 line winner!</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <hr>
+      <div class="text-center">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div><!-- /.modal-content -->
@@ -48,17 +81,17 @@
 
 <div class="modal fade" id="modalWinnerLine2" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content bg_gradient" style="border:3px solid #333; border-radius: 15%;">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Two Lines Winner!</h4>
+        <img src="/assets/img/bg_head.svg" style="height: 98px;width: 100%;display: inline;    opacity: 0.5;">
       </div>
-      <div class="modal-body">
-        <p>Hurray! We have a 2 lines winner!</p>
+      <div class="modal-body text-center">
+      <h1 class="modal-title winner-title"><i class="fa fa-gift"></i> Two Lines Winner!</h1>
+        <p class="white-text">Hurray! We have a 2 lines winner!</p>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      <hr>
+      <div class="text-center">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -66,16 +99,18 @@
 
 <div class="modal fade" id="modalWinnerLine3" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content bg_gradient" style="border:3px solid #333; border-radius: 15%;">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Full house Winner!</h4>
+        <img src="/assets/img/bg_head.svg" style="height: 98px;width: 100%;display: inline;    opacity: 0.5;">
+        
       </div>
-      <div class="modal-body">
-        <p>Hurray! We have full house winner!</p>
+      <div class="modal-body text-center">
+      <h4 class="modal-title winner-title"><i class="fa fa-gift"></i> Full house Winner!</h4>
+        <p class=" white-text">Hurray! We have full house winner!</p>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <hr>
+      <div class="text-center">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div><!-- /.modal-content -->

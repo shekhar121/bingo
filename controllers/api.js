@@ -41,8 +41,11 @@ app.use(jsonParser);
 	  			res.status(404).send('password do not match');
 	  			return;
 	  		}
-	  		//console.log(user,'user.role');
-	  		req.session.user = user.username;
+	  		
+	  		//req.session.user = user.username;
+	  		user.password = null;
+	  		req.session.user = user;
+	  		console.log(req.session.user.username,'user.role');
 	  		req.session.user_role = (user.role)?user.role:'user';
 	  		//Bingo.username = user.username;
 	  		app.set('settings', { username: user.username });
@@ -196,7 +199,18 @@ app.use(jsonParser);
 	  		return res.status(200).json({data:data});
 	  	});
 	})
-	
+	//credit transfer to bingo credit
+	app.post('/api/transfer_credits', jsonParser, function(req, res){
+		//res.json({email:req.body.email});
+		if (!req.body) return res.sendStatus(400)
+		var total_credits = req.body.total_credits;
+	  	var transfer_credits = req.body.transfer_credits;
+	  	var bingo_credits = total_credits-transfer_credits;
+	  	req.session.user_bingo_credits = transfer_credits;
+	  	return res.status(200).json({transfer_credits:transfer_credits});
+	  	
+	});
+
 	app.get('/api/login', function (req, res) {
 	  //if (!req.body) return res.sendStatus(400)
 	  res.send('hello');
