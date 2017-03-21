@@ -5,7 +5,19 @@ var User = require('../models/user');
 var Game = require('../models/game');
 var Bingo90 = require('../models/bingo90');
 var Bingo = Bingo || {}; 
+/*function removeByAttr(arr, attr, value){
+    var i = arr.length;
+    while(i--){
+       if( arr[i] 
+           && arr[i].hasOwnProperty(attr) 
+           && (arguments.length > 2 && arr[i][attr] === value ) ){ 
 
+           arr.splice(i,1);
+
+       }
+    }
+    return arr;
+}*/
 
 //console.log(app.get('settings'), 'session');
 module.exports = function(app){
@@ -17,21 +29,8 @@ module.exports = function(app){
 		}
 		// update after game is completed
 		if(req.query.game_c == 'yes' && req.query.game_c_id){
-			Game.findOne({'_id':req.query.game_c_id},  function(err, game){
-	        	if(err){
-					res.status(500).send(err);
-					return;
-				}
-				game.started = true;
-				game.completed = true;
-				game.save(function(err){
-			  		if(err){
-			  			console.log(err);
-			  			return;
-			  		}
-		  		});
-			});
-
+			//null completed game sessions, to get new one
+			req.session.game_id = null;
 			// add new game 
 			// starts remove later - just to insert some testing games
 		  	var g = new Game();
@@ -54,30 +53,63 @@ module.exports = function(app){
 			user_bingo_credits: (req.session.user_bingo_credits)?req.session.user_bingo_credits:0 ,
 			//cards : req.query.cards,
 			//user_room : req.query.room,
-			//game_id : req.query.game,
+			game_id : (req.session.game_id)?req.session.game_id:0 ,
+			user_game : false,
 			//card_name : {},
 			url : 'bingo90/rooms' //req.url
 		}
+		if(Bingo.game_id){
+			//try with async
+			async.parallel([
+			    function(callback) { 
+			    	Room.find({type:'bingo90'}, callback);
+			    },
+			    function(callback) {
+			    	Game.findOne({type:'bingo90', started:false, completed:false}, callback);
+			    },
+			    function(callback) {
+			    	Game.findOne({_id:Bingo.game_id}, callback);
+			    }
+			], function(err, results) {
+		    	if (err) {
+		            throw callback(err);
+		            return;
+		        }
+			    Bingo.rooms  = results[0]; //rooms
+			    Bingo.gameinplay  = results[1]; //gameinplay
+			    Bingo.user_game  = results[2]; //game 
+			    Bingo.user_details = req.session.user;
+			    //console.log(Bingo);
+			    res.render('bingo90/rooms', {Bingo:Bingo});
+			});
+			//asyncs ends
 
-		//try with async
-		async.parallel([
-		    function(callback) { 
-		    	Room.find({type:'bingo90'}, callback);
-		    },
-		    function(callback) {
-		    	Game.findOne({type:'bingo90', started:false, completed:false}, callback);
-		    }
-		], function(err, results) {
-	    	if (err) {
-	            throw callback(err);
-	            return;
-	        }
-		    Bingo.rooms  = results[0]; //rooms
-		    Bingo.gameinplay  = results[1]; //gameinplay
-		    Bingo.user_details = req.session.user;
-		    res.render('bingo90/rooms', {Bingo:Bingo});
-		});
-		//asyncs ends
+		} else {
+			//try with async
+			async.parallel([
+			    function(callback) { 
+			    	Room.find({type:'bingo90'}, callback);
+			    },
+			    function(callback) {
+			    	Game.findOne({type:'bingo90', started:false, completed:false}, callback);
+			    }/*,
+			    function(callback) {
+			    	Game.findOne({_id:Bingo.game_id}, callback);
+			    }*/
+			], function(err, results) {
+		    	if (err) {
+		            throw callback(err);
+		            return;
+		        }
+			    Bingo.rooms  = results[0]; //rooms
+			    Bingo.gameinplay  = results[1]; //gameinplay
+			    //Bingo.user_game  = results[2]; //game 
+			    Bingo.user_details = req.session.user;
+			    console.log(Bingo);
+			    res.render('bingo90/rooms', {Bingo:Bingo});
+			});
+			//asyncs ends
+		}
 	});
 	
 	app.get('/bingo90', function(req, res){ 
@@ -103,12 +135,35 @@ module.exports = function(app){
 		}
 	
 			var gameID = req.session.game_id;
-			req.session.user_bought_card = false;
+			//try with async
+			async.parallel([
+			    function(callback) { 
+			    	Room.findOne({_id:req.session.room_id}, callback);
+			    },
+			    function(callback) {
+			    	Game.findOne({'_id':gameID,'users.user':req.session.user.username},{'users.user.$': 1}, callback);
+			    }
+			], function(err, results) {
+		    	if (err) {
+		            throw callback(err);
+		            return;
+		        }
+			    Bingo.room  = results[0]; //rooms
+			    //Bingo.gameinplay  = results[1]; //gameinplay
+
+			    Bingo.table = results[1].users[0].cards_table;
+				Bingo.card_name = results[1].users[0].cards_table;
+				Bingo.room_id = req.session.room_id;
+			    
+			    res.render('bingo90/bingo90', {Bingo:Bingo});
+			});
+			//asyncs ends
+			//req.session.user_bought_card = false;
 			
 			
-			if(Bingo.cards > 0 && !req.session.user_bought_card){
-			req.session.user_bought_card = true;
-			bingo90 = new Bingo90(Bingo.cards, 'none');
+			//if(Bingo.cards > 0 && !req.session.user_bought_card){
+			//req.session.user_bought_card = true;
+			/*bingo90 = new Bingo90(Bingo.cards, 'none');
     		Bingo.table = bingo90.newCards();
     		//Bingo.user_bought_card = req.session.user_bought_card;
     		Bingo.card_name = JSON.stringify(bingo90.getCard_name());
@@ -119,17 +174,27 @@ module.exports = function(app){
 					}
 					
 					var user_exit = false;
-					var game_user_id = '';
+					//var game_user_id = '';
 					if(game.users){
 						for(var i=0;i<game.users.length;i++){
 							if(game.users[i].user == req.session.user.username){
 								user_exit = true;
-								game_user_id = game.users[i]._id;
+								game.users.splice(i,1);
+								game.room_id = req.session.room_id;
+								game.save(function(err){
+							  		if(err){
+							  			console.log(err);
+							  			return;
+							  		}
+						  		});
+								//game_user_id = game.users[i]._id;
+								//removeByAttr(game.users, 'user', req.session.user.username);
 							} 
 						}
 					}
 					var get_cards = [];
 					var user_playing_cards = [];
+	
 					if(!user_exit){
 						game.users.push({user: req.session.user.username, cards_table:Bingo.table, playing_card:Bingo.card_name, pattern:'none'});
 						game.room_id = req.session.room_id;
@@ -140,14 +205,16 @@ module.exports = function(app){
 					  		}
 				  		});
 					}
-				});
-			} 
+					
+
+				});*/
+			//} 
 			/*if(!Bingo.cards) {
 				res.render('bingo90/bingo90', {Bingo:Bingo});
 			}*/
 			//console.log(req.session.user_bought_card,'111');
-			if(req.session.user_bought_card) {
-				Game.findOne({'_id':gameID,'users.user':req.session.user.username},{'users.user.$': 1} , function(err, game3){
+			//if(req.session.user_bought_card) {
+				/*Game.findOne({'_id':gameID,'users.user':req.session.user.username},{'users.user.$': 1} , function(err, game3){
 		        	if(err){
 						console.log(err);
 						return;
@@ -162,9 +229,9 @@ module.exports = function(app){
 				}
 				res.render('bingo90/bingo90', {Bingo:Bingo});
 			  	//return;
-				});
+				});*/
 				//console.log(req.session.user_bought_card,'3344433');
-			}
+			//}
 
 	}) //app get
 	

@@ -2,6 +2,7 @@ var Bingo90 = require('../models/bingo90');
 var bingo90 = new Bingo90();
 var Bingo75 = require('../models/bingo75'); 
 var Game = require('../models/game'); 
+var Room = require('../models/room');
 var bingo75 = new Bingo75();
 module.exports = function(http){
 	console.log('in chat');
@@ -81,6 +82,41 @@ module.exports = function(http){
 				
 				if(array90.length == 0 || data.winnerLine3 == 1){
 	                data.game_completed = true;
+	                //update room status to false so it show open in rooms
+	                Room.findOne({'_id':data.user_room},  function(err, room){
+			        	if(err){
+							res.status(500).send(err);
+							return;
+						}
+						room.status = false;
+						room.save(function(err, data){
+					  		if(err){
+					  			res.status(500).send(err);
+					  			return;
+					  		}
+					  		//return res.status(200).json({data:data._id});
+				  		});
+					});
+					//update games stayus to completed
+					Game.findOne({'_id':data.game_id},  function(err, game){
+			        	if(err){
+							res.status(500).send(err);
+							return;
+						}
+						game.started = true;
+						game.completed = true;
+						game.save(function(err){
+					  		if(err){
+					  			console.log(err);
+					  			return;
+					  		}
+				  		});
+					});
+					//update credits
+
+					// update other details when gane is completdd
+
+					//end all updates after game completeds
 	                console.log(data.counter_ball, array90.length, 'LAST - data.counter_ball');
 	                io.to(data.user_room).emit('show counter ball', data);
 	                data = null;

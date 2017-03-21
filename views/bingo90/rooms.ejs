@@ -9,7 +9,13 @@
            <div class="col-md-15 colBorder">
                 <div class="roomHead"><%= Bingo.rooms[i].name %> (<span>0</span>)</div>
                 <div class="roomTxtBox">
-                    <div class="titleTxt">Status: <span class="status">Busy...</span></div>
+                    <div class="titleTxt">Status: 
+                    <% if(Bingo.rooms[i].status){ %> 
+                       <span class="status" style="color: red;"> Busy...</span>
+                    <% } else{  %>
+                       <span class="status"> Open</span>
+                    <% } %>
+                    </div>
                     <div class="roominfoTxt">Game Starts: <span class="Time">2016-12-14, 20:00:00</span></div>
                     <!-- <div class="roominfoTxt">Rounds to go: <span class="rounds">0</span><span class="clearfix"></span></div> -->
                     <!--**********************************-->
@@ -84,7 +90,17 @@
                     </div> 
                     <!--**********************************-->
                     <span class="clearfix"></span>
-                    <div class="enterRoom"><a id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Enter Room</a></div>
+                    <% if(Bingo.game_id){ %>
+                        <div class="enterRoom"><a href="/bingo90" class="glass" >See your game</a></div>
+                    <% }  %>
+                     <!-- <% if(!Bingo.user_game.started){ %>Or
+                        <div class="enterRoom"><a id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Update/Enter Room</a></div>
+                    <% }  %> -->
+                    <% if(!Bingo.rooms[i].status){ %>Or
+                        <div class="enterRoom"><a id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Update/Enter Room</a></div>
+                    <% }  %>
+                    
+                  
                     
                     <!--Closed-->                  
                 </div>

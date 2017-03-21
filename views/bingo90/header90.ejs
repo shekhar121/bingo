@@ -137,6 +137,7 @@ if(Bingo.url == 'bingo90') { %>
                             <hr class="mt-2 mb-2">
 
                         </div>
+                        <% if(Bingo.user_details.total_credits > 0){ %>
                         <div class="row">
                           <div class="col-md-4">
                             <div class="md-form">
@@ -161,12 +162,24 @@ if(Bingo.url == 'bingo90') { %>
                           </div>
 
                         </div>
-                        
 
                         <div class="text-center">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             <button id="transfer" class="btn btn-deep-purple"> >> </button>
                         </div>
+                        <% } else { %>
+                          <div class="row">
+                              <div class="col-md-12 text-center">
+                                   <h2 style="color: red">
+                                   Current Credit : (<%- parseFloat(Bingo.user_details.total_credits) %>)</h2>
+                                  <br><hr>
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Buy Credit</button>
+
+                              </div>
+                          </div>
+                        <% } %>
+                        
+
 
                     </div>
 
@@ -179,6 +192,7 @@ if(Bingo.url == 'bingo90') { %>
     </div>
 </div>
 <!-- /.pay-desk modal preview-->
+
 
 
 

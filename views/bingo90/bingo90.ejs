@@ -46,9 +46,9 @@
                                     <div class="boxtitle">
                                         <i class="fa fa-gift"></i> Prize
                                     </div>
-                                    <div class="roominfoTxt">First Line <span class="rounds price">Full</span><span class="clearfix"></span></div>
-                                    <div class="roominfoTxt">Second Line <span class="rounds price">€ 00.00</span><span class="clearfix"></span></div>
-                                    <div class="roominfoTxt">Full Card <span class="rounds price">€ 00.00</span><span class="clearfix"></span></div>                                    
+                                    <div class="roominfoTxt">First Line <span class="rounds price">€ <%= Bingo.room.line1_prize %></span><span class="clearfix"></span></div>
+                                    <div class="roominfoTxt">Second Line <span class="rounds price">€ <%= Bingo.room.line2_prize %></span><span class="clearfix"></span></div>
+                                    <div class="roominfoTxt">Full House <span class="rounds price">€ <%= Bingo.room.line1_prize %></span><span class="clearfix"></span></div>                                    
                                     
                                 </div><!--infoBoxWrap closed-->
                                 </div><!--col-md-12-->
@@ -87,7 +87,7 @@
                                     </div>
                                     <a href="#" class="action-button shadow animate sendBtn blue" id="send_msg_btn">Send</a>
   <a href="#" class="action-button shadow animate sendBtn blue" id="start_game">Start</a>
-  <a href="#" data-toggle="modal" data-target="#modalWinnerLine1" class="action-button shadow animate sendBtn blue" >winner</a>
+ <!--  <a href="#" data-toggle="modal" data-target="#modalWinnerLine1" class="action-button shadow animate sendBtn blue" >winner</a> -->
                                     <span class="clearfix"></span>
                                 </div><!--infoBoxWrap closed-->
                             </div>
@@ -221,6 +221,21 @@ $( document ).ready(function() {
         
         $('#start_game').on('click', function(){
            socket.emit('game counter', bingo90); 
+           //update the status
+            $.ajax({
+              type: "POST",
+              url: '/api/status_update',
+              data: JSON.stringify({game_id:bingo90.game_id,room_id:bingo90.user_room}),
+              success: function(res){
+                console.log('response'+ res);
+              },
+              error:function(xhr){
+                console.log('error'+ xhr);
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+            });
+           // delete this later
         })
         
 
@@ -237,7 +252,7 @@ $( document ).ready(function() {
                 //performance.navigation.type = 0;
                 setTimeout(function(){ 
                     window.location = '/bingo90/rooms?game_c=yes&game_c_id='+data.game_id; 
-                },  10000);
+                },  5000);
                 console.info( "game completed");
             }
             var user = '<%= Bingo.user %>';

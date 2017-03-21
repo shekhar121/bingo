@@ -1,7 +1,9 @@
 var bodyParser = require('body-parser');
 var User = require('../models/user');
 var Room = require('../models/room');
+var Game = require('../models/game');
 var Pchat= require('../models/pchat');
+var Bingo90 = require('../models/bingo90');
 var passwordHash = require('password-hash');
 // create parser
 
@@ -82,7 +84,63 @@ app.use(jsonParser);
 			req.session.cards = req.body.Room.cards;
 			req.session.room_id = req.body.Room.room_id;
 			req.session.game_id =  req.body.Room.game_id;
-			return res.status(200).json({status:true});
+			//res.redirect('/bingo90');
+			var gameID = req.session.game_id;
+			bingo90 = new Bingo90(req.session.cards, 'none');
+    		var table = bingo90.newCards();
+    		//Bingo.user_bought_card = req.session.user_bought_card;
+    		var card_name = JSON.stringify(bingo90.getCard_name());
+				Game.findOne({'_id':gameID},  function(err, game){
+		        	if(err){
+						res.status(500).send(err);
+						return;
+					}
+					
+					//var user_exit = false;
+					//var game_user_id = '';
+					if(game.users){
+						for(var i=0;i<game.users.length;i++){
+							if(game.users[i].user == req.session.user.username){
+								//user_exit = true;
+								game.users.splice(i,1);
+								game.room_id = req.session.room_id;
+								game.save(function(err){
+							  		if(err){
+							  			console.log(err);
+							  			return;
+							  		}
+						  		});
+								//game_user_id = game.users[i]._id;
+								//removeByAttr(game.users, 'user', req.session.user.username);
+							} 
+						}
+						game.users.push({user: req.session.user.username, cards_table:table, playing_card:card_name, pattern:'none'});
+						game.room_id = req.session.room_id;
+						game.save(function(err){
+							  		if(err){
+							  			console.log(err);
+							  			return;
+							  		}
+						  		});
+						return res.status(200).json({status:true});
+					}
+					//var get_cards = [];
+					//var user_playing_cards = [];
+	
+					/*if(!user_exit){
+						game.users.push({user: req.session.user.username, cards_table:table, playing_card:card_name, pattern:'none'});
+						game.room_id = req.session.room_id;
+						game.save(function(err){
+					  		if(err){
+					  			console.log(err);
+					  			return;
+					  		}
+				  		});
+					}*/
+					
+					//return res.status(200).json({status:true});
+				});
+			
 	});
 	// POST /api/total_credits gets JSON bodies
 	app.post('/api/total_credits', jsonParser, function (req, res) {
@@ -107,6 +165,44 @@ app.use(jsonParser);
 
 	  	
 	})
+	// POST /api/total_credits gets JSON bodies
+	app.post('/api/status_update', jsonParser, function (req, res) {
+	  if (!req.body) return res.sendStatus(400);
+	  	var game_id = req.body.game_id;
+	  	var room_id = req.body.room_id;
+	  	//req.session.game_id = false;
+	  	Game.findOne({'_id':game_id},  function(err, game){
+        	if(err){
+				res.status(500).send(err);
+				return;
+			}
+			game.started = true;
+			game.save(function(err, data){
+		  		if(err){
+		  			res.status(500).send(err);
+		  			return;
+		  		}
+		  		//return res.status(200).json({data:data._id});
+	  		});
+		});
+		Room.findOne({'_id':room_id},  function(err, room){
+        	if(err){
+				res.status(500).send(err);
+				return;
+			}
+			room.status = true;
+			room.save(function(err, data){
+		  		if(err){
+		  			res.status(500).send(err);
+		  			return;
+		  		}
+		  		return res.status(200).json({data:data._id});
+	  		});
+		});
+
+	  	
+	})
+
 	app.get('/api/user/:id', function(req, res){
 	    //res.send('<h1>'+req.params.id+'</h1>')
 	    res.render('user', {ID : req.params.id, URL:req.url, Q:req.query.q})

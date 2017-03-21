@@ -33,6 +33,7 @@
   $('#transfer').on('click', function(){
     var total_credits = $('#total_credits').val();
     var transfer_credits = $('#transfer_credits').val();
+    if(total_credits >= transfer_credits){
     $.ajax({
               type: "POST",
               url: '/api/transfer_credits',
@@ -51,7 +52,9 @@
               dataType: 'json',
               contentType: "application/json; charset=utf-8",
             });
-    
+    } else {
+      $('#transfer_error').html('<h1 class="error-red red">You don\'t have enought Credits!</h1>');
+    }
     
     
   })
@@ -117,7 +120,11 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-
+<script type="text/javascript">
+    $('#paydeskModal').on('shown.bs.modal', function () {
+      $('#transfer_credits').focus()
+    })
+</script>
 </body>
 
 </html>
