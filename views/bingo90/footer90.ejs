@@ -30,9 +30,10 @@
   $('#paydeskModal').modal('show');
 <% } %>
 
-  $('#transfer').on('click', function(){
-    var total_credits = $('#total_credits').val();
-    var transfer_credits = $('#transfer_credits').val();
+  $('#transfer').on('click', function(){ 
+    var total_credits = parseInt($('#total_credits').val());
+    var transfer_credits = parseInt($('#transfer_credits').val());
+    console.log('cliked', total_credits, transfer_credits)
     if(total_credits >= transfer_credits){
     $.ajax({
               type: "POST",
@@ -45,6 +46,8 @@
                   $('#bingo_credits').val(res.transfer_credits);
                   $('#won_credits').html(res.transfer_credits);
                   $('#paydeskModal').modal('hide');
+                  window.location.href = '/bingo90/rooms';
+                    return;
               },
               error:function(xhr){
                 $('#transfer_error').addClass('error-red red').html('Transfer error, try again!');

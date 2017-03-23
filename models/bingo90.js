@@ -1,3 +1,5 @@
+var User = require('./user');
+var Room = require('./room');
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -23,7 +25,38 @@ function createCards(obj){
     }
     console.log(obj.card_name);
 }
-
+function update_credit(data, usr, lineprize){
+    var line = ''
+    if(lineprize == 1){
+        line = line1_prize;
+    }
+    if(lineprize == 2){
+        line = line2_prize;
+    }
+    if(lineprize == 3){
+        line = fullhouse_prize;
+    }
+    Room.findOne({'_id':data.user_room}, function(err, room){
+            if(err){
+                res.status(500).send(err);
+                return;
+            }
+            User.findOne({'username':usr},  function(err, user){
+                if(err){
+                    res.status(500).send(err);
+                    return;
+                }
+                user.total_credits = (user.total_credits+room.line);
+                user.save(function(err, data){
+                    if(err){
+                        res.status(500).send(err);
+                        return;
+                    }
+                    //return res.status(200).json({username:data.username});
+                });
+            });
+        })
+}
 var Bingo90 = function(cards, pattern){
 	this.cards = cards*6;
 	this.pattern = pattern;
@@ -171,6 +204,9 @@ var Bingo90 = function(cards, pattern){
                         data.users[usr]["card_"+i+"_square3"] == 'matched' &&
                         data.users[usr]["card_"+i+"_square7"] == 'matched' &&
                         data.users[usr]["card_"+i+"_square8"] == 'matched'){
+                        //user update credits
+                        update_credit(data, usr, 1);
+                        
                         data.winnerLine1 = 1;
                         data.winnerLine1User = usr;
                     }
@@ -179,6 +215,9 @@ var Bingo90 = function(cards, pattern){
                         data.users[usr]["card_"+i+"_square14"] == 'matched' &&
                         data.users[usr]["card_"+i+"_square15"] == 'matched' &&
                         data.users[usr]["card_"+i+"_square16"] == 'matched'){
+                        //user update credits
+                        update_credit(data, usr, 1);
+
                         data.winnerLine1 = 1;
                         data.winnerLine1User = usr;
                     }
@@ -187,6 +226,8 @@ var Bingo90 = function(cards, pattern){
                         data.users[usr]["card_"+i+"_square23"] == 'matched' &&
                         data.users[usr]["card_"+i+"_square25"] == 'matched' &&
                         data.users[usr]["card_"+i+"_square28"] == 'matched'){
+                        //user update credits
+                        update_credit(data, usr, 1);
                         data.winnerLine1 = 1;
                         data.winnerLine1User = usr;
                     }
@@ -225,6 +266,8 @@ var Bingo90 = function(cards, pattern){
                         data.users[usr]["card_"+i+"_square23"] == 'matched' &&
                         data.users[usr]["card_"+i+"_square25"] == 'matched' &&
                         data.users[usr]["card_"+i+"_square28"] == 'matched')){
+                        //user update credits
+                        update_credit(data, usr, 2);
                         data.winnerLine2 = 1;
                         data.winnerLine2User = usr;
                     }
@@ -245,6 +288,8 @@ var Bingo90 = function(cards, pattern){
                     data.users[usr]["card_"+i+"_square23"] == 'matched' &&
                     data.users[usr]["card_"+i+"_square25"] == 'matched' &&
                     data.users[usr]["card_"+i+"_square28"] == 'matched'){
+                    //user update credits
+                        update_credit(data, usr, 3);
                     data.winnerLine3 = 1;
                     data.winnerLine3User = usr;
                 }

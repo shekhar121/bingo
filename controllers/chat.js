@@ -79,7 +79,7 @@ module.exports = function(http){
 					array90.splice(index, 1);
 				}
 				data.counter_ball = ball;
-				
+				//game completes here - update db
 				if(array90.length == 0 || data.winnerLine3 == 1){
 	                data.game_completed = true;
 	                //update room status to false so it show open in rooms

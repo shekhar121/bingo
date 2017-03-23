@@ -2,6 +2,7 @@
 <script src="/socket.io/socket.io.js"></script>
     <!-- Page Content -->
 <div class="container-fluid bgcolor" style="margin-top: -0.75rem;">
+<span id="error"></span>
        <div class="row">
        <% if(Bingo.rooms.length > 0){ 
             for(i=0;i<Bingo.rooms.length;i++){
@@ -13,7 +14,7 @@
                     <% if(Bingo.rooms[i].status){ %> 
                        <span class="status" style="color: red;"> Busy...</span>
                     <% } else{  %>
-                       <span class="status"> Open</span>
+                       <span class="status"> Open</span> 
                     <% } %>
                     </div>
                     <div class="roominfoTxt">Game Starts: <span class="Time">2016-12-14, 20:00:00</span></div>
@@ -96,7 +97,7 @@
                      <!-- <% if(!Bingo.user_game.started){ %>Or
                         <div class="enterRoom"><a id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Update/Enter Room</a></div>
                     <% }  %> -->
-                    <% if(!Bingo.rooms[i].status){ %>Or
+                    <% if(!Bingo.rooms[i].status){ %>
                         <div class="enterRoom"><a id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Update/Enter Room</a></div>
                     <% }  %>
                     
@@ -175,8 +176,14 @@ $(".bg_load, .wrapper").hide();
               },*/
               success: function(res){
                 console.log('logged in'+ res);
-                window.location.href = '/bingo90';
-                return;
+                if(res.status){
+                    window.location.href = '/bingo90';
+                    return;
+                }
+                if(!res.status){
+                    $('#error').addClass('error-red red text-center' ).html('not enough credits! tranfer credits to bingo or get more credits');
+                    return;
+                }
               },
               error:function(xhr){
                 $('#error').addClass('error-red red').html('There is some issue!');

@@ -47,6 +47,7 @@ app.use(jsonParser);
 	  		//req.session.user = user.username;
 	  		user.password = null;
 	  		req.session.user = user;
+	  		req.session.user_bingo_credits = 0;
 	  		console.log(req.session.user.username,'user.role');
 	  		req.session.user_role = (user.role)?user.role:'user';
 	  		//Bingo.username = user.username;
@@ -79,25 +80,60 @@ app.use(jsonParser);
 	})
 	app.post('/api/gotobingo90', jsonParser, function(req, res){
 		if (!req.body) return res.sendStatus(400)
-			req.session.body_bg = req.body.Room.body_bg;
-			req.session.pin_bg = req.body.Room.pin_bg;
-			req.session.cards = req.body.Room.cards;
-			req.session.room_id = req.body.Room.room_id;
-			req.session.game_id =  req.body.Room.game_id;
+			
 			//res.redirect('/bingo90');
-			var gameID = req.session.game_id;
-			bingo90 = new Bingo90(req.session.cards, 'none');
-    		var table = bingo90.newCards();
-    		//Bingo.user_bought_card = req.session.user_bought_card;
-    		var card_name = JSON.stringify(bingo90.getCard_name());
+			var gameID = req.body.Room.game_id;
+			
 				Game.findOne({'_id':gameID},  function(err, game){
 		        	if(err){
 						res.status(500).send(err);
 						return;
 					}
+					//check bingo credit if he can buy cards
+					Room.findOne({'_id':req.body.Room.room_id},  function(err, room){
+			        	if(err){
+							res.status(500).send(err);
+							return;
+						}
+						if(req.body.Room.cards == 1){
+							if(req.session.user_bingo_credits < room.book1_cost){
+								return res.status(200).json({status:false, msg:'not enough credits'});
+							} 
+						}
+						if(req.body.Room.cards == 2){
+							if(req.session.user_bingo_credits < room.book2_cost){
+								return res.status(200).json({status:false, msg:'not enough credits'});
+							} 
+						}
+						if(req.body.Room.cards == 3){
+							if(req.session.user_bingo_credits < room.book3_cost){
+								return res.status(200).json({status:false, msg:'not enough credits'});
+							} 
+						}
+						if(req.body.Room.cards == 4){
+							if(req.session.user_bingo_credits < room.book4_cost){
+								return res.status(200).json({status:false, msg:'not enough credits'});
+							} 
+						}
+						if(req.body.Room.cards == 5){
+							if(req.session.user_bingo_credits < room.book5_cost){
+								return res.status(200).json({status:false, msg:'not enough credits'});
+							} 
+						}
+						if(req.body.Room.cards == 6){
+							if(req.session.user_bingo_credits < room.book6_cost){
+								return res.status(200).json({status:false, msg:'not enough credits'});
+							} 
+						}
+
+					
+					//check card ends - improve with async later
 					
 					//var user_exit = false;
 					//var game_user_id = '';
+					bingo90 = new Bingo90(req.body.Room.cards, 'none');
+		    		var table = bingo90.newCards();
+		    		var card_name = JSON.stringify(bingo90.getCard_name());
 					if(game.users){
 						for(var i=0;i<game.users.length;i++){
 							if(game.users[i].user == req.session.user.username){
@@ -113,7 +149,7 @@ app.use(jsonParser);
 								//game_user_id = game.users[i]._id;
 								//removeByAttr(game.users, 'user', req.session.user.username);
 							} 
-						}
+						} 
 						game.users.push({user: req.session.user.username, cards_table:table, playing_card:card_name, pattern:'none'});
 						game.room_id = req.session.room_id;
 						game.save(function(err){
@@ -122,6 +158,11 @@ app.use(jsonParser);
 							  			return;
 							  		}
 						  		});
+						req.session.body_bg = req.body.Room.body_bg;
+						req.session.pin_bg = req.body.Room.pin_bg;
+						req.session.cards = req.body.Room.cards;
+						req.session.room_id = req.body.Room.room_id;
+						req.session.game_id =  req.body.Room.game_id;
 						return res.status(200).json({status:true});
 					}
 					//var get_cards = [];
@@ -137,7 +178,7 @@ app.use(jsonParser);
 					  		}
 				  		});
 					}*/
-					
+					}) // room check ends
 					//return res.status(200).json({status:true});
 				});
 			
@@ -301,9 +342,26 @@ app.use(jsonParser);
 		if (!req.body) return res.sendStatus(400)
 		var total_credits = req.body.total_credits;
 	  	var transfer_credits = req.body.transfer_credits;
-	  	var bingo_credits = total_credits-transfer_credits;
-	  	req.session.user_bingo_credits = transfer_credits;
-	  	return res.status(200).json({transfer_credits:transfer_credits});
+	  	var user_credits = total_credits-transfer_credits;
+	  	//req.session.user_bingo_credits = transfer_credits;
+	  	User.findOne({'username':req.session.user.username},  function(err, user){
+        	if(err){
+				res.status(500).send(err);
+				return;
+			}
+			user.total_credits = (user.total_credits-transfer_credits);
+			req.session.user.total_credits = user.total_credits;
+			req.session.user_bingo_credits = (req.session.user_bingo_credits+transfer_credits);
+			user.save(function(err, data){
+		  		if(err){
+		  			res.status(500).send(err);
+		  			return;
+		  		}
+		  		//return res.status(200).json({username:data.username});
+		  		return res.status(200).json({transfer_credits:transfer_credits});
+	  		});
+		});
+	  	
 	  	
 	});
 

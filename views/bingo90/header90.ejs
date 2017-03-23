@@ -65,7 +65,7 @@
               <div class="chatSec"><img src="/assets/img/user1.png" alt=""> Welcome : <span class="nam"><%- Bingo.user %></span></div>
               <div class="msgBox">
                 <div class="creditBox">
-                    <span>Total Credit:</span><span class="euro">&euro; 0 <!-- <%- Bingo.user_details.total_credits %> --> </span><a href="/api/logout" class="glass">Log out</a>
+                    <span>Total Credit:</span><span class="euro">&euro; <%- Bingo.user_details.total_credits %> </span><a href="/api/logout" class="glass">Log out</a>
                     <span class="clearfix"></span>
                 </div>
                 <div class="creditBox">
@@ -171,7 +171,7 @@ if(Bingo.url == 'bingo90') { %>
                           <div class="row">
                               <div class="col-md-12 text-center">
                                    <h2 style="color: red">
-                                   Current Credit : (<%- parseFloat(Bingo.user_details.total_credits) %>)</h2>
+                                   Current Credit : (<%- Bingo.user_details.total_credits %>)</h2>
                                   <br><hr>
                                   <button type="button" class="btn btn-danger" data-dismiss="modal">Buy Credit</button>
 

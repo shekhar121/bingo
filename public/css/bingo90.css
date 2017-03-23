@@ -24,7 +24,7 @@ body{background-color:#000000; padding:10px;}
 .titleTxt span{color:#019a01;}
 .titleTxt span.status_C{color:#6e3e0d;}
 .roominfoTxt {font-size:14px; }
-.roominfoTxt .Time{display:block;color:#ff0101; font-size:1rem; font-weight:bold;}
+.roominfoTxt .Time{color:#ff0101; font-size:1rem; font-weight:bold;}
 .roominfoTxt .rounds{color:#0134cd;font-size:12px; font-weight:bold; float:right; text-align:right;}
 .roominfoTxt .price{color:#016d01;font-size:12px; font-weight:bold;}
 .roomPrice{color:#016d01; font-size:14px;font-weight: normal; padding-right:10px;}
