@@ -1,41 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-    <title>WoodBingo - Bingo 75 Rooms</title>
-    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-
-    <!-- Bootstrap core CSS -->
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Material Design Bootstrap -->
-    <link href="/assets/css/mdb.min.css" rel="stylesheet">
-    <!-- Custom -->
-    <link href="/assets/css/bingo75.css" rel="stylesheet">
-
-    <!-- Template styles -->
-    <style rel="stylesheet">
-        
-        html,
-        body {
-            height: 100%;
-        }
-      
-    </style>
-
-</head>
-
-<body>
-
-
-   
+<%- include('header75'); %> 
 
 
     <!--Content-->
@@ -68,25 +31,30 @@
                   <div class="col-md-12"> -->
                     <div class="rightSideBox">
                         <div class="boxTitle">Account Information</div>
-                        
+                        <span id="error"></span>
                         <!-- a/c info box-->
                         <div class="accountInfoBox">
                             <div class="accountInfoBoxWhite">
                                 <!-- <h3>Account Information</h3> -->
                                 <div class="userName"><span>User Name:</span><span><%= Bingo.user %></span></div>
                                 <div class="userName"><span>Total Credits:</span><span><%= Bingo.user_details.total_credits %></span></div>
+                                <% if(Bingo.user_bingo_credits > 0) { %>
+                                  <div class="userName"><span>Bingo Credits:</span><span><%= Bingo.user_bingo_credits %></span></div>
+                                <% } %>
                                 <hr>
-                                <div class="inputBox">
-                                    <label for="form1" class="">Credit Transfer</label>
-                                    <input type="text" id="form1" class="txt" placeholder="0.00">
+                                <div id="transfer_div">
+                                    <div class="inputBox">
+                                        <label for="form1" class="">Credit Transfer</label>
+                                        <input type="hidden" name="total_credits"  id="total_credits" class="form-control" value="<%- Bingo.user_details.total_credits %>">
+                                        <input type="text" name="transfer_credits" id="transfer_credits" class="txt" placeholder="0.00">
+                                    </div>
+                                    <div class="inputBox">
+                                        <label for="form1" class="">Bingo Credit</label>
+                                        <input type="text" name="bingo_credits" id="bingo_credits" class="txt" placeholder="0.00">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <a href="#" class="transferBtn" id="transfer"><i class="fa fa-angle-double-right"></i></a>
                                 </div>
-                                <div class="inputBox">
-                                    <label for="form1" class="">Bingo Credit</label>
-                                    <input type="text" id="form1" class="txt" placeholder="0.00">
-                                </div>
-                                <div class="clearfix"></div>
-                                <a href="#" class="transferBtn"><i class="fa fa-angle-double-right"></i></a>
-                                
                             </div>
                             <div class="boxTitle">Bingo rooms</div>
                             <!-- <div class="accountInfoBoxWhite">
@@ -112,18 +80,29 @@
                             for(i=0;i<Bingo.rooms.length;i++){
                         %>
                         
-                             <div class="roomListRow">
-                                <a href="#">
+                             <div class="roomListRow chosen-room">
+                                
                                   <div class="row">
                                   <div class="col-md-2">
-                                    <img src="/assets/img/list_img.png" alt="">
+                                    <img src="/assets/img/list_img.jpg" alt="">
                                    </div>
                                    <div class="col-md-4">
                                    <div class="roomDetailsLeft">
                                         <span class="roomTitle"><%= Bingo.rooms[i].name %></span>
                                         
-                                        <span class="cardsRoom">Upto <%= Bingo.rooms[i].cards_upto %> cards per room</span>       
-                                        <span class="cardsRoom">Card Price <i class="cardPrice"><%= Bingo.rooms[i].card_price %></i> <!-- Previous round <i class="cardPrice">0.10</i> --></span>        
+                                        <span class="cardsRoom">Upto <%= Bingo.rooms[i].cards_upto %> cards per room</span> 
+                                        <span class="cardsRoom">Choose cards:
+                                            <select class="room-cards">
+                                                <% 
+                                                    for(j=1;j<=Bingo.rooms[i].cards_upto;j++){
+                                                %>
+                                                <option value="<%= j %>"><%= j %></option>
+                                                <% } %>
+                                            </select>
+                                        </span>      
+                                        <span class="cardsRoom">Card Price: <i class="cardPrice">&euro; <%= Bingo.rooms[i].card_price %></i> <!-- Previous round <i class="cardPrice">0.10</i> --></span> 
+                                        <a class="btn btn-success" href="#" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>"> 
+                                        Enter Room</a>       
                                    </div> 
                                    </div>
                                    <div class="col-md-3">
@@ -145,7 +124,7 @@
                                    </div>
                                    </div>
                                    <!-- <span class="clearfix"></span> -->
-                                   </a>                                               
+                                                                                 
                              </div><!--roomBoxWrap list row closed here-->
                              <% }  
                              } %>
@@ -164,45 +143,89 @@
 
     <!--/.Content-->
     
-          
+ <%- include('footer75'); %>         
 
+<script type="text/javascript">
+<% if(!Bingo.user_bingo_credits) { %>
+  $('#transfer_div').show();
+<% } %>
+<% if(Bingo.user_bingo_credits > 0) { %>
+  $('#transfer_div').hide();
+<% } %>
+    Room = {
+        cards:1,
+        room_id: false,
+        game_id:false
+    };
+    /*$('.chosen-room').find('.room-cards').on('change', function(){
 
-    <!--Footer-->
-    <footer class="center-on-small-only">
+    })*/
+    $('.chosen-room').find('a').on('click', function(e){
+        e.preventDefault();
 
-       
-
-   
-
-        <!--Copyright-->
+        Room.room_id = $(this).attr('data-room');
+        Room.game_id = $(this).attr('data-game');
+        Room.cards = $(this).parent('.roomDetailsLeft').find('.room-cards').val();
+        //console.log(Room);
+        //return;
+        if(Room.room_id && Room.game_id){
         
-            <div class="container">
-            <div class="footer-copyright">
-                Copyright © Bingo 2017
+            $.ajax({
+              type: "POST",
+              url: '/api/gotobingo75',
+              data: JSON.stringify({Room}),
+              success: function(res){
+                console.log('logged in'+ res);
+                if(res.status){
+                    window.location.href = '/bingo75';
+                    return;
+                }
+                if(!res.status){
+                    $('#error').addClass('error-red red text-center' ).html('not enough credits! tranfer credits to bingo or get more credits');
+                    return;
+                }
+              },
+              error:function(xhr){
+                $('#error').addClass('error-red red').html('There is some issue!');
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+            });
+        } else{
+            alert('oops! something went wrong!');
+        }
+    });
+    
 
-            </div>
-        </div>
-        <!--/.Copyright-->
-
-    </footer>
-    <!--/.Footer-->
-
-
-    <!-- SCRIPTS -->
-
-    <!-- JQuery -->
-    <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
-
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="js/tether.min.js"></script>
-
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="js/mdb.min.js"></script>
-
-
-</body>
-
-</html>
+     $('#transfer').on('click', function(){ 
+    var total_credits = parseInt($('#total_credits').val());
+    var transfer_credits = parseInt($('#transfer_credits').val());
+    console.log('cliked', total_credits, transfer_credits)
+    if(total_credits >= transfer_credits){
+    $.ajax({
+              type: "POST",
+              url: '/api/transfer_credits',
+              data: JSON.stringify({total_credits:total_credits, transfer_credits:transfer_credits}),
+              success: function(res){
+                console.log('logged in'+ res.transfer_credits);
+                  $('#bingo_credits').focus();
+                  $('#transfer_credits').val(0);
+                  $('#bingo_credits').val(res.transfer_credits);
+                  $('#won_credits').html(res.transfer_credits);
+                  $('#transfer_div').hide();
+                  window.location.href = '/bingo75/rooms';
+                    return;
+              },
+              error:function(xhr){
+                $('#transfer_error').addClass('error-red red').html('Transfer error, try again!');
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+            });
+    } else {
+      $('#transfer_error').html('<h1 class="error-red red">You don\'t have enought Credits!</h1>');
+    }
+    
+    
+  })
+</script>

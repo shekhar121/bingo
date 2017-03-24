@@ -1,5 +1,6 @@
 /* YOUR CUSTOM STYLES */
 @import url('https://fonts.googleapis.com/css?family=Oswald');
+@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline');
 body{
 background: url(/assets/img/bg75.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -11,6 +12,12 @@ background: url(/assets/img/bg75.jpg) no-repeat center center fixed;
 .boxWrap:after,.boxWrap:before {  content: '';  background: #005776; position: absolute;}
 .boxWrap:after { width: 100%; height: 20px; left: 10px; bottom: 0; transform: translatey(100%) skewx(45deg);}
 .boxWrap:before { width: 20px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 10px;}  
+
+/* bg Box */
+.boxWrap75 { margin-top:3%; background: #0c6d96;position: relative; float:left; margin-bottom:3%; margin-right:10%; width:40%;}
+.boxWrap75:after,.boxWrap75:before {  content: '';  background: #01384a; position: absolute;}
+.boxWrap75:after { width: 100%; height: 10px; left: 5px; bottom: 0; transform: translatey(100%) skewx(45deg);}
+.boxWrap75:before { width: 10px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 5px;}  
 
 /* bg Box closed */
 .boxTitle {
@@ -133,3 +140,202 @@ background: url(/assets/img/bg75.jpg) no-repeat center center fixed;
 @media only screen  and (max-width : 767px) {
 
 }   
+
+/* bingo 75 chat */
+
+.cardBox75 {
+  background-color:#114189; color:#9a0101;border-right: 1px solid #ababab;border-top: 1px solid #ababab;
+    font-size:12px; margin-top:1px; margin-left:1px; position:relative; padding:40px 4px 4px 4px;
+}
+.cardBox75 img{position:absolute; top:1px; left:1px; width:100%;}
+
+.cardBox75 span{border: 1px solid #ababab;
+    float: left;
+    width: 20%; font-size:16px;
+    height: 30px; line-height:30px;
+    text-align: center;background-color:#fff;
+    border-right: 0px;
+    border-top: 0px;}
+.cardBox75 span.bingoBox{color: white;background-color: #ff99ff;}
+.cardBox75 span.selectedBox{background-color: #ff99ff;} 
+.cardBox75 span i{font-size:24px;color: #cc0099; line-height:28px;}
+
+.infoBoxWrap75{background-color:#39ace0; border-radius:20px; position:relative; padding:50px 15px 15px; margin-top:20px; width:100%;
+border-right: 10px solid #001a25;
+    border-top: 3px solid #001a25;
+    border-bottom: 10px solid #001a25;
+}
+.infoBoxWrap75 .boxtitle{    position: absolute;
+    font-family: 'Fascinate Inline', cursive;
+    font-size: 24px;
+    top: -15px;
+    left: -8px;
+    color: #fff;
+    background-color: #39ace0;
+    border-radius: 20px; line-height:26px;
+    padding: 0px 20px;
+  border-right: 10px solid #001a25;
+    border-top: 2px solid #001a25;
+    border-left: 10px solid #001a25;
+  }
+  
+.watchWrap  {float:left; width:44%; margin-top:3%;}
+.watchWrap img{width:100%;}
+.roominfoTxt75{  color: #fff;
+    font-size: 18px;
+    border-bottom: 1px solid #fff;
+    padding: 4px;}
+.roominfoTxt75  span{text-align:right; float:right;}
+
+.cardChatBox75 {
+ border-right: 1px solid #234187;border-top: 1px solid #234187;
+    font-size:12px; margin-top:1px; margin-left:1px; position:relative;
+}
+.cardchatBox75 span{border: 1px solid #234187;
+    float: left;
+    width: 20%; font-size:12px;
+    height: 20px; line-height:18px;
+    text-align: center;
+    border-right: 0px;
+    border-bottom: 0px;}
+.cardchatBox75 span:nth-child(1),
+.cardchatBox75 span:nth-child(2),
+.cardchatBox75 span:nth-child(3),
+.cardchatBox75 span:nth-child(4),
+.cardchatBox75 span:nth-child(5) {border-top:0px;}  
+.cardchatBox75 .selectedBox{color:#fade29;}
+.cardchatBox75 .bingoBox{color:#ff7a1f;}  
+.boxTitle75 {
+    background: #0086b6; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#0086b6, #00698f); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#0086b6, #00698f); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#0086b6, #00698f); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#0086b6, #00698f); /* Standard syntax */
+  font-family: 'Oswald', sans-serif; text-align:center; 
+  color:#fff; font-size:18px; padding:0; text-transform:uppercase; font-weight: normal;
+}
+.midBtnsWrap{margin:1% 0;}
+.midBtnsWrap .roominfoTxt75{  color: #000; float:left;font-size: 16px; margin-right:10px; padding:0px;}
+.midBtnsWrap .roominfoTxt75 span{text-align:right; float:right;}
+.midBtnsWrap .roominfoTxt75:nth-child(1){background-color:#0c6d96; color:#fff; width:10%;padding: 2px 15px;}
+.midBtnsWrap .roominfoTxt75:nth-child(2){background-color:#0c6d96; color:#fff; width:13%;padding: 2px 15px;}
+.midBtnsWrap .roominfoTxt75:nth-child(6){width:28%;}
+
+.cashierBtn{text-align: right; padding-right: 5px; padding-top: 10px;}
+
+.cashierBtn .btnsBlue{ background: #2fb3eb;position: relative; color:#FFF;text-transform:uppercase;font-family: 'Oswald', sans-serif; text-align:left; padding:2px 25px; margin:0 auto;}
+.cashierBtn .btnsBlue:after,.cashierBtn .btnsBlue:before {  content: '';  background: #036182; position: absolute;}
+.cashierBtn .btnsBlue:after { width: 100%; height: 4px; left: 3px; bottom: 0; transform: translatey(100%) skewx(45deg);}
+.cashierBtn .btnsBlue:before { width: 5px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 2px;}
+
+
+
+
+.midBtnsWrap .btnsBlue{ background: #2fb3eb;position: relative; color:#FFF;text-transform:uppercase;font-family: 'Oswald', sans-serif; text-align:left; display:block; width:100%; padding:2px 15px; margin:0 auto;}
+.midBtnsWrap .btnsBlue:after,.midBtnsWrap .btnsBlue:before {  content: '';  background: #036182; position: absolute;}
+.midBtnsWrap .btnsBlue:after { width: 100%; height: 4px; left: 3px; bottom: 0; transform: translatey(100%) skewx(45deg);}
+.midBtnsWrap .btnsBlue:before { width: 5px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 2px;}
+
+
+.midBtnsWrap .btnsorange{ background: #f7931e;position: relative; color:#FFF;text-transform:uppercase;font-family: 'Oswald', sans-serif; text-align:left; display:block; padding:2px 15px; margin:0 auto;}
+.midBtnsWrap .btnsorange:after,.midBtnsWrap .btnsorange:before {  content: '';  background: #ac5a12; position: absolute;}
+.midBtnsWrap .btnsorange:after { width: 100%; height: 4px; left: 3px; bottom: 0; transform: translatey(100%) skewx(45deg);}
+.midBtnsWrap .btnsorange:before { width: 5px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 2px;}
+
+.marqueeTxt{background-color: #29abe2;margin-top: 1%; height:44px; color: #fff; font-size: 16px; position:relative; padding:5px 10px; line-height:36px;}
+.marqueeTxt i{position:absolute; font-size:34px; background-color: #29abe2; padding:0 10px 0px 0px; z-index:1;}
+.playersWrap75{padding:10px; background-color:#29abe2; margin-top:10px; min-height:307px;}
+.playersWrap75 h3{color:#fff;text-transform:uppercase;font-family: 'Oswald', sans-serif; text-align:center;}
+
+.playersWrap75 ul li{ background: #1f919c;position: relative; color:#FFF;text-align:center; display:block; width:90%; padding:2px 15px; margin:8px auto 0px;}
+.playersWrap75 ul li:after,.playersWrap75 ul li:before{  content: '';  background: #104d53; position: absolute;}
+.playersWrap75 ul li:after{ width: 100%; height: 4px; left: 3px; bottom: 0; transform: translatey(100%) skewx(45deg);}
+.playersWrap75 ul li:before{ width: 5px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 2px;}
+
+.chatarea75{border:6px solid #0c6d96; padding:20px; background: #fff;}
+.chat75Box{height:170px; overflow:auto;    }
+.floatLedt{float:left; margin:0px; width:77%;}
+.floatLedt input{padding:3px; margin:0px;}
+.animate {
+  transition: all 0.1s;
+  -webkit-transition: all 0.1s;
+}
+.action-button {
+  position: relative;
+  padding: 5px 10px;
+  margin: 0;
+  float: right;
+  border-radius: 10px;
+  font-size: 16px; width:10%; text-align:center;
+  color: #FFF;
+  text-decoration: none;
+}
+.blue {
+  background-color: #3498DB;
+  border-bottom: 5px solid #2980B9;
+  text-shadow: 0px -2px #2980B9;
+}
+
+.action-button:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  border-bottom: 1px solid;
+}
+.chatarea75 a{margin-left:10px;}
+
+.midBtnsWrap75 .roominfoTxt75 span{width:50%;}
+.midBtnsWrap75 .btnsBlue{text-align:center;}
+.midBtnsWrap75 .roominfoTxt75:nth-child(1){color:#fff; width:14%;padding: 0px; background:none;}
+.midBtnsWrap75 .roominfoTxt75:nth-child(2){color:#fff; width:14%;padding: 0px; background:none;}
+.midBtnsWrap75 .roominfoTxt75:nth-child(4),.midBtnsWrap75 .roominfoTxt75:nth-child(5){color:#fff; width:30%;padding: 2px 15px; background-color:#0c6d96;text-transform:uppercase;font-family: 'Oswald', sans-serif;}
+.volume75 input{background-color:#fff; height:auto; padding:2px 4px;}
+
+
+.balls_wrp75{background:url(/assets/img/ballRing.png) no-repeat top right; height:99px; float:right; padding-right:154px;}
+/*five Cols*/
+.col-md-15 {width: 20%;float: left;}
+@media only screen  and (max-width : 767px) {
+  .col-md-15 {width: 100%;float: none;}
+  .cardBox75 img{width:auto;}
+
+} 
+#users_in_room a, #users_in_room a:hover{
+  color:#fff;
+}
+#rolling_ball > div { margin-left:-1rem; margin-right:-11rem;
+    width: 5rem;
+    height: 5rem; float: left;
+    position: relative;
+    -webkit-animation: spin 2s linear infinite;
+    -moz-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    transition: all ease-in-out 2s;
+        margin-top: 1rem;
+    }
+.smallball{margin-left:-25rem; margin-right:2rem;
+    width: 7rem;
+    height: 7rem; float: left;
+    position: relative;
+    -webkit-animation: spin 30s linear infinite !important;
+    -moz-animation: spin 30s linear infinite !important;
+    animation: spin 30s linear infinite !important;
+    transition: all ease-in-out 2s !important;}
+#rolling_ball > div > h3 {
+    position: absolute;
+    font-size: 2rem;
+    left: 10%;
+    top: 25%;
+    color: #333;
+    width: 2em;
+    text-align: center;
+}
+.bingoballright{margin-left:80%;transition:all ease-in-out 2s;}
+.matched-cell{
+    background-color: #04B431; 
+    border-radius: 50%;
+    background: -webkit-radial-gradient(5px 5px, circle, #04B431, #333) !important;
+    background: -moz-radial-gradient(5px 5px, circle, #04B431, #333) !important;
+    background: radial-gradient(5px 5px, circle, #04B431, #333) !important;
+    color: #fff;
+    /*font-size: 1rem;*/
+}

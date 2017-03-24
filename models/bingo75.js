@@ -1,3 +1,5 @@
+var User = require('./user');
+var Room = require('./room');
 function getRandomInt(min, max) { 
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -49,7 +51,38 @@ var Bingo75 = function(cards, pattern){
                 var num21 = this.getRandomInt(31, 45);
                 this.card_name['card_'+i+'_square21'] = num21;
 
-        table += '<div class="col-md-3">\
+                table += '<div class="col-md-15">\
+                    <div class="cardBox75">\
+                        <span id="card_'+i+'_square0" class="selectedBox">'+num0+'</span>\
+                        <span id="card_'+i+'_square1" class="selectedBox">'+num1+'</span>\
+                        <span id="card_'+i+'_square2" class="selectedBox">'+num2+'</span>\
+                        <span id="card_'+i+'_square3" class="selectedBox">'+num3+'</span>\
+                        <span id="card_'+i+'_square4" class="selectedBox">'+num4+'</span>\
+                       \
+                        <span></span>\
+                        <span></span>\
+                        <span id="card_'+i+'_square7" class="selectedBox">'+num7+'</span>\
+                        <span></span>\
+                        <span></span>\
+                      \
+                        <span></span>\
+                        <span></span>\
+                        <span class="bingoBox"><i class="fa fa-circle"></i></span>\
+                        <span></span>\
+                        <span></span>\
+                        \
+                        <span></span>\
+                        <span></span>\
+                        <span id="card_'+i+'_square16" class="selectedBox">'+num16+'</span>\
+                        <span></span>\
+                        <span></span>\
+                        \
+                        <span></span>\
+                        <span></span>\
+                        <span id="card_'+i+'_square21" class="selectedBox">' + num21 +' </span>';
+                table +=  '<span></span><span></span><div class="clearfix"></div><img src="/assets/img/bingoBallH.png" alt=""></div></div>';
+
+        /*table += '<div class="col-md-3">\
                     <div class="card75">\
                     <table class="table75 pattern" id="card_'+i+'">\
                         <tr>\
@@ -96,7 +129,7 @@ var Bingo75 = function(cards, pattern){
                         </tr>\
                     </table>\
                     </div>\
-                    </div>';
+                    </div>';*/
                 }
             }
         return table;

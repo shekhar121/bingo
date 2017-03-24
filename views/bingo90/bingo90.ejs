@@ -155,8 +155,8 @@ var data = {};
     $('#send_msg_btn').show();
     $('#message').show();   
   
-    $('#send_msg_btn').on('click', function(){
-        
+    $('#send_msg_btn').on('click', function(e){
+        e.preventDefault();
         var message = $('#message').val();
         data.message = message;
         socket.emit('send message', data);

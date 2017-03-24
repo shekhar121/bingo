@@ -1,129 +1,195 @@
 
-<%- include('header'); %>
+<%- include('header75'); %>
 <script src="/socket.io/socket.io.js"></script>
     <!-- Page Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <!-- <p class="lead">Players</p> -->
-
-                    <div class="list-group card75">
-                        <a class="btn btn-pink">
-                            <i class="fa fa-star left"></i> Winners 
-                        </a>
-                        <ul class="nav nav-pills nav-stacked" id="game_winner">
-                            <!-- <li><a >Player 1</a></li>
-                            <li><a >Player 2</a></li>
-                            <li><a >Player 3</a></li> -->
-                        </ul>
-                    </div>
-                <div>
-                   <a id="start_game" class="btn btn-pink">S</a>
-                </div> 
-            </div>
-            <div class="col-md-9">
-            
-                <div class="row no-gutter table75-container">
-                    <%  
-                        if(Bingo.cards > 0){
-                    %>
+    
+<div class="container-fluid">
+    
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row">
+            <div class="col-md-12"><!-- <%= Bingo.game_id %> -->
+               <%  if(Bingo.cards > 0){ %>
                     <%- Bingo.table %>
-                    
-                    <%    
-                        } else {
-                        for(var i=1; i < 9; i++) {
-                    %>
-<div class="col-md-3" ><div class="card75" style="height: 175px;">Card <%= i %></div></div>
-                    <%  }    } %>
-                </div>
-            </div>
-
-
-
-
-        </div>
-        <!--chat row-->
-        <div class="row">
-            <div class="col-md-9">
-                <div id="rolling_ball" class="card75 ball-container">
-                    <!-- <div class="bingoball"></div> -->
-                    
-                </div>
-                <%  if(Bingo.cards > 0){ %>
-                <div class="card75" style="width:25%; height: 335px;float: left;">
-                    <a class="btn btn-orange">
-                                <i class="fa fa-users left"></i> Players
-                            </a>
-                            <ul id="users_in_room" class="nav nav-pills nav-stacked" style="max-height: 120px;overflow-y: scroll;width:150px">
-                            </ul>
-                </div>
-                <div id="chat_box" class="card75" style="width:70%; height: 335px;float: right;">
-                        <a class="btn btn-indigo" style="width: 95%;">
-                            <i class="fa fa-wechat left"> </i> Chat Box
-                        </a>
-                        <ul id="messages" style="padding: 0.5rem;overflow-y:scroll;max-height: 180px">
-                        </ul>
-                        <div class="chat-form" style="position: absolute;bottom: 0;">
-                            <input type="text" id="message" name="message" style="margin-right: 0.25rem;border: 1px solid #ddd;">
-                            <a class="btn btn-indigo pull-right" id="send_msg_btn">
-                                <i class="fa fa-send left"></i> Send
-                            </a>
-                        </div>
-                </div>
-                 <% } else { %>
-                <div class="card75 text-center" style="text-align: center">
-                <p class="bg-success">
-                    Total Credits Available:
-                    <span id="total_credits_available"><%= Bingo.user_details.total_credits %></span>
-                </p>
-                    <h4>Rooms: Choose cards and click on Play to enter the room. </h4>
-                    <select name="cards" id="cards" style="width:100px;margin: 0 auto;" class="form-control">
-                            <%  for(var j=1; j < 21; j++) {   %>
-                            <option value="<%= j %>"><%= j %></option>
-                            <%  }  %>
-                    </select>
-                </div>
-                <div class="card75-old">
+                <%  }  %>
+               
+                <!-- <div class="col-md-15">
+                    <div class="cardBox75">
+                        <span class="selectedBox">1</span>
+                        <span class="selectedBox">43</span>
+                        <span class="selectedBox">5</span>
+                        <span class="selectedBox">54</span>
+                        <span class="selectedBox">6</span>
+                       
+                        <span></span>
+                        <span></span>
+                        <span class="selectedBox">23</span>
+                        <span></span>
+                        <span></span>
+                      
+                        <span></span>
+                        <span></span>
+                        <span class="bingoBox"><i class="fa fa-circle"></i></span>
+                        <span></span>
+                        <span></span>
+                        
+                        <span></span>
+                        <span></span>
+                        <span class="selectedBox">3</span>
+                        <span></span>
+                        <span></span>
+                        
+                        <span></span>
+                        <span></span>
+                        <span class="selectedBox">3</span>
+                        <span></span>
+                        <span></span>
+                        <div class="clearfix"></div>     
+                        <img src="/assets/img/bingoBallH.png" alt="">           
+                    </div>
+                </div> -->
                 
-                    <% if(Bingo.rooms.length > 0){ 
-                        for(i=0;i<Bingo.rooms.length;i++){
-                    %>
-                    <div class="row card75">
-                        <div class="col-md-4 room-name">
-                            <h5>Room : <%= Bingo.rooms[i].name %></h5></div>
-                        <div class="col-md-4 room-desc">
-                            <%= Bingo.rooms[i].description %>
-                        </div>
-                        <div class="col-md-2 room-name">
-                            
-                        </div>
-                        <div class="col-md-2">
-                            <a title="<%= Bingo.rooms[i]._id %>" data="<%= Bingo.gameinplay._id %>" class="play75 btn btn-primary pull-right">Play</a>
-                        </div>
-                    </div>
-                    <% }  %>
-                </div>
-                <% } 
-             }%>
+               
+                                                
             </div>
-            <div class="col-md-3">
-                <div >
-                    <div width="100%" class="counter-ball-th">
-                        <b>Balls (<span id="counter_ball">0</span>)</b>
-                    </div>
-                    <div class="table75-ball-counter2">
-                        <% for(i=1;i<76;i++) {    %>
-                            <div id="counter_ball_<%= i %>" > <%= i %> </div>
-                        <% } %>
-                    </div>
-                </div>
             </div>
         </div>
-
+        <div class="col-md-3">
+            <div class="row">
+            <div class="col-md-12">
+                    <div class="row">
+                        <div class="boxWrap75">
+                        <div class="boxTitle75">Pattern</div>
+                                <div class="cardchatBox75">
+                                <span class="selectedBox"><i class="fa fa-star"></i></span>
+                                <span class="selectedBox"><i class="fa fa-star"></i></span>
+                                <span class="selectedBox"><i class="fa fa-star"></i></span>
+                                <span class="selectedBox"><i class="fa fa-star"></i></span>
+                                <span class="selectedBox"><i class="fa fa-star"></i></span>
+                               
+                                <span></span>
+                                <span></span>
+                                <span class="selectedBox"><i class="fa fa-star"></i></span>
+                                <span></span>
+                                <span></span>
+                                                          
+                                <span></span>
+                                <span></span>
+                                <span class="bingoBox"><i class="fa fa-circle"></i></span>
+                                <span></span>
+                                <span></span>
+                                
+                                <span></span>
+                                <span></span>
+                                <span class="selectedBox"><i class="fa fa-star"></i></span>
+                                <span></span>
+                                <span></span>
+                                
+                                
+                                <span></span>
+                                <span></span>
+                                <span class="selectedBox"><i class="fa fa-star"></i></span>
+                                <span></span>
+                                <span></span>
+                                
+                                <div class="clearfix"></div>     
+                                </div>
+                            </div>
+                        <div class="watchWrap"><img src="/assets/img/watch.jpg" alt=""></div>
+                    </div>
+                    <span class="clearfix"></span>
+                    <div class="infoBoxWrap75">
+                        <div class="boxtitle">
+                            <i class="fa fa-gift"></i> Mega<br> Jeckpot
+                        </div>
+                        <div class="roominfoTxt75">Bingo In<span class="volume75">47</span><span class="clearfix"></span></div>
+                        <div class="roominfoTxt75">Balls Extra<span class="volume75">$47</span><span class="clearfix"></span></div>
+                        <div class="roominfoTxt75">Bingo<span class="volume75">$00.00</span><span class="clearfix"></span></div>
+                        <div class="roominfoTxt75">Pattren<span class="volume75">$00.00</span><span class="clearfix"></span></div>
+                       
+                                    
+                        
+                    </div>
+                </div>
+                </div> 
+        </div>
     </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="midBtnsWrap">
+                <div class="roominfoTxt75">Balls<span class="volume75">0</span><span class="clearfix"></span></div>
+                <div class="roominfoTxt75">Card Price<span class="volume75"><%= Bingo.room.card_price %></span><span class="clearfix"></span></div>
+                <div class="roominfoTxt75"><a href="/bingo75/rooms" class="btnsBlue">Buy Cards</a></div>
+                <!-- <div class="roominfoTxt75"><a href="#" class="btnsBlue">Auto Rebuy</a></div> -->
+                <div class="roominfoTxt75"><i class="busy"></i></div>
+                <div class="roominfoTxt75 btnsorange">golden hall start over<span class="volume75">0:36:09</span><span class="clearfix"></span></div>
+                <div class="roominfoTxt75"><a href="#" class="btnsBlue" id="start_game">Start</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- bolls rolling area-->
+<div class="container-fluid bg_gradient">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="balls_wrp75"> <div id="rolling_ball"> </div></div>
+        </div>
+    </div>
+</div>
+<!-- bolls rolling area-->
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="marqueeTxt"><i class="fa fa-bullhorn" aria-hidden="true"></i>
+               <marquee>Sunday 12 March at book bingo at 20:00! We play you lucky number! Play and win great price!</marquee>
+            </div>
+            <div class="chatarea75"> 
+                <div class="chat75Box">
+                        <ul id="messages" >
+
+                          </ul>
+                </div>                              
+                <div class="md-form floatLedt">
+                    <input type="text" id="message" name="message" class="form-control" placeholder="Type your massage here">
+                </div>
+                <a href="#" class="action-button shadow animate sendBtn blue">Set up</a>
+                <a href="#" class="action-button shadow animate sendBtn blue" id="send_msg_btn">Send</a>
+                <span class="clearfix"></span>
+            </div>
+            
+            <div class="midBtnsWrap midBtnsWrap75">
+                <div class="roominfoTxt75"><a href="#" class="btnsBlue">Rooms</a></div>
+                <div class="roominfoTxt75"><a href="#" class="btnsBlue">Info</a></div>
+                <div class="roominfoTxt75"><a href="#" class="btnsBlue"><i class="fa fa-bullhorn"></i></a></div>
+                
+                <div class="roominfoTxt75">Credit:<span class="volume75"><input type="text" placeholder="€ 0.00"></span><span class="clearfix"></span></div>
+                <div class="roominfoTxt75">Win Balance:<span class="volume75"><input type="text" placeholder="€ 0.00"></span><span class="clearfix"></span></div>
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="playersWrap75"><h3>Players</h3>
+               <ul id="users_in_room">
+                    <!-- <li>Opamart 1</li>
+                    <li>Opamart 2</li> -->
+               </ul>
+            </div>
+            <div class="cashierBtn"><a href="#" class="btnsBlue">cashier</a></div>
+        </div>
+    </div>
+</div>
+
+
     <!-- /.container -->
 
-   <%- include('footer'); %>
+   <%- include('footer75'); %>
 <!-- chat socket starts -->
 <script>
 var socket = io();
@@ -137,7 +203,8 @@ var socket = io();
         socket.emit('get user list', data);
     $('#send_msg_btn').show();
     $('#message').show();   
-    $('#send_msg_btn').on('click', function(){
+    $('#send_msg_btn').on('click', function(e){
+        e.preventDefault();
         var message = $('#message').val();
         data.message = message;
         socket.emit('send message', data);
@@ -154,7 +221,7 @@ var socket = io();
         console.log(users);
         var user_list = '';
         for(i=0;i<users.length;i++){
-            user_list += '<li class="active"><a href="#">'+users[i]+'</a></li>';
+            user_list += '<li ><a href="#">'+users[i]+'</a></li>';
         }
         if(user_list){
             $('#users_in_room').html(user_list);
@@ -181,12 +248,30 @@ $( document ).ready(function() {
         bingo75.user_room = '<%= Bingo.user_room %>';
         bingo75.game_id = '<%= Bingo.game_id %>';
         //bingo75.card_name = JSON.parse('<%- Bingo.card_name %>');
-        //bingo75.pattern = '<%= Bingo.pattern %>';
+        bingo75.pattern = '<%= Bingo.pattern %>';
         var winner75 = 0;
 
         var cnt = 0;
+        /*$('#start_game').on('click', function(){
+           socket.emit('game counter75', bingo75); 
+        })*/
         $('#start_game').on('click', function(){
            socket.emit('game counter75', bingo75); 
+           //update the status
+            $.ajax({
+              type: "POST",
+              url: '/api/status_update',
+              data: JSON.stringify({game_id:bingo75.game_id,room_id:bingo75.user_room}),
+              success: function(res){
+                console.log('response'+ res);
+              },
+              error:function(xhr){
+                console.log('error'+ xhr);
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+            });
+           // delete this later
         })
         socket.on('show counter ball75', function(data){ 
             console.log(data, 'from server in ');
@@ -199,8 +284,8 @@ $( document ).ready(function() {
             if(data.game_completed){
                 //performance.navigation.type = 0;
                 setTimeout(function(){ 
-                    window.location = '/bingo75?game_c=yes&game_c_id='+data.game_id;
-                },  10000);
+                    window.location = '/bingo75/rooms?game_c=yes&game_c_id='+data.game_id;
+                },  5000);
                 console.info( "game completed");
             }
             var user = '<%= Bingo.user %>';
@@ -226,8 +311,9 @@ $( document ).ready(function() {
             if(!winner75){
                 if (data.winner75 == 1){
                     console.log("Yay..! We have a winner");
-                    $('#show_winner_msg').show('slow');
-                    $('#show_winner_msg').html('<h2>Yay..! We have a winner - '+data.winner75User+'</h2>');
+                    //$('#show_winner_msg').show('slow');
+                    //$('#show_winner_msg').html('<h2>Yay..! We have a winner - '+data.winner75User+'</h2>');
+                    $('#modalWinnerLine1').modal('show');
                     winner75 = 1;
                     $('#game_winner').html('<li><a class="btn btn-orange">'+data.winner75User+'</a></li>')
                 }
@@ -240,21 +326,21 @@ $( document ).ready(function() {
             var y = cnt - 2;
             var x = cnt - 3;
             if(cnt == 1){
-                $('.bingoball'+cnt).animate({left: '850px',opacity:'1'}, 500, animate);
+                $('.bingoball'+cnt).animate({right: '1050px',opacity:'1'}, 500, animate);
             } else if(cnt == 2) {
-                $('.bingoball'+cnt).animate({left: '750px',opacity:'1'}, 500, animate);
+                $('.bingoball'+cnt).animate({right: '950px',opacity:'1'}, 500, animate);
             } else if(cnt == 3) {
-                $('.bingoball'+cnt).animate({left: '650px',opacity:'1'}, 500, animate);
+                $('.bingoball'+cnt).animate({right: '850px',opacity:'1'}, 500, animate);
             } else {
-                $('.bingoball'+cnt).animate({left: '550px',opacity:'1'}, 500, animate);
+                $('.bingoball'+cnt).animate({right: '650px',opacity:'1'}, 500, animate);
                 
                 console.log(z);
                 //$('.bingoball'+z).css('left:650px','-webkit-animation:inherit','animation:inherit', 'transition:inherit');
-                $('.bingoball'+z).css('left','650px');
+                $('.bingoball'+z).css('right','850px');
                 $('.bingoball'+z).addClass('smallball');
-                $('.bingoball'+y).css('left','750px');
+                $('.bingoball'+y).css('right','950px');
                 //$('.bingoball1').addClass('smallball');
-                $('.bingoball'+x).css('left','850px');
+                $('.bingoball'+x).css('right','1050px');
                 //$('.bingoball2').addClass('smallball');
             }
         }
@@ -262,4 +348,10 @@ $( document ).ready(function() {
     <% } %>
 
 });
+$('#modalWinnerLine1').on('shown.bs.modal', function (e) {
+    setTimeout(function(){
+        $('#modalWinnerLine1').modal('hide');
+    }, 1500);
+    
+})
 </script>

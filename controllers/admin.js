@@ -12,8 +12,8 @@ module.exports = function(app){
 	//admin_dashboard
 	app.get('/admin', function(req, res){ 
 
-		//if(!req.session.user){ res.redirect('/'); return; }
-		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 
 		Bingo = {
 			user : 'req.session.user',
@@ -25,8 +25,8 @@ module.exports = function(app){
 	//admin_dashboard - END
 	//users
 	app.get('/admin/users', function(req, res){ 
-		//if(!req.session.user){ res.redirect('/'); return; }
-		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 		Bingo = {
 			user : 'req.session.user',
 			url : '/admin/users', //req.url
@@ -45,8 +45,8 @@ module.exports = function(app){
 	//users ends Model.findOneAndUpdate(query, { name: 'jason borne' }, options, callback)
 	//users banned
 	app.get('/admin/users/banned', function(req, res){ 
-		//if(!req.session.user){ res.redirect('/'); return; }
-		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 		Bingo = {
 			user : 'req.session.user',
 			url : '/admin/users/banned', //req.url
@@ -65,8 +65,8 @@ module.exports = function(app){
 	//users banned ends
 	//users free
 	app.get('/admin/users/free', function(req, res){ 
-		//if(!req.session.user){ res.redirect('/'); return; }
-		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 		Bingo = {
 			user : 'req.session.user',
 			url : '/admin/users/free', //req.url
@@ -85,8 +85,8 @@ module.exports = function(app){
 	//users free ends
 	//users ban
 	app.get('/admin/users/ban/:id', function(req, res){ 
-		//if(!req.session.user){ res.redirect('/'); return; }
-		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 
 		Bingo = {
 			user : 'req.session.user',
@@ -105,8 +105,8 @@ module.exports = function(app){
 	//users ban ends
 	//users unban
 	app.get('/admin/users/unban/:id', function(req, res){ 
-		//if(!req.session.user){ res.redirect('/'); return; }
-		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 
 		Bingo = {
 			user : 'req.session.user',
@@ -125,8 +125,8 @@ module.exports = function(app){
 	//users unban ends
 	//users del
 	app.get('/admin/users/delete/:id', function(req, res){ 
-		//if(!req.session.user){ res.redirect('/'); return; }
-		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 
 		Bingo = {
 			user : 'req.session.user',
@@ -145,8 +145,8 @@ module.exports = function(app){
 	//users del ends
 	//users view to edit
 	app.get('/admin/users/view/:id', function(req, res){ 
-		//if(!req.session.user){ res.redirect('/'); return; }
-		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 
 		Bingo = {
 			user : 'req.session.user',
@@ -196,8 +196,8 @@ module.exports = function(app){
 
 	//room 75
 	app.get('/admin/rooms75', function(req, res){ 
-		//if(!req.session.user){ res.redirect('/'); return; }
-		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 
 		Bingo = {
 			user : 'req.session.user',
@@ -217,8 +217,8 @@ module.exports = function(app){
 
 	//room 90
 	app.get('/admin/rooms90', function(req, res){ 
-		//if(!req.session.user){ res.redirect('/'); return; }
-		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 
 		Bingo = {
 			user : 'req.session.user',
@@ -237,8 +237,8 @@ module.exports = function(app){
 	//room 90  ends
 	//rooms 75 view to edit
 	app.get('/admin/rooms75/view/:id', function(req, res){ 
-		//if(!req.session.user){ res.redirect('/'); return; }
-		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 
 		Bingo = {
 			user : 'req.session.user',
@@ -259,8 +259,8 @@ module.exports = function(app){
 	//rooms 75  view ends
 	//rooms 90 view to edit
 	app.get('/admin/rooms90/view/:id', function(req, res){ 
-		//if(!req.session.user){ res.redirect('/'); return; }
-		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 
 		Bingo = {
 			user : 'req.session.user',
@@ -281,6 +281,9 @@ module.exports = function(app){
 	//rooms 990  view ends
 	//rooom 75 edit view 
 	app.post('/admin/room75/edit', jsonParser, function (req, res) {
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+
 	  if (!req.body) return res.sendStatus(400);
 	  	var firstname = req.body.name;
 	  	var _id = req.body.room_id;
@@ -312,6 +315,9 @@ module.exports = function(app){
 	//rooom 75 edit view
 
 	app.post('/admin/room90/edit', jsonParser, function (req, res) {
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+
 	  if (!req.body) return res.sendStatus(400);
 	  	var firstname = req.body.name;
 	  	var _id = req.body.room_id;
@@ -352,8 +358,8 @@ module.exports = function(app){
 	//room 90 edit nds
 	//setting view 
 	app.get('/admin/setting/view', function(req, res){ 
-		//if(!req.session.user){ res.redirect('/'); return; }
-		//if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
 
 		Bingo = {
 			user : 'req.session.user',
@@ -375,6 +381,9 @@ module.exports = function(app){
 	//setting view ends
 	//setting edit  
 	app.post('/admin/setting/edit', jsonParser, function (req, res) {
+		if(!req.session.user){ res.redirect('/'); return; }
+		if(req.session.user_role != 'admin'){ res.redirect('/'); return; }
+		
 	  if (!req.body) return res.sendStatus(400);
 	  	var firstname = req.body.name;
 	  	var _id = req.body.setting_id;

@@ -1,0 +1,142 @@
+<!-- pay-desk Modal -->
+<div class="modal fade" id="paydeskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <!-- <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4> -->
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <!--Form without header-->
+                <div class="card">
+                    <div class="card-block">
+
+                        <!--Header-->
+                        <div class="text-center">
+                            <h4><i class="fa fa-lock" ></i> Pay Desk</h4>
+                            <span id="loginLabel"></span>
+                            <span id="transfer_error"></span>
+                            <hr class="mt-2 mb-2">
+
+                        </div>
+                        <% if(Bingo.user_details.total_credits > 0){ %>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="md-form">
+                              <i class="fa fa-eur prefix"></i>
+                              <input type="email" name="total_credits"  id="total_credits" class="form-control" value="<%- Bingo.user_details.total_credits %>">
+                              <label for="form2">Total Credit</label>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="md-form">
+                              <i class="fa fa-eur prefix"></i>
+                              <input type="email" name="transfer_credits"  id="transfer_credits" class="form-control">
+                              <label for="form2">Transfer Credit</label>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="md-form">
+                              <i class="fa fa-eur prefix"></i>
+                              <input type="email" name="bingo_credits"  id="bingo_credits" class="form-control">
+                              <label for="form2">Bingo Credit</label>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="text-center">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button id="transfer" class="btn btn-deep-purple"> >> </button>
+                        </div>
+                        <% } else { %>
+                          <div class="row">
+                              <div class="col-md-12 text-center">
+                                   <h2 style="color: red">
+                                   Current Credit : (<%- Bingo.user_details.total_credits %>)</h2>
+                                  <br><hr>
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Buy Credit</button>
+
+                              </div>
+                          </div>
+                        <% } %>
+                        
+
+
+                    </div>
+
+                </div>
+<!--/Form without header-->
+            </div>
+            
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!-- /.pay-desk modal preview-->
+
+
+<script type="text/javascript">
+$(".bg_load, .wrapper").hide();
+    Room = {
+        body_bg: '#e80000',
+        pin_bg: '#66ffff',
+        cards:1,
+        room_id: false,
+        game_id:false
+    };
+    $('#body_bg a').on('click', function(e){
+        Room.body_bg = $(this).attr('data-bg');
+        $('#selected_body_bg').css('background',Room.body_bg);
+        
+    })
+    $('#pin_bg a').on('click', function(e){
+        Room.pin_bg = $(this).attr('data-bg');
+        $('#selected_pin_bg').css('background',Room.pin_bg);
+    })
+    $('#btn_card a').on('click', function(e){
+        Room.cards = $(this).attr('data-val');
+        $('#selected_card').text(Room.cards);
+    })
+    $('#room_id').on('click', function(e){
+        e.preventDefault();
+        $(".bg_load, .wrapper").show();
+        $(".bg_load").fadeOut("slow");
+        $(".wrapper").fadeOut("slow");
+        Room.room_id = $(this).attr('data-room');
+        Room.game_id = $(this).attr('data-game');
+        if(Room.room_id && Room.game_id){
+        
+            $.ajax({
+              type: "POST",
+              url: '/api/gotobingo90',
+              data: JSON.stringify({Room}),
+              success: function(res){
+                console.log('logged in'+ res);
+                if(res.status){
+                    window.location.href = '/bingo90';
+                    return;
+                }
+                if(!res.status){
+                    $('#error').addClass('error-red red text-center' ).html('not enough credits! tranfer credits to bingo or get more credits');
+                    return;
+                }
+              },
+              error:function(xhr){
+                $('#error').addClass('error-red red').html('There is some issue!');
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+            });
+        } else{
+            alert('oops! something went wrong!');
+        }
+    });
+    
+</script>
+

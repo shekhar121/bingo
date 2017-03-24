@@ -1,5 +1,5 @@
 
-var async = require('async');
+var async = require('async'); 
 var Room = require('../models/room');
 var User = require('../models/user');
 var Game = require('../models/game');
@@ -152,7 +152,7 @@ module.exports = function(app){
 			    //Bingo.gameinplay  = results[1]; //gameinplay
 
 			    Bingo.table = results[1].users[0].cards_table;
-				Bingo.card_name = results[1].users[0].cards_table;
+				Bingo.card_name = results[1].users[0].playing_card;
 				Bingo.room_id = req.session.room_id;
 			    
 			    res.render('bingo90/bingo90', {Bingo:Bingo});

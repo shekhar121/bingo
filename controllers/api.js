@@ -4,6 +4,7 @@ var Room = require('../models/room');
 var Game = require('../models/game');
 var Pchat= require('../models/pchat');
 var Bingo90 = require('../models/bingo90');
+var Bingo75 = require('../models/bingo75');
 var passwordHash = require('password-hash');
 // create parser
 
@@ -78,6 +79,71 @@ app.use(jsonParser);
 	  		return res.status(200).json({username:data.username});
 	  	});
 	})
+	app.post('/api/gotobingo75', jsonParser, function(req, res){
+		if (!req.body) return res.sendStatus(400)
+			
+			//res.redirect('/bingo90');
+			var gameID = req.body.Room.game_id;
+			
+				Game.findOne({'_id':gameID},  function(err, game){
+		        	if(err){
+						res.status(500).send(err);
+						return;
+					}
+					//check bingo credit if he can buy cards
+					Room.findOne({'_id':req.body.Room.room_id},  function(err, room){
+			        	if(err){
+							res.status(500).send(err);
+							return;
+						}
+						if(req.body.Room.cards > 0){
+							if(req.session.user_bingo_credits < room.card_price*req.body.Room.cards){
+								return res.status(200).json({status:false, msg:'not enough credits'});
+							} 
+						}
+					//check card ends - improve with async later
+
+					bingo75 = new Bingo75(req.body.Room.cards, 'T');
+		    		var table = bingo75.newCards();
+		    		var card_name = JSON.stringify(bingo75.getCard_name());
+					if(game.users){
+						for(var i=0;i<game.users.length;i++){
+							if(game.users[i].user == req.session.user.username){
+								//user_exit = true;
+								game.users.splice(i,1);
+								game.room_id = req.session.room_id;
+								game.save(function(err){
+							  		if(err){
+							  			console.log(err);
+							  			return;
+							  		}
+						  		});
+								//game_user_id = game.users[i]._id;
+								//removeByAttr(game.users, 'user', req.session.user.username);
+							} 
+						} 
+						game.users.push({user: req.session.user.username, cards_table:table, playing_card:card_name, pattern:'T'});
+						game.room_id = req.session.room_id;
+						game.save(function(err){
+							  		if(err){
+							  			console.log(err);
+							  			return;
+							  		}
+						  		});
+						//req.session.body_bg = req.body.Room.body_bg;
+						//req.session.pin_bg = req.body.Room.pin_bg;
+						req.session.cards = req.body.Room.cards;
+						req.session.room_id = req.body.Room.room_id;
+						req.session.game_id =  req.body.Room.game_id;
+						return res.status(200).json({status:true});
+					}
+					
+					}) // room check ends
+
+				});
+			
+	});
+
 	app.post('/api/gotobingo90', jsonParser, function(req, res){
 		if (!req.body) return res.sendStatus(400)
 			
@@ -237,7 +303,7 @@ app.use(jsonParser);
 		  			res.status(500).send(err);
 		  			return;
 		  		}
-		  		return res.status(200).json({data:data._id});
+		  		//return res.status(200).json({data:data._id});
 	  		});
 		});
 
