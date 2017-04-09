@@ -20,7 +20,42 @@ var gameSchema = new Schema({
     type       : String
     //users :   Schema.Types.Mixed
 });
-
+gameSchema.statics.gameStatusStarted = function(boolean, game_id) {
+    if(boolean){
+        this.findOne({'_id':game_id},  function(err, game){
+            if(err){
+                console.log(err,'error in updating game started status to - '+boolean+'');
+                return;
+            }
+            game.started = boolean;
+            game.save(function(err, data){
+                if(err){
+                    console.log(err,'could not update game started status to - '+boolean+'');
+                    return;
+                }
+                return true;
+            });
+        });
+    } 
+};
+gameSchema.statics.gameStatusCompleted = function(boolean, game_id) {
+    if(boolean){
+        this.findOne({'_id':game_id},  function(err, game){
+            if(err){
+                console.log(err,'error in updating game status completed to - '+boolean+'');
+                return;
+            }
+            game.completed = boolean;
+            game.save(function(err, data){
+                if(err){
+                    console.log(err,'could not update game status completed  to - '+boolean+'');
+                    return;
+                }
+                return true;
+            });
+        });
+    } 
+};
 
 
 var Game = mongoose.model('game', gameSchema);

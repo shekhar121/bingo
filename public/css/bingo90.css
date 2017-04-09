@@ -1,6 +1,6 @@
 /* YOUR CUSTOM STYLES */
 @import url('https://fonts.googleapis.com/css?family=Fascinate+Inline');
-body{background-color:#000000; padding:10px;}
+body{background-color:#111; /*padding:10px;*/}
 .bgcolor{background-color:#ffffff; border:4px #ababab solid;}
 .colBorder{border-right:0.25rem #000 solid;}
 .noborder{border-bottom:0px;}
@@ -50,9 +50,9 @@ body{background-color:#000000; padding:10px;}
 .color_7{background-color:#022b84;}
 .color_8{background-color:#3e1314;}
 .pinWrap{margin-top: 15px;}
-.pinWrap a{    font-size: 1.5rem;
+.pinWrap a{    font-size: 1.6rem;
     line-height: 18px;
-    margin-right: 3px;}
+    /*margin-right: 3px;*/}
 .pin_1{color:#e80000;}
 .pin_2{color:#000000;}
 .pin_3{color:#66ffff;}
@@ -293,6 +293,13 @@ body{background-color:#000000; padding:10px;}
     background: radial-gradient(5px 5px, circle, #04B431, #333) !important;
     color: #fff;
     /*font-size: 1rem;*/
+}
+.modal-head{
+    background: url('/assets/img/woodbingo_logo_sm.png') no-repeat center;
+    background-color: #999;
+}
+.modal-bg{
+    background: url('assets/img/wave.png');
 }
 .bg_load {
     position: fixed;

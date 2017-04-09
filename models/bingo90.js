@@ -26,30 +26,35 @@ function createCards(obj){
     console.log(obj.card_name);
 }
 function update_credit(data, usr, lineprize){
-    var line = ''
-    if(lineprize == 1){
-        line = line1_prize;
-    }
-    if(lineprize == 2){
-        line = line2_prize;
-    }
-    if(lineprize == 3){
-        line = fullhouse_prize;
-    }
+    console.log(data.user_room, 'in update credit', usr);
+    //var room_prize = 0;
+    
     Room.findOne({'_id':data.user_room}, function(err, room){
+        var room_prize = 0;
+        
+        //var room_prize = room.line;
             if(err){
                 res.status(500).send(err);
                 return;
+            }
+            if(lineprize == 1){
+                room_prize = room.line1_prize;
+            }
+            if(lineprize == 2){
+                room_prize = room.line2_prize;
+            }
+            if(lineprize == 3){
+                room_prize = room.fullhouse_prize;
             }
             User.findOne({'username':usr},  function(err, user){
                 if(err){
                     res.status(500).send(err);
                     return;
                 }
-                user.total_credits = (user.total_credits+room.line);
+                user.total_credits = (user.total_credits+room_prize);
                 user.save(function(err, data){
                     if(err){
-                        res.status(500).send(err);
+                        console.log(err, 'could not update credit after win', room_prize, user.total_credits);
                         return;
                     }
                     //return res.status(200).json({username:data.username});
@@ -187,7 +192,16 @@ var Bingo90 = function(cards, pattern){
 	}
     this.winner90 = function(data){
         //console.log(data, this, 'in bingo 90 winner')
-        
+        /*if(data == null){
+             counter_ball: 81,
+              winnerLine1: 1,
+              winnerLine1User: 'test',
+              winnerLine2: 1,
+              winnerLine2User: 'test',
+              winnerLine3: 1,
+              winnerLine3User: 'test',
+              game_completed: true 
+        }*/
         for(usr in data.users){
             //data.card_name = data.users[usr];
             var obj_length = Object.keys(data.users[usr]).length;

@@ -86,7 +86,7 @@
                                         <label for="form1" class="">Type your massage here</label>
                                     </div>
                                     <a href="#" class="action-button shadow animate sendBtn blue" id="send_msg_btn">Send</a>
-  <a href="#" class="action-button shadow animate sendBtn blue" id="start_game">Start</a>
+  <!-- <a href="#" class="action-button shadow animate sendBtn blue" id="start_game">Start</a> -->
  <!--  <a href="#" data-toggle="modal" data-target="#modalWinnerLine1" class="action-button shadow animate sendBtn blue" >winner</a> -->
                                     <span class="clearfix"></span>
                                 </div><!--infoBoxWrap closed-->
@@ -193,14 +193,7 @@ var data = {};
 <script type="text/javascript">
 //$('.bg_gradient').css('background','<%= Bingo.body_bg %>');
 $( document ).ready(function() {
-   /* $('.play90').on('click', function(e){ 
-        
-        //return;
-        var room = e.target.title;
-        var card = $('#cards').val(); //alert(card);
-        var gid =  $(this).attr('data');
-        window.location = '/bingo90?cards='+card+'&room='+room+'&game='+gid;
-    })*/
+
     <% if(Bingo.cards > 0){ %>
 
         //console.log(JSON.parse('<%- Bingo.card_name %>'), 'lplplpp');
@@ -218,36 +211,17 @@ $( document ).ready(function() {
         var winnerLine3Shown = 0;
        
         var cnt = 0;
-        
-        $('#start_game').on('click', function(){
-           socket.emit('game counter', bingo90); 
-           //update the status
-            $.ajax({
-              type: "POST",
-              url: '/api/status_update',
-              data: JSON.stringify({game_id:bingo90.game_id,room_id:bingo90.user_room}),
-              success: function(res){
-                console.log('response'+ res);
-              },
-              error:function(xhr){
-                console.log('error'+ xhr);
-              },
-              dataType: 'json',
-              contentType: "application/json; charset=utf-8",
-            });
-           // delete this later
-        })
-        
+     
 
         socket.on('show counter ball', function(data){ 
             //$('#show_winner_msg').hide('slow');
             console.log(data, 'from server in ');
-            if (performance.navigation.type == 1) { console.log(data, 'show counter ball');
+            /*if (performance.navigation.type == 1) { console.log(data, 'show counter ball');
                 console.info( "This page is reloaded" );
                 socket.emit('stop counter', bingo90);
             } else {
                 console.info( "This page is not reloaded");
-            }
+            }*/
             if(data.game_completed){
                 //performance.navigation.type = 0;
                 setTimeout(function(){ 

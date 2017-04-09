@@ -46,6 +46,7 @@ module.exports = function(app){
 		  		}
 		  	});
 		  	// ends remove later - just to insert some testing games
+		  	req.session.game_id = null;
 		}
 
 		Bingo = {
@@ -115,7 +116,8 @@ module.exports = function(app){
 	app.get('/bingo90', function(req, res){ 
 		//console.log(app.get('settings'), 'session3');
 		//req.session.user_bought_card = false;
-		if(!req.session.user || !req.session.user_bingo_credits){
+		if(!req.session.user || !req.session.user_bingo_credits || !req.session.game_id 
+			|| !req.session.room_id){
 			res.redirect('/bingo90/rooms');
 			return;
 		}

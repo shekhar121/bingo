@@ -20,7 +20,8 @@ var roomSchema = new mongoose.Schema({
 		card_price:Number,
 		cards_upto : Number,
 		card_balls_to_roll : Number,
-		game_start_time: Date
+		game_start_time: Date,
+		if_open: Boolean
 	});
 roomSchema.statics.listRooms = function(type, func) {
 	if(type == 'r75'){
@@ -29,6 +30,24 @@ roomSchema.statics.listRooms = function(type, func) {
 	if(type == 'r90'){
 		return this.find({"type":'bingo90'},  func);
 	}
+};
+roomSchema.statics.roomStatus = function(boolean, room_id) {
+	//if(boolean){
+		this.findOne({'_id':room_id},  function(err, room){
+        	if(err){
+				console.log(err,'error in updating room status to - '+boolean+'');
+				return;
+			}
+			room.status = boolean;
+			room.save(function(err, data){
+		  		if(err){
+		  			console.log(err,'could not update room status to - '+boolean+'');
+		  			return;
+		  		}
+		  		return true;
+	  		});
+		});
+	//} 
 };
 var Room = mongoose.model('room', roomSchema);
 module.exports = Room;

@@ -148,15 +148,17 @@ app.use(jsonParser);
 		if (!req.body) return res.sendStatus(400)
 			
 			//res.redirect('/bingo90');
-			var gameID = req.body.Room.game_id;
+			//var gameID = req.body.Room.game_id;
 			
-				Game.findOne({'_id':gameID},  function(err, game){
+				//Game.findOne({'_id':gameID},  function(err, game){
+				Game.findOne({type:'bingo90', started:false, completed:false},  function(err, game){
 		        	if(err){
 						res.status(500).send(err);
 						return;
 					}
 					//check bingo credit if he can buy cards
-					Room.findOne({'_id':req.body.Room.room_id},  function(err, room){
+					// as only one room is working - 587a8ca380859cf4acf73a61
+					Room.findOne({'_id':'587a8ca380859cf4acf73a61'},  function(err, room){
 			        	if(err){
 							res.status(500).send(err);
 							return;
@@ -205,7 +207,8 @@ app.use(jsonParser);
 							if(game.users[i].user == req.session.user.username){
 								//user_exit = true;
 								game.users.splice(i,1);
-								game.room_id = req.session.room_id;
+								//game.room_id = req.session.room_id;
+								game.room_id = '587a8ca380859cf4acf73a61';
 								game.save(function(err){
 							  		if(err){
 							  			console.log(err);
@@ -217,7 +220,8 @@ app.use(jsonParser);
 							} 
 						} 
 						game.users.push({user: req.session.user.username, cards_table:table, playing_card:card_name, pattern:'none'});
-						game.room_id = req.session.room_id;
+						//game.room_id = req.session.room_id;
+						game.room_id = '587a8ca380859cf4acf73a61';
 						game.save(function(err){
 							  		if(err){
 							  			console.log(err);
@@ -227,8 +231,9 @@ app.use(jsonParser);
 						req.session.body_bg = req.body.Room.body_bg;
 						req.session.pin_bg = req.body.Room.pin_bg;
 						req.session.cards = req.body.Room.cards;
-						req.session.room_id = req.body.Room.room_id;
-						req.session.game_id =  req.body.Room.game_id;
+						//req.session.room_id = req.body.Room.room_id;
+						req.session.room_id = '587a8ca380859cf4acf73a61';
+						req.session.game_id =  game._id;
 						return res.status(200).json({status:true});
 					}
 					//var get_cards = [];
@@ -273,6 +278,7 @@ app.use(jsonParser);
 	  	
 	})
 	// POST /api/total_credits gets JSON bodies
+	// done at server got bingo 90
 	app.post('/api/status_update', jsonParser, function (req, res) {
 	  if (!req.body) return res.sendStatus(400);
 	  	var game_id = req.body.game_id;

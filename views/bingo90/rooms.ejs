@@ -3,7 +3,7 @@
     <!-- Page Content -->
 <div class="container-fluid bgcolor" style="margin-top: -0.75rem;">
 <span id="error"></span>
-       <div class="row">
+       <div class="row"     style="background: url('/assets/img/wave.png')";>
        <% if(Bingo.rooms.length > 0){ 
             for(i=0;i<Bingo.rooms.length;i++){
         %>
@@ -11,8 +11,8 @@
                 <div class="roomHead"><%= Bingo.rooms[i].name %> (<span>0</span>)</div>
                 <div class="roomTxtBox">
                     <div class="titleTxt">Status: 
-                    <% if(Bingo.rooms[i].status){ %> 
-                       <span class="status" style="color: red;"> Busy...</span>
+                    <% if(!Bingo.rooms[i].if_open){ %> 
+                       <span class="status" style="color: red;"> Closed...</span>
                     <% } else{  %>
                        <span class="status"> Open</span> 
                     <% } %>
@@ -72,17 +72,17 @@
                     <span class="clearfix"></span>
                     <div class="titleTxt">Click on pin you want to use:</div>
                     <div id="pin_bg" class="btnWrap pinWrap">
-                    <a href="javascript:void(0)" class="pin_3" data-bg="#66ffff"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" class="pin_1" data-bg="#e80000"> <i class="fa fa-map-marker" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" class="pin_2" data-bg="#000000"><i class="fa fa-map-marker" aria-hidden="true"></i></a> 
+                    <a href="javascript:void(0)" class="pin_3" data-bg="#66ffff"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="pin_1" data-bg="#e80000"> <i class="fa fa-thumb-tack" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="pin_2" data-bg="#000000"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> 
                          
-                        <a href="javascript:void(0)" class="pin_4" data-bg="#dc248e"><i class="fa fa-map-marker" aria-hidden="true"></i></a> 
-                        <a href="javascript:void(0)" class="pin_5" data-bg="#ffd700"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" class="pin_6" data-bg="#49b41a"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" class="pin_7" data-bg="#022b84"><i class="fa fa-map-marker" aria-hidden="true"></i></a> 
-                        <a href="javascript:void(0)" class="pin_8" data-bg="#3e1314"><i class="fa fa-map-marker" aria-hidden="true"></i></a> 
-                        <a href="javascript:void(0)" class="pin_9" data-bg="#ea2300"><i class="fa fa-map-marker" aria-hidden="true"></i></a> 
-                        <a href="javascript:void(0)" class="pin_10" data-bg="#004209"><i class="fa fa-map-marker" aria-hidden="true"></i></a>  
+                        <a href="javascript:void(0)" class="pin_4" data-bg="#dc248e"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> 
+                        <a href="javascript:void(0)" class="pin_5" data-bg="#ffd700"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="pin_6" data-bg="#49b41a"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="pin_7" data-bg="#022b84"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> 
+                        <a href="javascript:void(0)" class="pin_8" data-bg="#3e1314"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> 
+                        <a href="javascript:void(0)" class="pin_9" data-bg="#ea2300"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> 
+                        <a href="javascript:void(0)" class="pin_10" data-bg="#004209"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a>  
                     </div>
                     <div class="BuyBook">
                         <i class="fa fa-chevron-down"></i>

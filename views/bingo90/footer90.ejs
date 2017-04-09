@@ -18,6 +18,7 @@
     <script src="/assets/js/tether.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/mdb.min.js"></script>
+    <script src="/assets/js/howler.core.js"></script>
 
 
     <!-- index -->
@@ -128,6 +129,16 @@
     $('#paydeskModal').on('shown.bs.modal', function () {
       $('#transfer_credits').focus()
     })
+<% if(Bingo.url == 'bingo90') { %>
+    var sound = new Howl({
+      src: ['/assets/sound/bingo90_start.mp3']
+    });
+
+    // Clear listener after first call.
+    sound.once('load', function(){
+      sound.play();
+    });
+<% } %>
 </script>
 </body>
 

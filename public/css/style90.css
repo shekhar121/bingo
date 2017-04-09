@@ -18,6 +18,10 @@ body {
     background: radial-gradient(5px 5px, circle, #D34328, #020731);*/
     margin-bottom: 0.5rem;
 }
+.modal-head{
+    background: url('/assets/img/woodbingo_logo_sm.png') no-repeat center;
+    background-color: #999;
+}
 .play-btn{
     margin-bottom: 1rem;
 }
