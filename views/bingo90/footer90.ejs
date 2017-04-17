@@ -1,6 +1,6 @@
 <% if(Bingo.url == 'bingo90') { %>
 <div class="container-fluid">
-       <div class="row">
+       <div class="row footer">
       <div class="botom_infoTxt">
             <a href="#" class=""><i class="fa fa-lock left"></i> Logged in As: test</a>
             <a href="#" class="" data-toggle="modal" data-target="#myModal"><i class="fa fa-user left"></i> My Account</a>
@@ -78,6 +78,40 @@
       <h1 class="modal-title winner-title"><i class="fa fa-gift"></i> One Line Winner!</h1>
         <p class="white-text">Hurray! We have a 1 line winner!</p>
       </div>
+      <div id="l1wcard"></div>
+      <!-- <div class="col-md-12">
+                    <div class="cardBoxT ChatCol">
+                    <span id="card_'+i+'_square0" class="selectedBox">1</span>
+                    <span id="card_'+i+'_square1"></span>
+                    <span id="card_'+i+'_square2" class="selectedBox">3</span>
+                    <span id="card_'+i+'_square3" class="selectedBox">3</span>
+                    <span id="card_'+i+'_square4"></span>
+                    <span id="card_'+i+'_square5"></span>
+                    <span id="card_'+i+'_square6"></span>
+                    <span id="card_'+i+'_square7" class="selectedBox">6</span>
+                    <span id="card_'+i+'_square8" class="selectedBox">8</span>
+                    
+                    <span id="card_'+i+'_square10"></span>
+                    <span id="card_'+i+'_square11" class="selectedBox">45</span>
+                    <span id="card_'+i+'_square12" class="selectedBox">3</span>
+                    <span id="card_'+i+'_square13"></span>
+                    <span id="card_'+i+'_square14" class="selectedBox">11</span>
+                    <span id="card_'+i+'_square15" class="selectedBox">2</span>
+                    <span id="card_'+i+'_square16" class="selectedBox">2</span>
+                    <span id="card_'+i+'_square17"></span>
+                    <span id="card_'+i+'_square18"></span>
+                    
+                    <span id="card_'+i+'_square20" class="selectedBox">5</span>
+                    <span id="card_'+i+'_square21" class="selectedBox">55</span>
+                    <span id="card_'+i+'_square22"></span>
+                    <span id="card_'+i+'_square23" class="selectedBox">76</span>
+                    <span id="card_'+i+'_square24"></span>
+                    <span id="card_'+i+'_square25" class="selectedBox">4</span>
+                    <span id="card_'+i+'_square26"></span>
+                    <span id="card_'+i+'_square27"></span>
+                    <span id="card_'+i+'_square28" class="selectedBox">43</span>
+             <div class="clearfix"></div><img src="assets/img/bingoBall.png" alt=""></div></div> -->
+
       <hr>
       <div class="text-center">
         <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
@@ -97,6 +131,7 @@
       <h1 class="modal-title winner-title"><i class="fa fa-gift"></i> Two Lines Winner!</h1>
         <p class="white-text">Hurray! We have a 2 lines winner!</p>
       </div>
+      <div id="l2wcard"></div>
       <hr>
       <div class="text-center">
         <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
@@ -116,6 +151,7 @@
       <h4 class="modal-title winner-title"><i class="fa fa-gift"></i> Full house Winner!</h4>
         <p class=" white-text">Hurray! We have full house winner!</p>
       </div>
+      <div id="l3wcard"></div>
       <hr>
       <div class="text-center">
         <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
@@ -125,13 +161,53 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div class="modal fade" id="sound_change_modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg_gradient" style="border:3px solid #333; border-radius: 15%;">
+      <div class="modal-header">
+        <img src="/assets/img/bg_head.svg" style="height: 98px;width: 100%;display: inline;    opacity: 0.5;">
+      </div>
+      <div class="modal-body text-center">
+      <h1 class="modal-title winner-title"><i class="fa fa-gift"></i> Sound</h1>
+        <button type="button" id="sound_male" class="btn btn-success" data-dismiss="modal">Male</button>
+        <button type="button" id="sound_female" class="btn btn-success" data-dismiss="modal">Female</button>
+      </div>
+      <hr>
+      <div class="text-center">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script type="text/javascript">
+  var Sound = {};
+  Sound.gender = 'Male';
     $('#paydeskModal').on('shown.bs.modal', function () {
       $('#transfer_credits').focus()
     })
+    $('#sound_change').on('click', function(){
+        $('#sound_change_modal').modal('show');
+    })
+    $('#sound_male').on('click', function(){
+        Sound.gender = 'Male';
+    })
+    $('#sound_female').on('click', function(){
+        Sound.gender = 'Female';
+    })
 <% if(Bingo.url == 'bingo90') { %>
-    var sound = new Howl({
+    /*var sound = new Howl({
       src: ['/assets/sound/bingo90_start.mp3']
+    });
+
+    // Clear listener after first call.
+    sound.once('load', function(){
+      sound.play();
+    });*/
+<% } %>
+<% if(Bingo.url == 'bingo90/rooms') { %>
+    var sound = new Howl({
+      src: ['/assets/sound/mp3/backgroundsound3.mp3']
     });
 
     // Clear listener after first call.

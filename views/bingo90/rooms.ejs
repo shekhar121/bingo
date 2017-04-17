@@ -54,14 +54,14 @@
                     <span class="clearfix"></span>
                     <div class="titleTxt">Select Blackground</div>
                     <div id="body_bg" class="btnWrap">
-                        <a  class="colorBox color_1" data-bg="#e80000"></a> 
-                        <a  class="colorBox color_2" data-bg="#000000"></a> 
-                        <a  class="colorBox color_3" data-bg="#66ffff"></a> 
-                        <a  class="colorBox color_4" data-bg="#dc248e"></a> 
-                        <a  class="colorBox color_5" data-bg="#ffd700"></a> 
-                        <a  class="colorBox color_6" data-bg="#49b41a"></a> 
-                        <a  class="colorBox color_7" data-bg="#022b84"></a> 
-                        <a  class="colorBox color_8" data-bg="#3e1314"></a> 
+                        <a  class="colorBox color_1" data-bg="#fc4000"></a> 
+                        <a  class="colorBox color_2" data-bg="#9b0298"></a> 
+                        <a  class="colorBox color_3" data-bg="#4e2900"></a> 
+                        <a  class="colorBox color_4" data-bg="#fd02b1"></a> 
+                        <a  class="colorBox color_5" data-bg="#00f05b"></a> 
+                        <a  class="colorBox color_6" data-bg="#429022"></a> 
+                        <a  class="colorBox color_7" data-bg="#0011cb"></a> 
+                        <a  class="colorBox color_8" data-bg="#00c1ff"></a> 
                     </div>
                     <div class="BuyBook">
                         <i class="fa fa-chevron-down"></i>
@@ -72,17 +72,27 @@
                     <span class="clearfix"></span>
                     <div class="titleTxt">Click on pin you want to use:</div>
                     <div id="pin_bg" class="btnWrap pinWrap">
-                    <a href="javascript:void(0)" class="pin_3" data-bg="#66ffff"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" class="pin_1" data-bg="#e80000"> <i class="fa fa-thumb-tack" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" class="pin_2" data-bg="#000000"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> 
+                    <a href="javascript:void(0)" class="pin_3" data-bg="#429022"><img src="/assets/img/Marker_3.svg" width="32"  /></a>
+                        <a href="javascript:void(0)" class="pin_1" data-bg="#00c1ff"> <!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> -->
+                            <img src="/assets/img/Marker_1.svg"   width="32"/>
+                        </a>
+                        <a href="javascript:void(0)" class="pin_2" data-bg="#0011cb"><!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> -->
+                            <img src="/assets/img/Marker_2.svg"  width="32"/>
+                        </a> 
                          
-                        <a href="javascript:void(0)" class="pin_4" data-bg="#dc248e"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> 
-                        <a href="javascript:void(0)" class="pin_5" data-bg="#ffd700"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" class="pin_6" data-bg="#49b41a"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" class="pin_7" data-bg="#022b84"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> 
-                        <a href="javascript:void(0)" class="pin_8" data-bg="#3e1314"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> 
-                        <a href="javascript:void(0)" class="pin_9" data-bg="#ea2300"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> 
-                        <a href="javascript:void(0)" class="pin_10" data-bg="#004209"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a>  
+                        <!-- <a href="javascript:void(0)" class="pin_4" data-bg="#dc248e"><i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                            <img src="/assets/img/Marker_4.svg" wheight="50" width="20"/>
+                        </a> --> 
+                        <a href="javascript:void(0)" class="pin_5" data-bg="#9b101a"><!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> -->
+                            <img src="/assets/img/Marker_5.svg"  width="32"/>
+                        </a>
+                        <a href="javascript:void(0)" class="pin_6" data-bg="#fd02b1"><!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> -->
+                            <img src="/assets/img/Marker_6.svg" width="32"/>
+                        </a>
+                        <a href="javascript:void(0)" class="pin_7" data-bg="#4e2900"><!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> --><img src="/assets/img/Marker_7.svg"   width="32"/></a> 
+                        <a href="javascript:void(0)" class="pin_8" data-bg="#fc4000"><!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> --><img src="/assets/img/Marker_9.svg"  width="32"/></a> 
+                        <!-- <a href="javascript:void(0)" class="pin_9" data-bg="#ea2300"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> 
+                        <a href="javascript:void(0)" class="pin_10" data-bg="#004209"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> -->  
                     </div>
                     <div class="BuyBook">
                         <i class="fa fa-chevron-down"></i>
@@ -92,13 +102,13 @@
                     <!--**********************************-->
                     <span class="clearfix"></span>
                     <% if(Bingo.game_id){ %>
-                        <div class="enterRoom"><a href="/bingo90" class="glass" >See your game</a></div>
+                        <div class="enterRoom"><a style="padding: 20px 60px;border-radius: 0px;background: #004253;" href="/bingo90" class="glass" >See your game</a></div>
                     <% }  %>
                      <!-- <% if(!Bingo.user_game.started){ %>Or
                         <div class="enterRoom"><a id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Update/Enter Room</a></div>
                     <% }  %> -->
                     <% if(!Bingo.rooms[i].status){ %>
-                        <div class="enterRoom"><a id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Update/Enter Room</a></div>
+                        <div class="enterRoom"><a style="padding: 20px 60px;background: #004253;border-radius: 0px;" id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Update/Enter Room</a></div>
                     <% }  %>
                     
                   

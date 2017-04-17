@@ -3,6 +3,7 @@ var async = require('async');
 var Room = require('../models/room');
 var User = require('../models/user');
 var Game = require('../models/game');
+var Setting = require('../models/setting');
 var Bingo90 = require('../models/bingo90');
 var Bingo = Bingo || {}; 
 /*function removeByAttr(arr, attr, value){
@@ -144,6 +145,9 @@ module.exports = function(app){
 			    },
 			    function(callback) {
 			    	Game.findOne({'_id':gameID,'users.user':req.session.user.username},{'users.user.$': 1}, callback);
+			    },
+			    function(callback) {
+			    	Setting.findOne({}, callback);
 			    }
 			], function(err, results) {
 		    	if (err) {
@@ -156,6 +160,7 @@ module.exports = function(app){
 			    Bingo.table = results[1].users[0].cards_table;
 				Bingo.card_name = results[1].users[0].playing_card;
 				Bingo.room_id = req.session.room_id;
+				Bingo.marquee  = results[2].bingo90_broadcast_msg;
 			    
 			    res.render('bingo90/bingo90', {Bingo:Bingo});
 			});

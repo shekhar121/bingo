@@ -53,17 +53,28 @@
 <div class="container-fluid bgcolor noborder">
   <div class="col-md-12">
        <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="chatSec"><img src="/assets/img/chat1.png" alt=""> Welcome at “<span class="redColor">Bingo</span>” our game is based on traditional bingo game.</div>
-              <div class="msgBox">
+              <!-- <div class="msgBox">
                 <span class="msg">Do you have questions, consult a chat moderator or our helpdesk</span>
                 <span class="userName">Welcome: <span class="nam"><%- Bingo.user %></span></span>
-              </div>
+              </div> -->
             </div>
              
-            <div class="col-md-3">
-              <div class="chatSec"><img src="/assets/img/user1.png" alt=""> Welcome : <span class="nam"><%- Bingo.user %></span></div>
-              <div class="msgBox">
+            <div class="col-md-4">
+              <div class="chatSec"><img src="/assets/img/user1.png" alt=""> Welcome : <span class="nam"><%- Bingo.user %></span>
+                <div style="float: right; display: inline-block;"><a href="/api/logout" class="glass">Log out</a>
+                <a href="#" class="glass">Pay-out</a></div>
+                <div class="creditBox">
+                      <span>Total Credit:</span><span class="euro">&euro; <%- Bingo.user_details.total_credits %> </span><!-- <a href="/api/logout" class="glass">Log out</a> -->
+                      <span class="clearfix"></span>
+                  </div>
+                  <div class="creditBox">
+                      <span>Won:</span><span class="euro" id="won_credits">&euro; <%- Bingo.user_bingo_credits %> </span><!-- <a href="#" class="glass">Pay-out</a> -->
+                      <span class="clearfix"></span>
+                  </div>
+                </div>
+              <!-- <div class="msgBox">
                 <div class="creditBox">
                     <span>Total Credit:</span><span class="euro">&euro; <%- Bingo.user_details.total_credits %> </span><a href="/api/logout" class="glass">Log out</a>
                     <span class="clearfix"></span>
@@ -72,12 +83,16 @@
                     <span>Won:</span><span class="euro" id="won_credits">&euro; <%- Bingo.user_bingo_credits %> </span><a href="#" class="glass">Pay-out</a>
                     <span class="clearfix"></span>
                 </div>
-              </div>
+              </div> -->
             </div>
             
-            <div class="col-md-3">
-              <div class="chatSec"><img src="/assets/img/euro.png" alt=""> Option: </div>
-              <div class="msgBox option"><a href="#" data-toggle="modal" data-target="#paydeskModal" class="glass">Pay Desk</a> <a href="#" class="glass">Help Desk</a> <a href="#" class="glass">Deposit</a></div>
+            <div class="col-md-4">
+              <div class="chatSec"><img src="/assets/img/euro.png" alt=""> Option: 
+                <!-- <a href="/api/logout" class="glass">Log out</a>
+                <a href="#" class="glass">Pay-out</a> -->
+                <a href="#" data-toggle="modal" data-target="#paydeskModal" class="glass">Pay Desk</a> <a href="#" class="glass">Help Desk</a> <a href="#" class="glass">Deposit</a>
+              </div>
+              <!-- <div class="msgBox option"><a href="#" data-toggle="modal" data-target="#paydeskModal" class="glass">Pay Desk</a> <a href="#" class="glass">Help Desk</a> <a href="#" class="glass">Deposit</a></div> -->
             </div>
         </div>
   </div>
@@ -91,7 +106,7 @@ if(Bingo.url == 'bingo90') { %>
             <img src="/assets/img/bg_head.svg" style="height: 98px;width: 35%;display: inline;    opacity: 0.5;">
             <div class="topLeftBtnWrap">
                 <a class="topLeftBtn" href="/bingo90/rooms">Room List <i class="fa fa-times closeWindow" aria-hidden="true"></i></a>
-                <a class="topLeftBtn" href="#">Sound</a>
+                <a class="topLeftBtn" href="#" id="sound_change">Sound</a>
                 <a class="topLeftBtn" href="#">Balls <i id="balls" class="balls">0</i></a>
                 <a class="topLeftBtn" href="#">Rounds <i class="balls rounds">1</i></a>
             </div>

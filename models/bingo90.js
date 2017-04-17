@@ -1,5 +1,6 @@
 var User = require('./user');
 var Room = require('./room');
+var Game = require('./game');
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -76,6 +77,68 @@ var Bingo90 = function(cards, pattern){
     this.getCard_name = function () {
       return this.card_name;
     }
+    this.getLineWinningCard = function(i,usr, data, line){
+        console.log(i,usr, line, 'this.getLineWinningCard')
+        var table = '';
+        table += '<div class="col-md-12">\
+                    <div class="cardBoxT ChatCol">\
+                    <span id="card_'+i+'_square0" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square0"]+'</span>\
+                    <span id="card_'+i+'_square1"></span>\
+                    <span id="card_'+i+'_square2" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square2"]+'</span>\
+                    <span id="card_'+i+'_square3" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square3"]+'</span>\
+                    <span id="card_'+i+'_square4"></span>\
+                    <span id="card_'+i+'_square5"></span>\
+                    <span id="card_'+i+'_square6"></span>\
+                    <span id="card_'+i+'_square7" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square7"]+'</span>\
+                    <span id="card_'+i+'_square8" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square8"]+'</span>\
+                    \
+                    <span id="card_'+i+'_square10"></span>\
+                    <span id="card_'+i+'_square11" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square11"]+'</span>\
+                    <span id="card_'+i+'_square12" class="selectedBox">'+data.current_game[usr]["card_"+i+"_square12"]+'</span>\
+                    <span id="card_'+i+'_square13"></span>\
+                    <span id="card_'+i+'_square14" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square14"]+'</span>\
+                    <span id="card_'+i+'_square15" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square15"]+'</span>\
+                    <span id="card_'+i+'_square16" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square16"]+'</span>\
+                    <span id="card_'+i+'_square17"></span>\
+                    <span id="card_'+i+'_square18"></span>\
+                    \
+                    <span id="card_'+i+'_square20" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square20"]+'</span>\
+                    <span id="card_'+i+'_square21" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square21"]+'</span>\
+                    <span id="card_'+i+'_square22"></span>\
+                    <span id="card_'+i+'_square23" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square23"]+'</span>\
+                    <span id="card_'+i+'_square24"></span>\
+                    <span id="card_'+i+'_square25" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square25"]+'</span>\
+                    <span id="card_'+i+'_square26"></span>\
+                    <span id="card_'+i+'_square27"></span>\
+                    <span id="card_'+i+'_square28" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square28"]+'</span>';
+             table +=  '<div class="clearfix"></div><img src="assets/img/bingoBall.png" alt=""></div></div>';
+             Game.findOne({'_id':data.game_id},  function(err, gm){
+                if(err){
+                    console.log('could not update game with winner card:'+ data.current_game[usr]);
+                    return;
+                }
+                if(line == 'L1'){
+                    gm.winnerLine1 = usr;
+                    gm.winnerLine1Card = table;
+                }
+                if(line == 'L2'){
+                    gm.winnerLine2 = usr;
+                    gm.winnerLine2Card = table;
+                }
+                if(line == 'L3'){
+                    gm.winnerLine3 = usr;
+                    gm.winnerLine3Card = table;
+                }
+                gm.save(function(err, data){
+                    if(err){
+                        console.log(err, 'could not update game after win', data);
+                        return;
+                    }
+                    //return res.status(200).json({username:data.username});
+                });
+            });
+             return table;
+    }
 	this.newCards = function(){
         createCards(this);
 		var table = '';
@@ -119,23 +182,23 @@ var Bingo90 = function(cards, pattern){
 
         table += '<div class="col-md-6">\
                     <div class="cardBoxT ChatCol">\
-                    <span id="card_'+i+'_square0" class="selectedBox">'+num0+'</span>\
+                    <span id="card_'+i+'_square0" class="selectedBox ">'+num0+'</span>\
                     <span id="card_'+i+'_square1"></span>\
-                    <span id="card_'+i+'_square2" class="selectedBox">'+num2+'</span>\
-                    <span id="card_'+i+'_square3" class="selectedBox">'+num3+'</span>\
+                    <span id="card_'+i+'_square2" class="selectedBox ">'+num2+'</span>\
+                    <span id="card_'+i+'_square3" class="selectedBox ">'+num3+'</span>\
                     <span id="card_'+i+'_square4"></span>\
                     <span id="card_'+i+'_square5"></span>\
                     <span id="card_'+i+'_square6"></span>\
-                    <span id="card_'+i+'_square7" class="selectedBox">'+num7+'</span>\
-                    <span id="card_'+i+'_square8" class="selectedBox">'+num8+'</span>\
+                    <span id="card_'+i+'_square7" class="selectedBox ">'+num7+'</span>\
+                    <span id="card_'+i+'_square8" class="selectedBox ">'+num8+'</span>\
                     \
                     <span id="card_'+i+'_square10"></span>\
-                    <span id="card_'+i+'_square11" class="selectedBox">'+num11+'</span>\
+                    <span id="card_'+i+'_square11" class="selectedBox ">'+num11+'</span>\
                     <span id="card_'+i+'_square12" class="selectedBox">'+num12+'</span>\
                     <span id="card_'+i+'_square13"></span>\
-                    <span id="card_'+i+'_square14" class="selectedBox">'+num14+'</span>\
+                    <span id="card_'+i+'_square14" class="selectedBox ">'+num14+'</span>\
                     <span id="card_'+i+'_square15" class="selectedBox">'+num15+'</span>\
-                    <span id="card_'+i+'_square16" class="selectedBox">'+num16+'</span>\
+                    <span id="card_'+i+'_square16" class="selectedBox ">'+num16+'</span>\
                     <span id="card_'+i+'_square17"></span>\
                     <span id="card_'+i+'_square18"></span>\
                     \
@@ -150,58 +213,14 @@ var Bingo90 = function(cards, pattern){
                     <span id="card_'+i+'_square28" class="selectedBox">'+num28+'</span>';
              table +=  '<div class="clearfix"></div><img src="assets/img/bingoBall.png" alt=""></div></div>';
 
-		/*table += '<div class="col-md-6 card-nm'+nm+'>">\
-                    <div class="card90"><table class="table90 pattern" id="card_'+i+'">\
-                        <tr>\
-                        <td id="card_'+i+'_square0">'+num0+'</td>\
-                        <td id="card_'+i+'_square1">&nbsp;</td>\
-                        <td id="card_'+i+'_square2">'+num2+'</td>\
-                        <td id="card_'+i+'_square3">'+num3+'</td>\
-                        <td id="card_'+i+'_square4">&nbsp;</td>\
-                        <td id="card_'+i+'_square5">&nbsp;</td>\
-                        <td id="card_'+i+'_square6">&nbsp;</td>\
-                        <td id="card_'+i+'_square7">'+num7+'</td>\
-                        <td id="card_'+i+'_square8">'+num8+'</td>\
-                        </tr>\
-                        <tr>\
-                            <td id="card_'+i+'_square10">&nbsp;</td>\
-                            <td id="card_'+i+'_square11">'+num11+'</td>\
-                            <td id="card_'+i+'_square12">'+num12+'</td>\
-                            <td id="card_'+i+'_square13">&nbsp;</td>\
-                            <td id="card_'+i+'_square14">'+num14+'</td>\
-                            <td id="card_'+i+'_square15">'+num15+'</td>\
-                            <td id="card_'+i+'_square16">'+num16+'</td>\
-                            <td id="card_'+i+'_square17">&nbsp;</td>\
-                            <td id="card_'+i+'_square18">&nbsp;</td>\
-                        </tr>\
-                        <tr>\
-                            <td id="card_'+i+'_square20">'+num20+'</td>\
-                            <td id="card_'+i+'_square21">'+num21+'</td>\
-                            <td id="card_'+i+'_square22">&nbsp;</td>\
-                            <td id="card_'+i+'_square23">'+num23+'</td>\
-                            <td id="card_'+i+'_square24">&nbsp;</td>\
-                            <td id="card_'+i+'_square25">'+num25+'</td>\
-                            <td id="card_'+i+'_square26">&nbsp;</td>\
-                            <td id="card_'+i+'_square27">&nbsp;</td>\
-                            <td id="card_'+i+'_square28">'+num28+'</td>\
-                        </tr>\
-                    </table></div></div>';*/
+		
                 }
             }
         return table;
 	}
     this.winner90 = function(data){
         //console.log(data, this, 'in bingo 90 winner')
-        /*if(data == null){
-             counter_ball: 81,
-              winnerLine1: 1,
-              winnerLine1User: 'test',
-              winnerLine2: 1,
-              winnerLine2User: 'test',
-              winnerLine3: 1,
-              winnerLine3User: 'test',
-              game_completed: true 
-        }*/
+
         for(usr in data.users){
             //data.card_name = data.users[usr];
             var obj_length = Object.keys(data.users[usr]).length;
@@ -223,6 +242,7 @@ var Bingo90 = function(cards, pattern){
                         
                         data.winnerLine1 = 1;
                         data.winnerLine1User = usr;
+                        data.line1WinningCard = this.getLineWinningCard(i, usr, data, 'L1');
                     }
                     if(data.users[usr]["card_"+i+"_square11"]  == 'matched' &&
                         data.users[usr]["card_"+i+"_square12"] == 'matched' &&
@@ -234,6 +254,7 @@ var Bingo90 = function(cards, pattern){
 
                         data.winnerLine1 = 1;
                         data.winnerLine1User = usr;
+                        data.line1WinningCard = this.getLineWinningCard(i, usr, data,'L1');
                     }
                     if(data.users[usr]["card_"+i+"_square20"] == 'matched' &&
                         data.users[usr]["card_"+i+"_square21"] == 'matched' &&
@@ -244,6 +265,7 @@ var Bingo90 = function(cards, pattern){
                         update_credit(data, usr, 1);
                         data.winnerLine1 = 1;
                         data.winnerLine1User = usr;
+                        data.line1WinningCard = this.getLineWinningCard(i, usr, data,'L1');
                     }
                 }
                 //2 lines winner
@@ -284,6 +306,7 @@ var Bingo90 = function(cards, pattern){
                         update_credit(data, usr, 2);
                         data.winnerLine2 = 1;
                         data.winnerLine2User = usr;
+                        data.line2WinningCard = this.getLineWinningCard(i, usr, data, 'L2');
                     }
                 }
                 //full house win
@@ -306,6 +329,7 @@ var Bingo90 = function(cards, pattern){
                         update_credit(data, usr, 3);
                     data.winnerLine3 = 1;
                     data.winnerLine3User = usr;
+                    data.line3WinningCard = this.getLineWinningCard(i, usr, data, 'L3');
                 }
             } // for loop
             data.card_name[usr] = data.users[usr];

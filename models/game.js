@@ -17,7 +17,13 @@ var gameSchema = new Schema({
     started   : Boolean,
     completed : Boolean,
     date      : Date,
-    type       : String
+    type       : String,
+    winnerLine1:String,
+    winnerLine1Card:String,
+    winnerLine2:String,
+    winnerLine2Card:String,
+    winnerLine3:String,
+    winnerLine3Card:String,
     //users :   Schema.Types.Mixed
 });
 gameSchema.statics.gameStatusStarted = function(boolean, game_id) {
