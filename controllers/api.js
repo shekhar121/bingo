@@ -167,31 +167,37 @@ app.use(jsonParser);
 							if(req.session.user_bingo_credits < room.book1_cost){
 								return res.status(200).json({status:false, msg:'not enough credits'});
 							} 
+							req.session.user_bingo_credits = (req.session.user_bingo_credits-room.book1_cost);
 						}
 						if(req.body.Room.cards == 2){
 							if(req.session.user_bingo_credits < room.book2_cost){
 								return res.status(200).json({status:false, msg:'not enough credits'});
 							} 
+							req.session.user_bingo_credits = (req.session.user_bingo_credits-room.book2_cost);
 						}
 						if(req.body.Room.cards == 3){
 							if(req.session.user_bingo_credits < room.book3_cost){
 								return res.status(200).json({status:false, msg:'not enough credits'});
 							} 
+							req.session.user_bingo_credits = (req.session.user_bingo_credits-room.book3_cost);
 						}
 						if(req.body.Room.cards == 4){
 							if(req.session.user_bingo_credits < room.book4_cost){
 								return res.status(200).json({status:false, msg:'not enough credits'});
 							} 
+							req.session.user_bingo_credits = (req.session.user_bingo_credits-room.book4_cost);
 						}
 						if(req.body.Room.cards == 5){
 							if(req.session.user_bingo_credits < room.book5_cost){
 								return res.status(200).json({status:false, msg:'not enough credits'});
 							} 
+							req.session.user_bingo_credits = (req.session.user_bingo_credits-room.book5_cost);
 						}
 						if(req.body.Room.cards == 6){
 							if(req.session.user_bingo_credits < room.book6_cost){
 								return res.status(200).json({status:false, msg:'not enough credits'});
 							} 
+							req.session.user_bingo_credits = (req.session.user_bingo_credits-room.book6_cost);
 						}
 
 					
@@ -415,7 +421,7 @@ app.use(jsonParser);
 		var total_credits = req.body.total_credits;
 	  	var transfer_credits = req.body.transfer_credits;
 	  	var user_credits = total_credits-transfer_credits;
-	  	//req.session.user_bingo_credits = transfer_credits;
+
 	  	User.findOne({'username':req.session.user.username},  function(err, user){
         	if(err){
 				res.status(500).send(err);

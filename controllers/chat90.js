@@ -24,10 +24,10 @@ module.exports = function(http){
 		//console.log(stopCounter, 'stopCounter');
 		//clearInterval(checkInterval);
 		checkInterval = setInterval(function(){
-			hr = moment(new Date()).tz("Europe/Amsterdam").format("Hmmss");
+			hr = moment(new Date()).tz("Europe/Amsterdam").format("mmss");
 	    	console.log(hr, 'current hour');
 	    	//if(hr == "20" || hr == "20:05" || hr == "20:10" || hr == "20:15" || hr == "20:20" || hr == "20:25" || hr == "20:30" || hr == "20:35" || hr == "20:40" || hr == "20:45" || hr == "20:50" || hr == "20:55"){
-	    	if(hr == "235001" || hr == "171901" || hr == "232501" || hr == '2359' || hr == "21:20" || hr == "21:25" || hr == "20:30" || hr == "20:35" || hr == "20:40" || hr == "20:45" || hr == "20:50" || hr == "20:55"){
+	    	if(hr == "0001" || hr == "0601" || hr == "1001" || hr == '1601' || hr == "2001" || hr == "2601" || hr == "3001" || hr == "3601" || hr == "4001" || hr == "4601" || hr == "5001"){
 	    		// get the game and call 'game counter', that starts bingo 90
 		    	//if(!b90.round_started){
 		    		
@@ -75,11 +75,7 @@ module.exports = function(http){
 			data.users = {};
 			data.card_name = {};
 			console.log('game counter called - ',data)
-			/*Game.findOne({'_id':data.game_id},  function(err, game){
-	        	if(err){
-					res.status(500).send(err);
-					return;
-				}*/
+
 				if(data.game.users){
 					//data.users = game.users;
 					for(var i=0;i<data.game.users.length;i++){
@@ -90,52 +86,49 @@ module.exports = function(http){
 				}
 				//clearInterval(stopCounter);
 				stopCounter = setInterval(function(){
-				var ball= array90[Math.floor(Math.random()*array90.length)];
-				var index = array90.indexOf(ball);
-				if (index > -1) {
-					array90.splice(index, 1);
-				}
-				data.counter_ball = ball;
-				//game completes here - update db
-				if(array90.length == 0 || data.winnerLine3 == 1){
-	                data.game_completed = true;
-	                //b90.round_started = false;
-	                //console.log(data)
-	                //update room status to false so it show open in rooms
-	                Room.roomStatus(false, data.user_room);
-					//update games stayus to completed
-					Game.gameStatusCompleted(true, data.game_id);
-					//update credits
+					var ball= array90[Math.floor(Math.random()*array90.length)];
+					var index = array90.indexOf(ball);
+					if (index > -1) {
+						array90.splice(index, 1);
+					}
+					data.counter_ball = ball;
+					//game completes here - update db
+					if(array90.length == 0 || data.winnerLine3 == 1){
+		                data.game_completed = true;
+		                //b90.round_started = false;
+		                //console.log(data)
+		                //update room status to false so it show open in rooms
+		                Room.roomStatus(false, data.user_room);
+						//update games stayus to completed
+						Game.gameStatusCompleted(true, data.game_id);
+						//update credits
 
-					// update other details when gane is completdd
+						// update other details when gane is completdd
 
-					//end all updates after game completeds
-	                console.log(data.counter_ball, array90.length, 'LAST - data.counter_ball1',data.user_room);
-	                io90.to(data.user_room).emit('show counter ball', data);
-	                  data.counter_ball= null;
-		              data.winnerLine1= null;
-		              data.winnerLine1User= null;
-		              data.winnerLine2= null;
-		              data.winnerLine2User= null;
-		              data.winnerLine3= null;
-		              data.winnerLine3User= null;
-		              data.game_completed= null;
-	                data = null;
-	                //data = bingo90.winner90(data, 'none');
-	                console.log('before clearInterval - ',data)
-	                clearInterval(stopCounter);
-	                return;
-            	}
-            	//data.user_bought_card = true;
-				//console.log(data, 'data from client');
-				data = bingo90.winner90(data, 'none');
-				console.log(data.counter_ball, array90.length, 'data.counter_ball2', data.user_room);
-	
-				io90.to(data.user_room).emit('show counter ball', data);
+						//end all updates after game completeds
+		                console.log(data.counter_ball, array90.length, 'LAST - data.counter_ball1',data.user_room);
+		                io90.to(data.user_room).emit('show counter ball', data);
+		                  data.counter_ball= null;
+			              data.winnerLine1= null;
+			              data.winnerLine1User= null;
+			              data.winnerLine2= null;
+			              data.winnerLine2User= null;
+			              data.winnerLine3= null;
+			              data.winnerLine3User= null;
+			              data.game_completed= null;
+		                data = null;
+		                //data = bingo90.winner90(data, 'none');
+		                console.log('before clearInterval - ',data)
+		                clearInterval(stopCounter);
+		                return;
+	            	}
+	            	//data.user_bought_card = true;
+					//console.log(data, 'data from client');
+					data = bingo90.winner90(data, 'none');
+					console.log(data.counter_ball, array90.length, 'data.counter_ball2', data.user_room);
+		
+					io90.to(data.user_room).emit('show counter ball', data);
 				}, 3000);
-
-			//});	//game find ends
-			
 
 			
 		});

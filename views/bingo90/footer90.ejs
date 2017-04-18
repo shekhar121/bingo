@@ -3,11 +3,11 @@
        <div class="row footer">
       <div class="botom_infoTxt">
             <a href="#" class=""><i class="fa fa-lock left"></i> Logged in As: test</a>
-            <a href="#" class="" data-toggle="modal" data-target="#myModal"><i class="fa fa-user left"></i> My Account</a>
-            <a href="#" class=""><i class="fa fa-gear left"></i> Credits: €640</a>
-            <a href="#" class=""><i class="fa fa-gift left"></i> Won: €00.0</a>
-            <a href="#" class=""><i class="fa fa-money left"></i> Pay Desk</a>
-            <a href="#" class=""><i class="fa fa-info left"></i> Help</a>
+            <a href="#" class="" data-toggle="modal" data-target="#modalMyAccount"><i class="fa fa-user left"></i> My Account</a>
+            <a href="#" class=""><i class="fa fa-gear left"></i> Total Credits: €<%- Bingo.user_details.total_credits %></a>
+            <a href="#" class=""><i class="fa fa-gift left"></i> Bingo/Won Credits: €<%- Bingo.user_bingo_credits %></a>
+            <a href="#" class="" data-toggle="modal" data-target="#paydeskModal"><i class="fa fa-money left"></i> Pay Desk</a>
+            <a href="#" class="" data-toggle="modal" data-target="#modalHelp"><i class="fa fa-info left"></i> Help</a>
             
             </div>          
     </div>
@@ -24,6 +24,7 @@
     <!-- index -->
     <%- include('../modals/help'); %>
     <%- include('../modals/pay_desk'); %>
+    <%- include('../modals/my_account'); %>
   
     <script src="/assets/js/bingo90.js"></script>
 <script type="text/javascript">

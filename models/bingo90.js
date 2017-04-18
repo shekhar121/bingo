@@ -94,7 +94,7 @@ var Bingo90 = function(cards, pattern){
                     \
                     <span id="card_'+i+'_square10"></span>\
                     <span id="card_'+i+'_square11" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square11"]+'</span>\
-                    <span id="card_'+i+'_square12" class="selectedBox">'+data.current_game[usr]["card_"+i+"_square12"]+'</span>\
+                    <span id="card_'+i+'_square12" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square12"]+'</span>\
                     <span id="card_'+i+'_square13"></span>\
                     <span id="card_'+i+'_square14" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square14"]+'</span>\
                     <span id="card_'+i+'_square15" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square15"]+'</span>\
