@@ -29,6 +29,7 @@
 
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="/assets/js/mdb.min.js"></script>
+    <script src="/assets/js/howler.core.js"></script>
 
 <!-- 
 <%- include('../modals/pay_desk'); %> -->
@@ -61,5 +62,17 @@
 </body>
 
 </html>  
+<script>
+<% if(Bingo.url == 'bingo75/rooms') { %>
+    var sound = new Howl({
+      src: ['/assets/sound/mp3/backgroundsound3.mp3']
+    });
+
+    // Clear listener after first call.
+    sound.once('load', function(){
+      sound.play();
+    });
+<% } %>
+</script>
 
 

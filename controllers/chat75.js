@@ -29,7 +29,7 @@ module.exports = function(http){
 		 });*/
 		connections.push(socket);
 		console.log('conncted : %s user(s) connected..!', connections.length);
-		socket.on('send message', function(data){
+		socket.on('send message75', function(data){
 			console.log(data); 
 			socket.join(data.user_room);
 			
@@ -38,7 +38,7 @@ module.exports = function(http){
 			io.to(data.user_room).emit('show message', data);
 			//io.emit('show message', data);
 		});
-		socket.on('get user list', function(data){
+		socket.on('get user list75', function(data){
 			//callback(true);
 			socket.join(data.user_room);
 			console.log(data, 'get user list CALLED')
@@ -54,7 +54,7 @@ module.exports = function(http){
 			//io.emit('show message', data);
 		});
 		function update_user_list(user_room){
-			io.to(user_room).emit('show user list', users);
+			io.to(user_room).emit('show user list75', users);
 			console.log(users, user_room,'users: show user list CALLED');
 		}
 		
@@ -122,7 +122,7 @@ module.exports = function(http){
 		// bingo 75 ---------------------------------------------- End
 
 		//private chat
-		socket.on('pchat', function(data, callback) {
+		socket.on('pchat75', function(data, callback) {
 			console.log(data, 'in private char')
 			//socket.join(data.to);
 			//socket.join(data.from);

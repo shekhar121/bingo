@@ -34,7 +34,7 @@ controllers.api(app);
 controllers.cbingo75(app);
 controllers.cbingo90(app);
 controllers.admin(app);
-//controllers.chat75(http);
+controllers.chat75(http);
 controllers.chat90(http);
 //html(app);
 

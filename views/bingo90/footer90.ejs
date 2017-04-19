@@ -19,6 +19,8 @@
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/mdb.min.js"></script>
     <script src="/assets/js/howler.core.js"></script>
+    <script src="/assets/js/moment.js"></script>
+    <script src="/assets/js/moment-tz.js"></script>
 
 
     <!-- index -->
@@ -216,6 +218,67 @@
       sound.play();
     });
 <% } %>
+</script>
+
+
+<script>
+$('#clockdiv').hide();
+function getTimeRemaining(endtime) {
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor((t / 1000) % 60);
+  var minutes = Math.floor((t / 1000 / 60) % 60);
+  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+  return {
+    'total': t,
+    'days': days,
+    'hours': hours,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+}
+
+function initializeClock(id, endtime) {
+  var clock = document.getElementById(id);
+  //var daysSpan = clock.querySelector('.days');
+  //var hoursSpan = clock.querySelector('.hours');
+  var minutesSpan = clock.querySelector('.minutes');
+  var secondsSpan = clock.querySelector('.seconds');
+
+  function updateClock() {
+    var t = getTimeRemaining(endtime);
+
+    //daysSpan.innerHTML = t.days;
+    //hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+    if (t.total <= 0) {
+      $('#clockdiv').hide();
+      clearInterval(timeinterval);
+      clearInterval(checkInterval);
+    }
+  }
+
+  updateClock();
+  var timeinterval = setInterval(updateClock, 1000);
+}
+curr_hr = moment(new Date()).tz("Europe/Amsterdam").format('x');
+fut_hr = moment(new Date()).tz("Europe/Amsterdam").add(300000, 'ms').format('x');
+diff_hr = (fut_hr - curr_hr);
+/*console.log(curr_hr, fut_hr, diff_hr);
+hr = moment(new Date()).tz("Europe/Amsterdam");
+//var deadline = new Date(hr + 1 * 1 * 3 * 60 * 1000);
+var deadline = new Date(hr + diff_hr);
+initializeClock('clockdiv', deadline);*/
+checkInterval = setInterval(function(){
+  hr = moment(new Date()).tz("Europe/Amsterdam").format("mmss");
+    if(hr == "5929" || hr == "0529" || hr == "0929" || hr == '1529' || hr == "1929" || hr == "2529" || hr == "2929" || hr == "3529" || hr == "3929" || hr == "4529" || hr == "4929"){
+        $('#clockdiv').show();
+        var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * 30 * 1000);
+        initializeClock('clockdiv', deadline);
+    }
+  }, 1000);
 </script>
 </body>
 

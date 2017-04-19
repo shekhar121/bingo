@@ -200,14 +200,14 @@ var socket = io();
     data.user = "<%= Bingo.user %>";
     data.user_room = "<%= Bingo.user_room %>";
         console.log(data);
-        socket.emit('get user list', data);
+        socket.emit('get user list75', data);
     $('#send_msg_btn').show();
     $('#message').show();   
     $('#send_msg_btn').on('click', function(e){
         e.preventDefault();
         var message = $('#message').val();
         data.message = message;
-        socket.emit('send message', data);
+        socket.emit('send message75', data);
         $('#message').val('');
         return false;
     });
@@ -217,7 +217,7 @@ var socket = io();
           "scrollTop": $('#messages')[0].scrollHeight
         }, "fast");
     });
-    socket.on('show user list', function(users){ 
+    socket.on('show user list75', function(users){ 
         console.log(users);
         var user_list = '';
         for(i=0;i<users.length;i++){
@@ -318,7 +318,7 @@ $( document ).ready(function() {
                     $('#game_winner').html('<li><a class="btn btn-orange">'+data.winner75User+'</a></li>')
                 }
             }
-            //socket.emit('game counter', bingo90);
+            
         });
         function animate(cnt){
             

@@ -48,9 +48,7 @@ module.exports = function(http){
 		    		
 		    	//}
 	    	}
-	    	if(hr == "22" || hr == "22:05" || hr == "22:10" || hr == "22:15" || hr == "22:20" || hr == "22:25" || hr == "22:30" || hr == "22:35" || hr == "22:40" || hr == "22:45" || hr == "22:50" || hr == "22:55"){
-	    		// get the game and call 'game counter', that starts bingo 90
-	    	}
+	    	
 	    }, 1000);
 // bingo 90 ---------------------------------------------- Start
 		

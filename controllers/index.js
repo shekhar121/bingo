@@ -13,7 +13,7 @@ module.exports = {
 	cbingo90 : cbingo90,
 	admin: admin,
 	api : api,
-	//chat75 : chat75,
+	chat75 : chat75,
 	chat90 : chat90
 
 }

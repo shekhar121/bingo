@@ -400,7 +400,34 @@ body{background-color:#004253; /*padding:10px;*/}
     background: #00c1ff;
     border: 5px solid #eee;
 }
+#clockdiv{
+  font-family: sans-serif;
+  color: #fff;
+  display: inline-block;
+  font-weight: 100;
+  text-align: center;
+  font-size: 20px;
+  padding-top: 5px
+}
 
+#clockdiv > div{
+  padding: 5px;
+  border-radius: 3px;
+  background: #fbc846;
+  display: inline-block;
+}
+
+#clockdiv div > span{
+  padding: 5px;
+  border-radius: 3px;
+  background: #004253;
+  display: inline-block;
+}
+
+.smalltext{
+  padding-top: 5px;
+  font-size: 16px;
+}
 @keyframes rota {
     to { transform: rotate(360deg); }
 }
