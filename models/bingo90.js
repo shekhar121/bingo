@@ -330,6 +330,20 @@ var Bingo90 = function(cards, pattern){
                     data.winnerLine3 = 1;
                     data.winnerLine3User = usr;
                     data.line3WinningCard = this.getLineWinningCard(i, usr, data, 'L3');
+                    // new game add
+                    var g = new Game();
+                    g.title = 'New_Game';
+                    g.date = new Date();
+                    g.started = false;
+                    g.completed = false;
+                    g.type = 'bingo90';
+                    g.save(function(err, ga){
+                        if(err){
+                            res.status(500).send(err);
+                            return;
+                        }
+                    });
+                    //new gameadded
                 }
             } // for loop
             data.card_name[usr] = data.users[usr];

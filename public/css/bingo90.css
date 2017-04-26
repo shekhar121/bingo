@@ -432,7 +432,7 @@ body{background-color:#004253; /*padding:10px;*/}
     to { transform: rotate(360deg); }
 }
 .spinit {
-    -webkit-animation: rotation 2s infinite linear !important;
+    -webkit-animation: rotation 3s infinite linear !important;
 }
 
 @-webkit-keyframes rotation {
