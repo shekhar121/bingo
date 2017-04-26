@@ -104,9 +104,7 @@
                     <% if(Bingo.game_id){ %>
                         <div class="enterRoom"><a style="padding: 20px 60px;border-radius: 0px;background: #004253;" href="/bingo90" class="glass" >See your game</a></div>
                     <% }  %>
-                     <!-- <% if(!Bingo.user_game.started){ %>Or
-                        <div class="enterRoom"><a id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Update/Enter Room</a></div>
-                    <% }  %> -->
+              
                     <% if(!Bingo.rooms[i].status){ %>
                         <div class="enterRoom"><a style="padding: 20px 60px;background: #004253;border-radius: 0px;" id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Update/Enter Room</a></div>
                     <% }  %>
