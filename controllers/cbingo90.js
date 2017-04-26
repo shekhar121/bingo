@@ -35,12 +35,12 @@ module.exports = function(app){
 			// add new game 
 			// starts remove later - just to insert some testing games
 		  	var g = new Game();
-		  	g.title = 'This is new game..';
+		  	g.title = 'New_Game';
 		  	g.date = new Date();
 		  	g.started = false;
 		  	g.completed = false;
 		  	g.type = 'bingo90';
-		  	g.save(function(err, g){
+		  	g.save(function(err, ga){
 		  		if(err){
 		  			res.status(500).send(err);
 		  			return;
