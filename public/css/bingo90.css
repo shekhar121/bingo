@@ -431,7 +431,14 @@ body{background-color:#004253; /*padding:10px;*/}
 @keyframes rota {
     to { transform: rotate(360deg); }
 }
+.spinit {
+    -webkit-animation: rotation 2s infinite linear !important;
+}
 
+@-webkit-keyframes rotation {
+    from {-webkit-transform: rotate(360deg);}
+    to   {-webkit-transform: rotate(0deg);}
+}
 @keyframes loading-1 {
     14.28% { opacity: 0.3; }
 }
