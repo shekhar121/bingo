@@ -7,7 +7,7 @@
        <% if(Bingo.rooms.length > 0){ 
             for(i=0;i<Bingo.rooms.length;i++){
         %>
-           <div class="col-md-15 colBorder">
+           <div class="col-md-15 colBorder" <% if(i==0){ %> style="border-left: 0.5rem #004253 solid;" <% } %>>
                 <div class="roomHead"><%= Bingo.rooms[i].name %> (<span>0</span>)</div>
                 <div class="roomTxtBox">
                     <div class="titleTxt">Status: 
@@ -36,7 +36,7 @@
                     <!-- <span class="roomPrice">6 x &euro; 30.00,</span>
                     <span class="roomPrice">5 x &euro; 100.00</span> -->
                     <!--**********************************-->
-                    <div class="titleTxt">Buy Books!</div>
+                    <!-- <div class="titleTxt">Buy Books!</div>
                     <div id="btn_card" class="btnWrap">
                         <a href="javascript:void(0)" class="blackglass" data-val="1">1</a> 
                         <a href="javascript:void(0)" class="blackglass" data-val="2">2</a>
@@ -49,11 +49,13 @@
                         <i class="fa fa-chevron-down"></i>
                         <span id="selected_card" class="selectedBook">1</span>
                         <i class="fa fa-chevron-down"></i>
-                    </div> 
+                    </div> --> 
                     <!--**********************************-->
                     <span class="clearfix"></span>
-                    <div class="titleTxt">Select Blackground</div>
-                    <div id="body_bg" class="btnWrap">
+                    <div class="titleTxt">Select Blackground 
+                        <span id="selected_body_bg" class="selectedColor_1 selectedBook">&nbsp;</span>
+                    </div>
+                    <div id="body_bg" class="btnWrap" >
                         <a  class="colorBox color_1" data-bg="#fc4000"></a> 
                         <a  class="colorBox color_2" data-bg="#9b0298"></a> 
                         <a  class="colorBox color_3" data-bg="#4e2900"></a> 
@@ -63,51 +65,53 @@
                         <a  class="colorBox color_7" data-bg="#0011cb"></a> 
                         <a  class="colorBox color_8" data-bg="#00c1ff"></a> 
                     </div>
-                    <div class="BuyBook">
+                    <!-- <div class="BuyBook" >
                         <i class="fa fa-chevron-down"></i>
                         <span id="selected_body_bg" class="selectedColor_1 selectedBook">&nbsp;</span>
                         <i class="fa fa-chevron-down"></i>
-                    </div> 
+                    </div> --> 
                     <!--**********************************-->
                     <span class="clearfix"></span>
-                    <div class="titleTxt">Click on pin you want to use:</div>
-                    <div id="pin_bg" class="btnWrap pinWrap">
-                    <a href="javascript:void(0)" class="pin_3" data-bg="#429022"><img src="/assets/img/Marker_3.svg" width="32"  /></a>
+                    <div class="titleTxt">Click on pin you want to use: <span id="selected_pin_bg" class="selectedColor_2">&nbsp;</span></div>
+                    <div id="pin_bg" class="btnWrap pinWrap" > 
+                    <a href="javascript:void(0)" class="pin_3" data-bg="#429022"><img src="/assets/img/Marker_3.svg" width="15%"  /></a>
                         <a href="javascript:void(0)" class="pin_1" data-bg="#00c1ff"> <!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> -->
-                            <img src="/assets/img/Marker_1.svg"   width="32"/>
+                            <img src="/assets/img/Marker_1.svg"   width="15%"/>
                         </a>
                         <a href="javascript:void(0)" class="pin_2" data-bg="#0011cb"><!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> -->
-                            <img src="/assets/img/Marker_2.svg"  width="32"/>
+                            <img src="/assets/img/Marker_2.svg"  width="15%"/>
                         </a> 
                          
                         <!-- <a href="javascript:void(0)" class="pin_4" data-bg="#dc248e"><i class="fa fa-thumb-tack" aria-hidden="true"></i>
                             <img src="/assets/img/Marker_4.svg" wheight="50" width="20"/>
                         </a> --> 
                         <a href="javascript:void(0)" class="pin_5" data-bg="#9b101a"><!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> -->
-                            <img src="/assets/img/Marker_5.svg"  width="32"/>
+                            <img src="/assets/img/Marker_5.svg"  width="16%"/>
                         </a>
                         <a href="javascript:void(0)" class="pin_6" data-bg="#fd02b1"><!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> -->
-                            <img src="/assets/img/Marker_6.svg" width="32"/>
+                            <img src="/assets/img/Marker_6.svg" width="15%"/>
                         </a>
-                        <a href="javascript:void(0)" class="pin_7" data-bg="#4e2900"><!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> --><img src="/assets/img/Marker_7.svg"   width="32"/></a> 
-                        <a href="javascript:void(0)" class="pin_8" data-bg="#fc4000"><!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> --><img src="/assets/img/Marker_9.svg"  width="32"/></a> 
+                        <a href="javascript:void(0)" class="pin_7" data-bg="#4e2900"><!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> --><img src="/assets/img/Marker_7.svg"   width="15%"/></a> 
+                        <a href="javascript:void(0)" class="pin_8" data-bg="#fc4000"><!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> --><img src="/assets/img/Marker_9.svg"  width="15%"/></a> 
                         <!-- <a href="javascript:void(0)" class="pin_9" data-bg="#ea2300"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> 
-                        <a href="javascript:void(0)" class="pin_10" data-bg="#004209"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> -->  
+                        <a href="javascript:void(0)" class="pin_10" data-bg="#004209"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> --> 
+                        
                     </div>
-                    <div class="BuyBook">
+                    <% if(Bingo.game_id){ %>
+                        <div class="enterRoom"><a style="border-radius: 0px;background: #004253;" href="/bingo90" class="glass" >See your game</a></div>
+                        <% }  %>
+                  
+                        <% if(!Bingo.rooms[i].status){ %>
+                            <div class="enterRoom"><a style="background: #004253;border-radius: 0px;" id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Update / Enter Room</a></div>
+                        <% }  %>
+                    <!-- <div class="BuyBook" >
                         <i class="fa fa-chevron-down"></i>
                         <span id="selected_pin_bg" class="selectedColor_2">&nbsp;</span>
                         <i class="fa fa-chevron-down"></i>
-                    </div> 
+                    </div>  -->
                     <!--**********************************-->
-                    <span class="clearfix"></span>
-                    <% if(Bingo.game_id){ %>
-                        <div class="enterRoom"><a style="padding: 20px 60px;border-radius: 0px;background: #004253;" href="/bingo90" class="glass" >See your game</a></div>
-                    <% }  %>
-              
-                    <% if(!Bingo.rooms[i].status){ %>
-                        <div class="enterRoom"><a style="padding: 20px 60px;background: #004253;border-radius: 0px;" id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Update/Enter Room</a></div>
-                    <% }  %>
+                   <!--  <span class="clearfix"></span> -->
+                    
                     
                   
                     
@@ -141,6 +145,81 @@
 <!-- /.container -->
 
 <%- include('footer90'); %>
+
+<script type="text/javascript">
+$( document ).ready(function() {
+    $("#ex8").slider({
+        tooltip: 'always'
+    });
+    
+});
+</script>
+<script type="text/javascript">
+$(".bg_load, .wrapper").hide();
+    Room = {
+        body_bg: '#e80000',
+        pin_bg: '#429022',
+        cards:1,
+        room_id: false,
+        game_id:false
+    };
+    $('#body_bg a').on('click', function(e){
+        Room.body_bg = $(this).attr('data-bg');
+        $('#selected_body_bg').css('background',Room.body_bg);
+        
+    })
+    $('#pin_bg a').on('click', function(e){
+        Room.pin_bg = $(this).attr('data-bg');
+        $('#selected_pin_bg').css('background',Room.pin_bg);
+        console.log(Room);
+    })
+    /*$('#btn_card a').on('click', function(e){
+        Room.cards = $(this).attr('data-val');
+        $('#selected_card').text(Room.cards);
+    })*/
+    $("#ex8").on("slide", function(slideEvt) {
+        //$("#ex6SliderVal").text(slideEvt.value);
+        //console.log(slideEvt.value);
+        Room.cards = slideEvt.value;
+    });
+    $('#room_id').on('click', function(e){
+        e.preventDefault(); 
+        $(".bg_load, .wrapper").show();
+        $(".bg_load").fadeOut("slow");
+        $(".wrapper").fadeOut("slow");
+        Room.room_id = $(this).attr('data-room');
+        Room.game_id = $(this).attr('data-game');
+        //console.log(Room); 
+        //return;
+        if(Room.room_id && Room.game_id){
+        
+            $.ajax({
+              type: "POST",
+              url: '/api/gotobingo90',
+              data: JSON.stringify({Room}),
+              success: function(res){
+                console.log('logged in ..'+ res);
+                if(res.status){
+                    window.location.href = '/bingo90';
+                    return;
+                }
+                if(!res.status){
+                    $('#error').addClass('error-red red text-center' ).html('not enough credits! tranfer credits to bingo or get more credits');
+                    return;
+                }
+              },
+              error:function(xhr){
+                $('#error').addClass('error-red red').html('There is some issue!');
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+            });
+        } else{
+            alert('oops! something went wrong!');
+        }
+    });
+    
+</script>
 
 
 

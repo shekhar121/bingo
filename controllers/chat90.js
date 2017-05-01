@@ -25,7 +25,7 @@ module.exports = function(http){
 		//clearInterval(checkInterval);
 		checkInterval = setInterval(function(){
 			hr = moment(new Date()).tz("Europe/Amsterdam").format("mmss");
-	    	console.log(hr, 'current hour');
+	    	//console.log(hr, 'current hour');
 	    	//if(hr == "20" || hr == "20:05" || hr == "20:10" || hr == "20:15" || hr == "20:20" || hr == "20:25" || hr == "20:30" || hr == "20:35" || hr == "20:40" || hr == "20:45" || hr == "20:50" || hr == "20:55"){
 	    	if(hr == "0001" || hr == "0601" || hr == "1001" || hr == '1601' || hr == "2001" || hr == "2601" || hr == "3001" || hr == "3601" || hr == "4001" || hr == "4601" || hr == "5001"){
 	    		// get the game and call 'game counter', that starts bingo 90
@@ -95,6 +95,20 @@ module.exports = function(http){
 		                data.game_completed = true;
 		                //b90.round_started = false;
 		                //console.log(data)
+		                // new game add
+	                    var g = new Game();
+	                    g.title = 'New_Game_from_Chat90';
+	                    g.date = new Date();
+	                    g.started = false;
+	                    g.completed = false;
+	                    g.type = 'bingo90';
+	                    g.save(function(err, ga){
+	                        if(err){
+	                            res.status(500).send(err);
+	                            return;
+	                        }
+	                    });
+                    //new gameadded
 		                //update room status to false so it show open in rooms
 		                Room.roomStatus(false, data.user_room);
 						//update games stayus to completed
@@ -123,7 +137,7 @@ module.exports = function(http){
 	            	//data.user_bought_card = true;
 					//console.log(data, 'data from client');
 					data = bingo90.winner90(data, 'none');
-					console.log(data.counter_ball, array90.length, 'data.counter_ball2', data.user_room);
+					console.log(data.counter_ball, data.users, 'data.counter_ball2', data.user_room);
 		
 					io90.to(data.user_room).emit('show counter ball', data);
 				}, 3000);

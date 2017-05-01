@@ -149,7 +149,7 @@ app.use(jsonParser);
 			
 			//res.redirect('/bingo90');
 			//var gameID = req.body.Room.game_id;
-			
+				console.log(req.body.Room, 'room data.....');
 				//Game.findOne({'_id':gameID},  function(err, game){
 				Game.findOne({type:'bingo90', started:false, completed:false},  function(err, game){
 		        	if(err){

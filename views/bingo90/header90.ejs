@@ -19,7 +19,7 @@
     <link href="/assets/css/mdb.min.css" rel="stylesheet">
     <!-- Custom -->
     <link href="/assets/css/bingo90.css" rel="stylesheet">
-
+    <link href="/assets/css/bootstrap-slider.min.css" rel="stylesheet">
     <!-- Template styles -->
     <style rel="stylesheet">
         /* TEMPLATE STYLES */
@@ -45,55 +45,84 @@
   background: -moz-linear-gradient(-90deg, <%= Bingo.body_bg %>, #461415); /* For Firefox 3.6 to 15 */
   background: linear-gradient(-90deg, <%= Bingo.body_bg %>, #461415); /* Standard syntax */
 }
+.cl{
+  color; background: <%= Bingo.pin_bg %>;
+}
+.cl2{
+  color; background: <%= Bingo.body_bg %>;
+}
     </style>
 
 </head>
 <body>
+
 <% if(Bingo.url == 'bingo90/rooms') { %>
-<div class="container-fluid bgcolor noborder">
+<!-- <div class="container-fluid bgcolor noborder"> -->
+<div class="container-fluid" style="background: #256ba7;">
   <div class="col-md-12">
        <div class="row">
-            <div class="col-md-4">
-              <div class="chatSec"><img src="/assets/img/chat1.png" alt=""> Welcome at “<span class="redColor">Bingo</span>” our game is based on traditional bingo game.</div>
-              <!-- <div class="msgBox">
-                <span class="msg">Do you have questions, consult a chat moderator or our helpdesk</span>
-                <span class="userName">Welcome: <span class="nam"><%- Bingo.user %></span></span>
-              </div> -->
-            </div>
+            <div class="col-md-9">
+              <!-- <a href="<%= Bingo.url  %>">
+                  <img src="/assets/img/woodbingo_logo.png" class="logo" width="200">
+              </a> -->
+                <img src="/assets/img/woodbingo_logo.png" class="logo" width="200" style="float: left;">
+              <h2 class="headerTxt"><!-- <img src="/assets/img/chat1.png" alt=""> --> 
+
+             Welcome at “<span class="redColor">WoodBingo</span>” our game is based on traditional bingo game.</h2>
+
              
-            <div class="col-md-4">
-              <div class="chatSec"><img src="/assets/img/user1.png" alt=""> Welcome : <span class="nam"><%- Bingo.user %></span>
-                <div style="float: right; display: inline-block;"><a href="/api/logout" class="glass">Log out</a>
-                <a href="#" class="glass">Pay-out</a></div>
-                <div class="creditBox">
-                      <span>Total Credit:</span><span class="euro">&euro; <%- Bingo.user_details.total_credits %> </span><!-- <a href="/api/logout" class="glass">Log out</a> -->
-                      <span class="clearfix"></span>
-                  </div>
-                  <div class="creditBox">
-                      <span>Won:</span><span class="euro" id="won_credits">&euro; <%- Bingo.user_bingo_credits %> </span><!-- <a href="#" class="glass">Pay-out</a> -->
-                      <span class="clearfix"></span>
-                  </div>
+
+              <div style="clear: both; background: #fff;padding: 35px 10px 1px;"> 
+                <!-- <div class="titleTxt">Buy Books!</div> -->
+                    <div id="btn_card" class="btnWrap">Buy Books : 
+                    <input id="ex8" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="6" data-slider-step="1" data-slider-value="1"/>
+                        <!-- <a href="javascript:void(0)" class="blackglass" data-val="1">1</a> 
+                        <a href="javascript:void(0)" class="blackglass" data-val="2">2</a>
+                        <a href="javascript:void(0)" class="blackglass" data-val="3">3</a>
+                        <a href="javascript:void(0)" class="blackglass" data-val="4">4</a>
+                        <a href="javascript:void(0)" class="blackglass" data-val="5">5</a>
+                        <a href="javascript:void(0)" class="blackglass" data-val="6">6</a>
+                        <a id="selected_card" class="btn btn-yellow waves-effect waves-light" id="all_cards" style="background: #f3b359;    padding: 3px 15px;
+    border-radius: 15px;">1</a> -->
+                    <span style="float:right;margin-top: -2rem;">Also fun to play <a href="/bingo75/rooms" class="btn btn-yellow waves-effect waves-light" style="background: #f3b359;">Bingo 75</a></span>
+                    </div>
+                    <!-- <div class="BuyBook">
+                        <i class="fa fa-chevron-down"></i>
+                        <span id="selected_card" class="selectedBook">1</span>
+                        <i class="fa fa-chevron-down"></i>
+                    </div> -->
+              </div>
+
+            </div>
+
+             
+            <div class="col-md-3">
+
+                <div class="chatSec"><!-- <img src="/assets/img/user1.png" alt=""> --> 
+                    Welcome : <span class="nam"><%- Bingo.user %></span>
+                    <!-- <div style="float: right; display: inline-block;">
+                      <a href="/api/logout" class="glass">Log out</a>
+                      <a href="#" class="glass">Pay-out</a>
+                    </div> -->
+                    <div class="creditBox">
+                        <span>Total Credit:</span><span class="euro">&euro; <%- Bingo.user_details.total_credits %> </span>
+                        <span class="clearfix"></span>
+                    </div>
+                    <div class="creditBox">
+                        <span>Won:</span><span class="euro" id="won_credits">&euro; <%- Bingo.user_bingo_credits %> </span>
+                        <span class="clearfix"></span>
+                    </div>
+                    <a class="btn btn-yellow waves-effect waves-light" id="all_cards" style="background: #f3b359;">Pay Out</a>
+                    <a class="btn btn-yellow waves-effect waves-light" id="all_cards" style="background: #f97276;">Logout</a>
+                    
                 </div>
-              <!-- <div class="msgBox">
-                <div class="creditBox">
-                    <span>Total Credit:</span><span class="euro">&euro; <%- Bingo.user_details.total_credits %> </span><a href="/api/logout" class="glass">Log out</a>
-                    <span class="clearfix"></span>
-                </div>
-                <div class="creditBox">
-                    <span>Won:</span><span class="euro" id="won_credits">&euro; <%- Bingo.user_bingo_credits %> </span><a href="#" class="glass">Pay-out</a>
-                    <span class="clearfix"></span>
-                </div>
-              </div> -->
             </div>
             
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
               <div class="chatSec"><img src="/assets/img/euro.png" alt=""> Option: 
-                <!-- <a href="/api/logout" class="glass">Log out</a>
-                <a href="#" class="glass">Pay-out</a> -->
                 <a href="#" data-toggle="modal" data-target="#paydeskModal" class="glass">Pay Desk</a> <a href="#" class="glass">Help Desk</a> <a href="#" class="glass">Deposit</a>
               </div>
-              <!-- <div class="msgBox option"><a href="#" data-toggle="modal" data-target="#paydeskModal" class="glass">Pay Desk</a> <a href="#" class="glass">Help Desk</a> <a href="#" class="glass">Deposit</a></div> -->
-            </div>
+            </div> -->
         </div>
   </div>
 </div>

@@ -331,7 +331,7 @@ var Bingo90 = function(cards, pattern){
                     data.winnerLine3User = usr;
                     data.line3WinningCard = this.getLineWinningCard(i, usr, data, 'L3');
                     // new game add
-                    var g = new Game();
+                    /*var g = new Game();
                     g.title = 'New_Game';
                     g.date = new Date();
                     g.started = false;
@@ -342,7 +342,7 @@ var Bingo90 = function(cards, pattern){
                             res.status(500).send(err);
                             return;
                         }
-                    });
+                    });*/
                     //new gameadded
                 }
             } // for loop

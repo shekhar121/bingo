@@ -1,3 +1,35 @@
+<% if(Bingo.url == 'bingo90/rooms') { %>
+<nav class="navbar fixed-bottom navbar-light bg-faded" style="background: #256ba7; padding: 0">
+  <div class="botom_infoTxt">
+            <a href="#" class=""><i class="fa fa-lock left"></i> Logged in As</a>
+            <a class="btn btn-yellow waves-effect waves-light"  style="background: #215a9d; padding: 5px 10px;">Test</a>
+            <a href="#" class="">If you have any questions, contact a chat moderator, or got to "Help" desk</a>
+            <!-- <a href="#" class="" data-toggle="modal" data-target="#modalMyAccount"><i class="fa fa-user left"></i> My Account</a>
+            <a href="#" class=""><i class="fa fa-gear left"></i> Total Credits: €<%- Bingo.user_details.total_credits %></a>
+            <a href="#" class=""><i class="fa fa-gift left"></i> Bingo/Won Credits: €<%- Bingo.user_bingo_credits %></a> -->
+            <!-- <a href="#" class="" data-toggle="modal" data-target="#paydeskModal"><i class="fa fa-money left"></i> Pay Desk</a> -->
+            <a class="btn btn-yellow waves-effect waves-light"  style="background: #f3b359; padding: 5px 10px;float: right;">Deposit</a>
+            <a data-toggle="modal" data-target="#paydeskModal" class="btn btn-yellow waves-effect waves-light" style="background: #f3b359; padding: 5px 10px;float: right;">Pay Desk</a>
+            <!-- <a href="#" class="" data-toggle="modal" data-target="#modalHelp"><i class="fa fa-info left"></i> Help</a> -->
+            <a data-toggle="modal" data-target="#modalHelp" class="btn btn-yellow waves-effect waves-light" style="background: #f3b359;float: right; padding: 5px 10px;">Help</a>
+            
+            </div> 
+</nav>
+<!-- <div class="container-fluid">
+       <div class="row footer">
+      <div class="botom_infoTxt">
+            <a href="#" class=""><i class="fa fa-lock left"></i> Logged in As: test</a>
+            <a href="#" class="" data-toggle="modal" data-target="#modalMyAccount"><i class="fa fa-user left"></i> My Account</a>
+            <a href="#" class=""><i class="fa fa-gear left"></i> Total Credits: €<%- Bingo.user_details.total_credits %></a>
+            <a href="#" class=""><i class="fa fa-gift left"></i> Bingo/Won Credits: €<%- Bingo.user_bingo_credits %></a>
+            <a href="#" class="" data-toggle="modal" data-target="#paydeskModal"><i class="fa fa-money left"></i> Pay Desk</a>
+            <a href="#" class="" data-toggle="modal" data-target="#modalHelp"><i class="fa fa-info left"></i> Help</a>
+            
+            </div>          
+    </div>
+</div> -->
+<% } %>
+
 <% if(Bingo.url == 'bingo90') { %>
 <div class="container-fluid">
        <div class="row footer">
@@ -21,6 +53,7 @@
     <script src="/assets/js/howler.core.js"></script>
     <script src="/assets/js/moment.js"></script>
     <script src="/assets/js/moment-tz.js"></script>
+    <script src="/assets/js/bootstrap-slider.min.js"></script>
 
 
     <!-- index -->

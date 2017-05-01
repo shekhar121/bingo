@@ -34,7 +34,7 @@ module.exports = function(app){
 			req.session.game_id = null;
 			// add new game 
 			// starts remove later - just to insert some testing games
-		  	var g = new Game();
+		  	/*var g = new Game();
 		  	g.title = 'New_Game';
 		  	g.date = new Date();
 		  	g.started = false;
@@ -45,7 +45,7 @@ module.exports = function(app){
 		  			res.status(500).send(err);
 		  			return;
 		  		}
-		  	});
+		  	});*/
 		  	// ends remove later - just to insert some testing games
 		  	req.session.game_id = null;
 		}

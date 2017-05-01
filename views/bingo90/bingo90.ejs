@@ -289,7 +289,7 @@ $( document ).ready(function() {
             }
             var user = '<%= Bingo.user %>';
             for(key in data.card_name[user]){
-            //console.log(key, 'key');
+            //console.log(key, 'key', <%= Bingo.pin_bg %>);
                     if(data.card_name[user][key] == 'matched'){
                         //document.getElementById(key).className ='matched-cell';
                         $('#'+key).css('background','<%= Bingo.pin_bg %>');;
