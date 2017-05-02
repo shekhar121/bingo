@@ -46,21 +46,45 @@ function update_credit(data, usr, lineprize){
             }
             if(lineprize == 3){
                 room_prize = room.fullhouse_prize;
+                //update losers here
+                for(u in data.users){
+                    //data.card_name = data.users[usr];
+                    var obj_length = Object.keys(data.users[u]).length;
+                    if(u != usr){
+                        User.findOne({'username':u},  function(err, looser){
+                            if(err){
+                                res.status(500).send(err);
+                                return;
+                            }
+                            looser.win_amount = (user.win_amount-room_prize);
+                            looser.save(function(err, data){
+                                if(err){
+                                    console.log(err, 'could not update looser credit after win', room_prize, looser.win_amount);
+                                    return;
+                                }
+                                //return res.status(200).json({username:data.username});
+                            });
+                        });
+
+                    }
+                }
+                // looser updates ends
             }
             User.findOne({'username':usr},  function(err, user){
                 if(err){
                     res.status(500).send(err);
                     return;
                 }
-                user.total_credits = (user.total_credits+room_prize);
+                user.win_amount = (user.win_amount+room_prize);
                 user.save(function(err, data){
                     if(err){
-                        console.log(err, 'could not update credit after win', room_prize, user.total_credits);
+                        console.log(err, 'could not update credit after win', room_prize, user.win_amount);
                         return;
                     }
                     //return res.status(200).json({username:data.username});
                 });
             });
+            
         })
 }
 var Bingo90 = function(cards, pattern){

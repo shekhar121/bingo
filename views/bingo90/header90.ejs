@@ -105,11 +105,11 @@
                       <a href="#" class="glass">Pay-out</a>
                     </div> -->
                     <div class="creditBox">
-                        <span>Total Credit:</span><span class="euro">&euro; <%- Bingo.user_details.total_credits %> </span>
+                        <span>Total Amount:</span><span class="euro">&euro; <%- Bingo.user_details.deposit_amount %> </span>
                         <span class="clearfix"></span>
                     </div>
                     <div class="creditBox">
-                        <span>Won:</span><span class="euro" id="won_credits">&euro; <%- Bingo.user_bingo_credits %> </span>
+                        <span>Win Amount:</span><span class="euro" id="won_credits">&euro; <%- Bingo.user_details.win_amount %> </span>
                         <span class="clearfix"></span>
                     </div>
                     <a class="btn btn-yellow waves-effect waves-light" id="all_cards" style="background: #f3b359;">Pay Out</a>
@@ -137,7 +137,7 @@ if(Bingo.url == 'bingo90') { %>
                 <a class="topLeftBtn" href="/bingo90/rooms">Room List <i class="fa fa-times closeWindow" aria-hidden="true"></i></a>
                 <a class="topLeftBtn" href="#" id="sound_change">Sound</a>
                 <a class="topLeftBtn" href="#">Balls <i id="balls" class="balls">0</i></a>
-                <a class="topLeftBtn" href="#">Rounds <i class="balls rounds">1</i></a>
+                <a class="topLeftBtn" href="#">Rounds <i id="game_round" class="balls rounds">1</i></a>
             </div>
             <div class="balls_wrp" > 
                 <div id="rolling_ball"> </div>

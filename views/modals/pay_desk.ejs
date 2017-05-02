@@ -24,12 +24,12 @@
                             <hr class="mt-2 mb-2">
 
                         </div>
-                        <% if(Bingo.user_details.total_credits > 0){ %>
+                        <% if(Bingo.user_details.deposit_amount > 0){ %>
                         <div class="row">
                           <div class="col-md-4">
                             <div class="md-form">
                               <i class="fa fa-eur prefix"></i>
-                              <input type="email" name="total_credits"  id="total_credits" class="form-control" value="<%- Bingo.user_details.total_credits %>">
+                              <input type="email" name="total_credits"  id="total_credits" class="form-control" value="<%- Bingo.user_details.deposit_amount %>">
                               <label for="form2">Total Credit</label>
                             </div>
                           </div>
@@ -58,7 +58,7 @@
                           <div class="row">
                               <div class="col-md-12 text-center">
                                    <h2 style="color: red">
-                                   Current Credit : (<%- Bingo.user_details.total_credits %>)</h2>
+                                   Current Credit : (<%- Bingo.user_details.deposit_amount %>)</h2>
                                   <br><hr>
                                   <button type="button" class="btn btn-danger" data-dismiss="modal">Buy Credit</button>
 

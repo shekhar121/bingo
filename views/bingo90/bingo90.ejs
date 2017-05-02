@@ -97,7 +97,7 @@
                     <div class="col-md-8" style="max-height: 530px; overflow: scroll;">
                         <div class="row">
                             
-                            <div class="col-md-5" style="margin-bottom: -1rem;" >
+                            <div class="col-md-5" style="margin-bottom: -0.5rem;" >
                                      <a class="btn btn-yellow dropdown-toggle waves-effect waves-light" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-weixin" aria-hidden="true"></i></a>
                                     <div class="dropdown-menu dropdown-warning" aria-labelledby="dropdownMenu4" id="get_chat_users">
                                         <!-- <a class="dropdown-item waves-effect waves-light">Action</a>
@@ -304,6 +304,7 @@ $( document ).ready(function() {
             $("#counter_ball_"  + data.counter_ball).addClass('green');
             $('.ball_num'+cnt).html(data.counter_ball);
             $('#balls').html(cnt);
+            $('#game_round').html(data.game_round);
             var colors=["blue","orange","red","green","yellow","pink","aqua","lime","purple","cyan","brown","grey","darkred","deeppink","gold","indigo"];
      
             jQuery('svg .ballcolor'+cnt).css('fill',colors[~~(Math.random()*colors.length)]);

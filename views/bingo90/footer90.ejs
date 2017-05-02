@@ -4,10 +4,7 @@
             <a href="#" class=""><i class="fa fa-lock left"></i> Logged in As</a>
             <a class="btn btn-yellow waves-effect waves-light"  style="background: #215a9d; padding: 5px 10px;">Test</a>
             <a href="#" class="">If you have any questions, contact a chat moderator, or got to "Help" desk</a>
-            <!-- <a href="#" class="" data-toggle="modal" data-target="#modalMyAccount"><i class="fa fa-user left"></i> My Account</a>
-            <a href="#" class=""><i class="fa fa-gear left"></i> Total Credits: €<%- Bingo.user_details.total_credits %></a>
-            <a href="#" class=""><i class="fa fa-gift left"></i> Bingo/Won Credits: €<%- Bingo.user_bingo_credits %></a> -->
-            <!-- <a href="#" class="" data-toggle="modal" data-target="#paydeskModal"><i class="fa fa-money left"></i> Pay Desk</a> -->
+
             <a class="btn btn-yellow waves-effect waves-light"  style="background: #f3b359; padding: 5px 10px;float: right;">Deposit</a>
             <a data-toggle="modal" data-target="#paydeskModal" class="btn btn-yellow waves-effect waves-light" style="background: #f3b359; padding: 5px 10px;float: right;">Pay Desk</a>
             <!-- <a href="#" class="" data-toggle="modal" data-target="#modalHelp"><i class="fa fa-info left"></i> Help</a> -->
@@ -15,35 +12,27 @@
             
             </div> 
 </nav>
-<!-- <div class="container-fluid">
-       <div class="row footer">
-      <div class="botom_infoTxt">
-            <a href="#" class=""><i class="fa fa-lock left"></i> Logged in As: test</a>
-            <a href="#" class="" data-toggle="modal" data-target="#modalMyAccount"><i class="fa fa-user left"></i> My Account</a>
-            <a href="#" class=""><i class="fa fa-gear left"></i> Total Credits: €<%- Bingo.user_details.total_credits %></a>
-            <a href="#" class=""><i class="fa fa-gift left"></i> Bingo/Won Credits: €<%- Bingo.user_bingo_credits %></a>
-            <a href="#" class="" data-toggle="modal" data-target="#paydeskModal"><i class="fa fa-money left"></i> Pay Desk</a>
-            <a href="#" class="" data-toggle="modal" data-target="#modalHelp"><i class="fa fa-info left"></i> Help</a>
-            
-            </div>          
-    </div>
-</div> -->
+
 <% } %>
 
 <% if(Bingo.url == 'bingo90') { %>
+
 <div class="container-fluid">
+<nav class="navbar fixed-bottom navbar-light bg-faded">
        <div class="row footer">
       <div class="botom_infoTxt">
             <a href="#" class=""><i class="fa fa-lock left"></i> Logged in As: test</a>
             <a href="#" class="" data-toggle="modal" data-target="#modalMyAccount"><i class="fa fa-user left"></i> My Account</a>
-            <a href="#" class=""><i class="fa fa-gear left"></i> Total Credits: €<%- Bingo.user_details.total_credits %></a>
-            <a href="#" class=""><i class="fa fa-gift left"></i> Bingo/Won Credits: €<%- Bingo.user_bingo_credits %></a>
+            <a href="#" class=""><i class="fa fa-gear left"></i> Total Amount: €<%- Bingo.user_details.deposit_amount %></a>
+            <a href="#" class=""><i class="fa fa-gift left"></i> Bingo/Won Amount: €<%- Bingo.user_details.win_amount %></a>
             <a href="#" class="" data-toggle="modal" data-target="#paydeskModal"><i class="fa fa-money left"></i> Pay Desk</a>
             <a href="#" class="" data-toggle="modal" data-target="#modalHelp"><i class="fa fa-info left"></i> Help</a>
             
             </div>          
     </div>
+    </nav>
 </div>
+
 <% } %>
     <!-- common libs -->
     <script src="/assets/js/jquery-3.1.1.min.js"></script>
@@ -64,7 +53,7 @@
     <script src="/assets/js/bingo90.js"></script>
 <script type="text/javascript">
 
-<% if(!Bingo.user_bingo_credits) { %>
+<% if(!Bingo.user_details.win_amount || Bingo.user_details.win_amount < 0) { %>
   $('#paydeskModal').modal('show');
 <% } %>
 

@@ -97,13 +97,23 @@
                         <a href="javascript:void(0)" class="pin_10" data-bg="#004209"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> --> 
                         
                     </div>
-                    <% if(Bingo.game_id){ %>
-                        <div class="enterRoom"><a style="border-radius: 0px;background: #004253;" href="/bingo90" class="glass" >See your game</a></div>
+                    
+
+                    <% if(i==0){ %>
+                        <% if(Bingo.game_id){ %>
+                        <div class="enterRoom"  style=" bottom: 85px;"><a style="border-radius: 0px;background: #004253;" href="/bingo90" class="glass" >Go Back To Game</a></div>
                         <% }  %>
-                  
+                    <span class="clearfix"></span>
                         <% if(!Bingo.rooms[i].status){ %>
                             <div class="enterRoom"><a style="background: #004253;border-radius: 0px;" id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Update / Enter Room</a></div>
+                        <% } else{  %>
+                            <div class="enterRoom">
+                            <a style="background: #004253;border-radius: 0px;color:red;"   class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>"> Busy (Game in Play)</a></div>
                         <% }  %>
+                    <% } else {  %>
+                        <div class="enterRoom">
+                        <a style="background: #004253;border-radius: 0px;color:#fff;"   class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>"> Enter Room (Closed)</a></div>
+                    <% }  %>
                     <!-- <div class="BuyBook" >
                         <i class="fa fa-chevron-down"></i>
                         <span id="selected_pin_bg" class="selectedColor_2">&nbsp;</span>
@@ -204,7 +214,7 @@ $(".bg_load, .wrapper").hide();
                     return;
                 }
                 if(!res.status){
-                    $('#error').addClass('error-red red text-center' ).html('not enough credits! tranfer credits to bingo or get more credits');
+                    $('#error').addClass('error-red red text-center' ).html(res.msg);
                     return;
                 }
               },

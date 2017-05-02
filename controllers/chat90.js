@@ -28,6 +28,17 @@ module.exports = function(http){
 	    	//console.log(hr, 'current hour');
 	    	//if(hr == "20" || hr == "20:05" || hr == "20:10" || hr == "20:15" || hr == "20:20" || hr == "20:25" || hr == "20:30" || hr == "20:35" || hr == "20:40" || hr == "20:45" || hr == "20:50" || hr == "20:55"){
 	    	if(hr == "0001" || hr == "0601" || hr == "1001" || hr == '1601' || hr == "2001" || hr == "2601" || hr == "3001" || hr == "3601" || hr == "4001" || hr == "4601" || hr == "5001"){
+	    		if(hr == "0001"){ b90.game_round = 1; }
+	    		if(hr == "0601"){ b90.game_round = 2; }
+	    		if(hr == "1001"){ b90.game_round = 3; }
+	    		if(hr == "1601"){ b90.game_round = 4; }
+	    		if(hr == "2001"){ b90.game_round = 5; }
+	    		if(hr == "2601"){ b90.game_round = 6; }
+	    		if(hr == "3001"){ b90.game_round = 7; }
+	    		if(hr == "3601"){ b90.game_round = 8; }
+	    		if(hr == "4001"){ b90.game_round = 9; }
+	    		if(hr == "4601"){ b90.game_round = 10; }
+	    		if(hr == "5001"){ b90.game_round = 11; }
 	    		// get the game and call 'game counter', that starts bingo 90
 		    	//if(!b90.round_started){
 		    		

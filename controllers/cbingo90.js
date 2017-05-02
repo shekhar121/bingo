@@ -110,7 +110,7 @@ module.exports = function(app){
 			    Bingo.gameinplay  = results[1]; //gameinplay
 			    //Bingo.user_game  = results[2]; //game 
 			    Bingo.user_details = results[2];
-			    console.log(Bingo);
+			    //console.log(Bingo);
 			    res.render('bingo90/rooms', {Bingo:Bingo});
 			});
 			//asyncs ends
@@ -120,16 +120,15 @@ module.exports = function(app){
 	app.get('/bingo90', function(req, res){ 
 		//console.log(app.get('settings'), 'session3');
 		//req.session.user_bought_card = false;
-		if(!req.session.user || !req.session.user_bingo_credits || !req.session.game_id 
-			|| !req.session.room_id){
+		if(!req.session.user || !req.session.game_id || !req.session.room_id){
 			res.redirect('/bingo90/rooms');
 			return;
 		}
 		var cards_type = (req.query.cards_type)? true:false;
 		Bingo = {
 			user : req.session.user.username,
-			user_bingo_credits:req.session.user_bingo_credits,
-			user_details : req.session.user,
+			//user_bingo_credits:req.session.user_bingo_credits,
+			//user_details : req.session.user,
 			cards : req.session.cards,
 			user_room : req.session.room_id,
 			game_id : req.session.game_id,
@@ -151,6 +150,9 @@ module.exports = function(app){
 			    },
 			    function(callback) {
 			    	Setting.findOne({}, callback);
+			    },
+			    function(callback) {
+			    	User.findOne({_id:req.session.user._id}, callback);
 			    }
 			], function(err, results) {
 		    	if (err) {
@@ -164,6 +166,7 @@ module.exports = function(app){
 				Bingo.card_name = results[1].users[0].playing_card;
 				Bingo.room_id = req.session.room_id;
 				Bingo.marquee  = results[2].bingo90_broadcast_msg;
+				Bingo.user_details = results[3];
 			    
 			    res.render('bingo90/bingo90', {Bingo:Bingo});
 			});
