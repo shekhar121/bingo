@@ -434,7 +434,7 @@ app.use(jsonParser);
 				return;
 			}
 			user.deposit_amount = (user.deposit_amount-transfer_credits);
-			user.win_amount = transfer_credits;
+			user.win_amount = (user.win_amount+transfer_credits);
 			//req.session.user.total_credits = user.total_credits;
 			//req.session.user_bingo_credits = (req.session.user_bingo_credits+transfer_credits);
 			user.save(function(err, data){

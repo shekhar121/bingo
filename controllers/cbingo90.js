@@ -47,12 +47,12 @@ module.exports = function(app){
 		  		}
 		  	});*/
 		  	// ends remove later - just to insert some testing games
-		  	req.session.game_id = null;
+		  	//req.session.game_id = null;
 		}
 
 		Bingo = {
 			user : req.session.user.username,
-			user_bingo_credits: (req.session.user_bingo_credits)?req.session.user_bingo_credits:0 ,
+			//user_bingo_credits: (req.session.user_bingo_credits)?req.session.user_bingo_credits:0 ,
 			//cards : req.query.cards,
 			//user_room : req.query.room,
 			game_id : (req.session.game_id)?req.session.game_id:0 ,

@@ -140,12 +140,13 @@ var Bingo75 = function(cards, pattern){
             //data.card_name = data.users[usr];
 
             var obj_length = Object.keys(data.users[usr]).length;
-            console.log(obj_length, 'in winner75..');
+            
             for(key in data.users[usr]){
-                if(data.users[usr][key] == data.counter_ball){
+                if(data.users[usr][key] == data.counter_ball75){
                     data.users[usr][key] = 'matched';
                 }
             }
+            console.log(obj_length, data.users[usr].pattern, 'in winner75..');
             if(data.users[usr].pattern == 'T'){
                 for(i=0;i<obj_length;i++){
                     //T patter winner

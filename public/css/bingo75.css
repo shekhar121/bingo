@@ -339,3 +339,10 @@ border-right: 10px solid #001a25;
     color: #fff;
     /*font-size: 1rem;*/
 }
+.spinit {
+    -webkit-animation: rotation 3s infinite linear !important;
+}
+@-webkit-keyframes rotation {
+    from {-webkit-transform: rotate(360deg);}
+    to   {-webkit-transform: rotate(0deg);}
+}

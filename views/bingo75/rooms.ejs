@@ -36,16 +36,16 @@
                         <div class="accountInfoBox">
                             <div class="accountInfoBoxWhite">
                                 <!-- <h3>Account Information</h3> -->
-                                <div class="userName"><span>User Name:</span><span><%= Bingo.user %></span></div>
-                                <div class="userName"><span>Total Credits:</span><span><%= Bingo.user_details.total_credits %></span></div>
-                                <% if(Bingo.user_bingo_credits > 0) { %>
-                                  <div class="userName"><span>Bingo Credits:</span><span><%= Bingo.user_bingo_credits %></span></div>
+                                <div class="userName"><span>User Name:</span><span><%= Bingo75.user %></span></div>
+                                <div class="userName"><span>Total Credits:</span><span><%= Bingo75.user_details.deposit_amount %></span></div>
+                                <% if(Bingo75.user_details.deposit_amount > 0) { %>
+                                  <div class="userName"><span>Bingo Credits:</span><span><%= Bingo75.user_details.win_amount %></span></div>
                                 <% } %>
                                 <hr>
                                 <div id="transfer_div">
                                     <div class="inputBox">
                                         <label for="form1" class="">Credit Transfer</label>
-                                        <input type="hidden" name="total_credits"  id="total_credits" class="form-control" value="<%- Bingo.user_details.total_credits %>">
+                                        <input type="hidden" name="total_credits"  id="total_credits" class="form-control" value="<%- Bingo75.user_details.total_credits %>">
                                         <input type="text" name="transfer_credits" id="transfer_credits" class="txt" placeholder="0.00">
                                     </div>
                                     <div class="inputBox">
@@ -76,8 +76,8 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="roomBoxWrap">
-                        <% if(Bingo.rooms.length > 0){ 
-                            for(i=0;i<Bingo.rooms.length;i++){
+                        <% if(Bingo75.rooms.length > 0){ 
+                            for(i=0;i<Bingo75.rooms.length;i++){
                         %>
                         
                              <div class="roomListRow chosen-room">
@@ -88,20 +88,20 @@
                                    </div>
                                    <div class="col-md-4">
                                    <div class="roomDetailsLeft">
-                                        <span class="roomTitle"><%= Bingo.rooms[i].name %></span>
+                                        <span class="roomTitle"><%= Bingo75.rooms[i].name %></span>
                                         
-                                        <span class="cardsRoom">Upto <%= Bingo.rooms[i].cards_upto %> cards per room</span> 
+                                        <span class="cardsRoom">Upto <%= Bingo75.rooms[i].cards_upto %> cards per room</span> 
                                         <span class="cardsRoom">Choose cards:
                                             <select class="room-cards">
                                                 <% 
-                                                    for(j=1;j<=Bingo.rooms[i].cards_upto;j++){
+                                                    for(j=1;j<=Bingo75.rooms[i].cards_upto;j++){
                                                 %>
                                                 <option value="<%= j %>"><%= j %></option>
                                                 <% } %>
                                             </select>
                                         </span>      
-                                        <span class="cardsRoom">Card Price: <i class="cardPrice">&euro; <%= Bingo.rooms[i].card_price %></i> <!-- Previous round <i class="cardPrice">0.10</i> --></span> 
-                                        <a class="btn btn-success" href="#" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>"> 
+                                        <span class="cardsRoom">Card Price: <i class="cardPrice">&euro; <%= Bingo75.rooms[i].card_price %></i> <!-- Previous round <i class="cardPrice">0.10</i> --></span> 
+                                        <a class="btn btn-success" href="#" data-room="<%= Bingo75.rooms[i]._id %>" data-game="<%= Bingo75.gameinplay._id %>"> 
                                         Enter Room</a>       
                                    </div> 
                                    </div>
@@ -118,7 +118,7 @@
                                         </span> 
                                         <span class="cardsRoom">Number of Balls</span>      
                                         <span class="cardsRoom">
-                                            <i class="numofBalls"><%= Bingo.rooms[i].card_balls_to_roll %></i>
+                                            <i class="numofBalls"><%= Bingo75.rooms[i].card_balls_to_roll %></i>
                                         </span>    
                                    </div>
                                    </div>
@@ -146,10 +146,10 @@
  <%- include('footer75'); %>         
 
 <script type="text/javascript">
-<% if(!Bingo.user_bingo_credits) { %>
+<% if(!Bingo75.user_bingo_credits) { %>
   $('#transfer_div').show();
 <% } %>
-<% if(Bingo.user_bingo_credits > 0) { %>
+<% if(Bingo75.user_bingo_credits > 0) { %>
   $('#transfer_div').hide();
 <% } %>
     Room = {

@@ -1,4 +1,4 @@
- <% if(Bingo.url == 'bingo75/rooms') { %> 
+ <% if(Bingo75.url == 'bingo75/rooms') { %> 
     <!--Footer-->
     <footer class="center-on-small-only">
 
@@ -31,12 +31,7 @@
     <script type="text/javascript" src="/assets/js/mdb.min.js"></script>
     <script src="/assets/js/howler.core.js"></script>
 
-<!-- 
-<%- include('../modals/pay_desk'); %> -->
-    <!-- bingo75 -->
-<!-- <% if(!Bingo.user_bingo_credits) { %>
-  $('#paydeskModal').modal('show');
-<% } %> -->
+
   <script src="/assets/js/bingo75.js"></script>
 
 <!--//modals-->
@@ -48,8 +43,8 @@
         <img src="/assets/img/bg_head.svg" style="height: 98px;width: 100%;display: inline;    opacity: 0.5;">
        </div>
       <div class="modal-body text-center">
-      <h1 class="modal-title winner-title"><i class="fa fa-gift"></i> One Line Winner!</h1>
-        <p class="white-text">Hurray! We have a 1 line winner!</p>
+      <h1 class="modal-title winner-title"><i class="fa fa-gift"></i> Hurray! We have the winner!!</h1>
+        <p class="white-text" id="game_winner"></p>
       </div>
       <hr>
       <div class="text-center">
@@ -63,7 +58,7 @@
 
 </html>  
 <script>
-<% if(Bingo.url == 'bingo75/rooms') { %>
+<% if(Bingo75.url == 'bingo75/rooms') { %>
     var sound = new Howl({
       src: ['/assets/sound/mp3/backgroundsound3.mp3']
     });

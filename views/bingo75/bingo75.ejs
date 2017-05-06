@@ -8,50 +8,12 @@
     <div class="row">
         <div class="col-md-9">
             <div class="row">
-            <div class="col-md-12"><!-- <%= Bingo.game_id %> -->
-               <%  if(Bingo.cards > 0){ %>
-                    <%- Bingo.table %>
-                <%  }  %>
-               
-                <!-- <div class="col-md-15">
-                    <div class="cardBox75">
-                        <span class="selectedBox">1</span>
-                        <span class="selectedBox">43</span>
-                        <span class="selectedBox">5</span>
-                        <span class="selectedBox">54</span>
-                        <span class="selectedBox">6</span>
-                       
-                        <span></span>
-                        <span></span>
-                        <span class="selectedBox">23</span>
-                        <span></span>
-                        <span></span>
-                      
-                        <span></span>
-                        <span></span>
-                        <span class="bingoBox"><i class="fa fa-circle"></i></span>
-                        <span></span>
-                        <span></span>
-                        
-                        <span></span>
-                        <span></span>
-                        <span class="selectedBox">3</span>
-                        <span></span>
-                        <span></span>
-                        
-                        <span></span>
-                        <span></span>
-                        <span class="selectedBox">3</span>
-                        <span></span>
-                        <span></span>
-                        <div class="clearfix"></div>     
-                        <img src="/assets/img/bingoBallH.png" alt="">           
-                    </div>
-                </div> -->
-                
-               
-                                                
-            </div>
+                <div class="col-md-12">
+                   <%  if(Bingo75.cards > 0){ %>
+                        <%- Bingo75.table %>
+                    <%  }  %>
+                                                     
+                </div>
             </div>
         </div>
         <div class="col-md-3">
@@ -121,7 +83,7 @@
         <div class="col-md-12">
             <div class="midBtnsWrap">
                 <div class="roominfoTxt75">Balls<span class="volume75">0</span><span class="clearfix"></span></div>
-                <div class="roominfoTxt75">Card Price<span class="volume75"><%= Bingo.room.card_price %></span><span class="clearfix"></span></div>
+                <div class="roominfoTxt75">Card Price<span class="volume75"><%= Bingo75.room.card_price %></span><span class="clearfix"></span></div>
                 <div class="roominfoTxt75"><a href="/bingo75/rooms" class="btnsBlue">Buy Cards</a></div>
                 <!-- <div class="roominfoTxt75"><a href="#" class="btnsBlue">Auto Rebuy</a></div> -->
                 <div class="roominfoTxt75"><i class="busy"></i></div>
@@ -148,7 +110,7 @@
     <div class="row">
         <div class="col-md-9">
             <div class="marqueeTxt"><i class="fa fa-bullhorn" aria-hidden="true"></i>
-               <marquee>Sunday 12 March at book bingo at 20:00! We play you lucky number! Play and win great price!</marquee>
+               <marquee><%- Bingo75.marquee %></marquee>
             </div>
             <div class="chatarea75"> 
                 <div class="chat75Box">
@@ -159,7 +121,7 @@
                 <div class="md-form floatLedt">
                     <input type="text" id="message" name="message" class="form-control" placeholder="Type your massage here">
                 </div>
-                <a href="#" class="action-button shadow animate sendBtn blue">Set up</a>
+                <!-- <a href="#" class="action-button shadow animate sendBtn blue">Set up</a> -->
                 <a href="#" class="action-button shadow animate sendBtn blue" id="send_msg_btn">Send</a>
                 <span class="clearfix"></span>
             </div>
@@ -169,8 +131,8 @@
                 <div class="roominfoTxt75"><a href="#" class="btnsBlue">Info</a></div>
                 <div class="roominfoTxt75"><a href="#" class="btnsBlue"><i class="fa fa-bullhorn"></i></a></div>
                 
-                <div class="roominfoTxt75">Credit:<span class="volume75"><input type="text" placeholder="€ 0.00"></span><span class="clearfix"></span></div>
-                <div class="roominfoTxt75">Win Balance:<span class="volume75"><input type="text" placeholder="€ 0.00"></span><span class="clearfix"></span></div>
+                <div class="roominfoTxt75">Credit:<span class="volume75"><input type="text" placeholder="€ <%= Bingo75.user_details.deposit_amount %>"></span><span class="clearfix"></span></div>
+                <div class="roominfoTxt75">Win Balance:<span class="volume75"><input type="text" placeholder="€ <%= Bingo75.user_details.win_amount %>"></span><span class="clearfix"></span></div>
 
             </div>
         </div>
@@ -196,9 +158,9 @@ var socket = io();
     $('#send_msg_btn').hide();
     $('#message').hide();
     var data = {};
-<% if(Bingo.user_room && (Bingo.cards > 0)){ %>
-    data.user = "<%= Bingo.user %>";
-    data.user_room = "<%= Bingo.user_room %>";
+<% if(Bingo75.user_room && (Bingo75.cards > 0)){ %>
+    data.user = "<%= Bingo75.user %>";
+    data.user_room = "<%= Bingo75.user_room %>";
         console.log(data);
         socket.emit('get user list75', data);
     $('#send_msg_btn').show();
@@ -207,7 +169,7 @@ var socket = io();
         e.preventDefault();
         var message = $('#message').val();
         data.message = message;
-        socket.emit('send message75', data);
+        socket.emit('send message', data);
         $('#message').val('');
         return false;
     });
@@ -233,54 +195,23 @@ var socket = io();
 
 <script type="text/javascript">
 $( document ).ready(function() {
-    $('.play75').on('click', function(e){ 
-        var room = e.target.title;
-        var card = $('#cards').val();
-        //alert($(this).attr('data')); return;
-        var gid =  $(this).attr('data');
-        window.location = '/bingo75?cards='+card+'&room='+room+'&game='+gid;
-    })
-    <% if(Bingo.cards > 0){ %>
-        var num = <%= Bingo.cards %>;
+
+    <% if(Bingo75.cards > 0){ %>
+        var num = <%= Bingo75.cards %>;
         $('#btn_tick').attr('disabled','disabled');
         var bingo75 = {};
         
-        bingo75.user_room = '<%= Bingo.user_room %>';
-        bingo75.game_id = '<%= Bingo.game_id %>';
-        //bingo75.card_name = JSON.parse('<%- Bingo.card_name %>');
-        bingo75.pattern = '<%= Bingo.pattern %>';
+        bingo75.user_room = '<%= Bingo75.user_room %>';
+        bingo75.game_id = '<%= Bingo75.game_id %>';
+
+        bingo75.pattern = '<%= Bingo75.pattern %>';
         var winner75 = 0;
 
         var cnt = 0;
-        /*$('#start_game').on('click', function(){
-           socket.emit('game counter75', bingo75); 
-        })*/
-        $('#start_game').on('click', function(){
-           socket.emit('game counter75', bingo75); 
-           //update the status
-            $.ajax({
-              type: "POST",
-              url: '/api/status_update',
-              data: JSON.stringify({game_id:bingo75.game_id,room_id:bingo75.user_room}),
-              success: function(res){
-                console.log('response'+ res);
-              },
-              error:function(xhr){
-                console.log('error'+ xhr);
-              },
-              dataType: 'json',
-              contentType: "application/json; charset=utf-8",
-            });
-           // delete this later
-        })
+        
         socket.on('show counter ball75', function(data){ 
             console.log(data, 'from server in ');
-            if (performance.navigation.type == 1) { console.log(data, 'show counter ball');
-                console.info( "This page is reloaded" );
-                socket.emit('stop counter', bingo75);
-            } else {
-                console.info( "This page is not reloaded");
-            }
+
             if(data.game_completed){
                 //performance.navigation.type = 0;
                 setTimeout(function(){ 
@@ -288,7 +219,7 @@ $( document ).ready(function() {
                 },  5000);
                 console.info( "game completed");
             }
-            var user = '<%= Bingo.user %>';
+            var user = '<%= Bingo75.user %>';
             for(key in data.card_name[user]){
             //console.log(data, Object.keys(data.card_name).length, 'show counter ball');
                     if(data.card_name[user][key] == 'matched'){
@@ -297,10 +228,10 @@ $( document ).ready(function() {
                     }
                 }
              cnt++;
-            var bingoballHTML = '<div class="bingoball'+cnt+'"><h3 class="ball_num'+cnt+'"></h3><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 206.2 206.2"><defs><style>  .ball{isolation:isolate;}.ballcolor{fill:grey;}.cls-3{opacity:0.48;fill:url(#linear-gradient);}.cls-3,.cls-6{mix-blend-mode:screen;}.cls-4{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:4px;}.cls-5{fill:#fff;opacity:0.8;}.cls-6{fill:url(#radial-gradient);}</style><linearGradient id="linear-gradient" x1="103.1" x2="103.1" y2="206.2" gradientTransform="rotate(.02 114.612 114.572)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"></stop><stop offset="1" stop-color="#2483c5" stop-opacity="0"></stop></linearGradient><radialGradient id="radial-gradient" cx="72.1" cy="64.1" r="53" gradientTransform="rotate(.02 114.612 114.572)" xlink:href="#linear-gradient"></radialGradient></defs><g class="ball"><g id="Laag_1" data-name="Laag 1"><path d="M206.2 102.2a103 103 0 0 1-104 104C46.2 205.7.5 160 0 104A103 103 0 0 1 104 0c56 .5 101.7 46.3 102.2 102.2z" class="ballcolor'+cnt+'"></path><path d="M206.2 102.2a103 103 0 0 1-104 104C46.2 205.7.5 160 0 104A103 103 0 0 1 104 0c56 .5 101.7 46.3 102.2 102.2z" class="cls-3"></path><path d="M175.3 102.5A72.2 72.2 0 1 1 103.7 31a72.2 72.2 0 0 1 71.6 71.5z" class="cls-4"></path><path d="M169 102.5A66 66 0 1 1 103.8 37a66 66 0 0 1 65.4 65.5z" class="cls-5"></path><path d="M125 63.6A53 53 0 1 1 72.7 11 53 53 0 0 1 125 63.7z" class="cls-6"></path></g></g></div>';
+            var bingoballHTML = '<div class="bingoball'+cnt+' spinit"><h3 class="ball_num'+cnt+'"></h3><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 206.2 206.2"><defs><style>  .ball{isolation:isolate;}.ballcolor{fill:grey;}.cls-3{opacity:0.48;fill:url(#linear-gradient);}.cls-3,.cls-6{mix-blend-mode:screen;}.cls-4{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:4px;}.cls-5{fill:#fff;opacity:0.8;}.cls-6{fill:url(#radial-gradient);}</style><linearGradient id="linear-gradient" x1="103.1" x2="103.1" y2="206.2" gradientTransform="rotate(.02 114.612 114.572)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"></stop><stop offset="1" stop-color="#2483c5" stop-opacity="0"></stop></linearGradient><radialGradient id="radial-gradient" cx="72.1" cy="64.1" r="53" gradientTransform="rotate(.02 114.612 114.572)" xlink:href="#linear-gradient"></radialGradient></defs><g class="ball"><g id="Laag_1" data-name="Laag 1"><path d="M206.2 102.2a103 103 0 0 1-104 104C46.2 205.7.5 160 0 104A103 103 0 0 1 104 0c56 .5 101.7 46.3 102.2 102.2z" class="ballcolor'+cnt+'"></path><path d="M206.2 102.2a103 103 0 0 1-104 104C46.2 205.7.5 160 0 104A103 103 0 0 1 104 0c56 .5 101.7 46.3 102.2 102.2z" class="cls-3"></path><path d="M175.3 102.5A72.2 72.2 0 1 1 103.7 31a72.2 72.2 0 0 1 71.6 71.5z" class="cls-4"></path><path d="M169 102.5A66 66 0 1 1 103.8 37a66 66 0 0 1 65.4 65.5z" class="cls-5"></path><path d="M125 63.6A53 53 0 1 1 72.7 11 53 53 0 0 1 125 63.7z" class="cls-6"></path></g></g></div>';
             $('#rolling_ball').append(bingoballHTML);   
-            $("#counter_ball_"  + data.counter_ball).addClass('green');
-            $('.ball_num'+cnt).html(data.counter_ball);
+            $("#counter_ball_"  + data.counter_ball75).addClass('green');
+            $('.ball_num'+cnt).html(data.counter_ball75);
             var colors=["blue","orange","red","green","yellow","pink","aqua","lime","purple","cyan","brown","grey","darkred","deeppink","gold","indigo"];
      
             jQuery('svg .ballcolor'+cnt).css('fill',colors[~~(Math.random()*colors.length)]);
@@ -311,8 +242,7 @@ $( document ).ready(function() {
             if(!winner75){
                 if (data.winner75 == 1){
                     console.log("Yay..! We have a winner");
-                    //$('#show_winner_msg').show('slow');
-                    //$('#show_winner_msg').html('<h2>Yay..! We have a winner - '+data.winner75User+'</h2>');
+
                     $('#modalWinnerLine1').modal('show');
                     winner75 = 1;
                     $('#game_winner').html('<li><a class="btn btn-orange">'+data.winner75User+'</a></li>')

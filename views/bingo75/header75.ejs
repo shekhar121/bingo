@@ -35,7 +35,7 @@
 <body>
 
 
-<% if(Bingo.url == 'bingo75/rooms') { %>
+<% if(Bingo75.url == 'bingo75/rooms') { %>
     <header>
     <!--Navbar-->
         <nav class="navbar navbar-toggleable-md navbar-dark top-menu-color">
@@ -43,7 +43,7 @@
                         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav3" aria-controls="navbarNav3" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <a href="<%= Bingo.url  %>">
+                        <a href="<%= Bingo75.url  %>">
                             <img src="/assets/img/woodbingo_logo.png" class="logo" width="200">
                         </a>
                         <div class="collapse navbar-collapse" id="navbarNav3">
@@ -54,19 +54,19 @@
                                 <li class="nav-item">
                                     <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#regModal"><i class="fa fa-gear"></i> Register</a>
                                 </li> -->
-                                <li class="nav-item <% if(Bingo.url =='index') { %> active <% } %>">
+                                <li class="nav-item <% if(Bingo75.url =='index') { %> active <% } %>">
                                     <a class="nav-link" href="/"> <i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
                                 </li>
-                    <% if(Bingo.user) { %>
+                    <% if(Bingo75.user) { %>
                     
-                    <li class="nav-item <% if(Bingo.url =='bingo75') { %> active <% } %>">
+                    <li class="nav-item <% if(Bingo75.url =='bingo75') { %> active <% } %>">
                         <a class="nav-link waves-effect waves-light"  href="/bingo75/rooms"> <i class="fa fa-soccer-ball-o"></i> Bingo 75</a>
                     </li>
-                    <li class="nav-item <% if(Bingo.url =='bingo90') { %> active <% } %>">
+                    <li class="nav-item <% if(Bingo75.url =='bingo90') { %> active <% } %>">
                         <a class="nav-link waves-effect waves-light" href="/bingo90/rooms"> <i class="fa fa-soccer-ball-o"></i> Bingo 90</a>
                     </li>
-                    <% if(Bingo.user_role == 'admin') { %>
-                    <li class="nav-item <% if(Bingo.url == 'admin') { %> active <% } %>">
+                    <% if(Bingo75.user_role == 'admin') { %>
+                    <li class="nav-item <% if(Bingo75.url == 'admin') { %> active <% } %>">
                         <a class="nav-link waves-effect waves-light" href="/admin"> <i class="fa fa-cog"></i> Admin</a>
                     </li>
                     <% } %>

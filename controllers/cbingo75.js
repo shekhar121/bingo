@@ -2,8 +2,9 @@ var async = require('async');
 var Room = require('../models/room');
 var User = require('../models/user');
 var Game = require('../models/game');
-var Bingo75 = require('../models/bingo75');
-var Bingo = Bingo || {}; 
+var Setting = require('../models/setting');
+//var Bingo75 = require('../models/bingo75');
+var Bingo75 = Bingo75 || {}; 
 //get user details
 
 module.exports = function(app){
@@ -21,7 +22,7 @@ module.exports = function(app){
 			req.session.game_id = null;
 			// add new game 
 			// starts remove later - just to insert some testing games
-		  	var g = new Game();
+		  	/*var g = new Game();
 		  	g.title = 'This is new game..';
 		  	g.date = new Date();
 		  	g.started = false;
@@ -32,17 +33,19 @@ module.exports = function(app){
 		  			res.status(500).send(err);
 		  			return;
 		  		}
-		  	});
+		  	});*/
 		  	// ends remove later - just to insert some testing games
 		}
-		Bingo = {
+		Bingo75 = {
 			user : req.session.user.username,
-			user_details : req.session.user,
+			//user_details : req.session.user,
 			user_bingo_credits: (req.session.user_bingo_credits)?req.session.user_bingo_credits:0 ,
 			//cards : req.query.cards,
 			//user_room : req.query.room,
 			//game_id : req.query.game,
 			//card_name : {},
+			game_id : (req.session.game_id)?req.session.game_id:0 ,
+			user_game : false,
 			url : 'bingo75/rooms' //req.url
 		}
 		/*Room.find({type:'bingo75'}, function(err, rooms){
@@ -76,6 +79,9 @@ module.exports = function(app){
 		    },
 		    function(callback) {
 		    	Game.findOne({type:'bingo75', started:false, completed:false}, callback);
+		    },
+		    function(callback) {
+		    	User.findOne({_id:req.session.user._id}, callback);
 		    }
 		], function(err, results) {
 		    // optional callback
@@ -83,22 +89,23 @@ module.exports = function(app){
 	            throw callback(err);
 	            return;
 	        }
-		    Bingo.rooms  = results[0]; //rooms
-		    Bingo.gameinplay  = results[1]; //gameinplay
-		    res.render('bingo75/rooms', {Bingo:Bingo});
+		    Bingo75.rooms  = results[0]; //rooms
+		    Bingo75.gameinplay  = results[1]; //gameinplay
+		    Bingo75.user_details = results[2];
+		    res.render('bingo75/rooms', {Bingo75:Bingo75});
 		});
 		//asyncs ends
 	});
 
 	app.get('/bingo75', function(req, res){
-		if(!req.session.user || !req.session.user_bingo_credits){
+		if(!req.session.user || !req.session.game_id || !req.session.room_id){
 			res.redirect('/bingo75/rooms');
 			return;
 		}
-		Bingo = {
+		Bingo75 = {
 			user : req.session.user.username,
-			user_bingo_credits:req.session.user_bingo_credits,
-			user_details : req.session.user,
+			//user_bingo_credits:req.session.user_bingo_credits,
+			//user_details : req.session.user,
 			cards : req.session.cards,
 			user_room : req.session.room_id,
 			game_id : req.session.game_id,
@@ -126,21 +133,29 @@ module.exports = function(app){
 			    },
 			    function(callback) {
 			    	Game.findOne({'_id':gameID,'users.user':req.session.user.username},{'users.user.$': 1}, callback);
+			    },
+			    function(callback) {
+			    	Setting.findOne({}, callback);
+			    },
+			    function(callback) {
+			    	User.findOne({_id:req.session.user._id}, callback);
 			    }
 			], function(err, results) {
 		    	if (err) {
 		            throw callback(err);
 		            return;
 		        }
-			    Bingo.room  = results[0]; //rooms
+			    Bingo75.room  = results[0]; //rooms
 			    //Bingo.gameinplay  = results[1]; //gameinplay
 
-			    Bingo.table = results[1].users[0].cards_table;
-				Bingo.card_name = results[1].users[0].playing_card;
-				Bingo.room_id = req.session.room_id;
-				Bingo.pattern = results[1].users[0].pattern;
+			    Bingo75.table = results[1].users[0].cards_table;
+				Bingo75.card_name = results[1].users[0].playing_card;
+				Bingo75.room_id = req.session.room_id;
+				Bingo75.marquee  = results[2].bingo90_broadcast_msg;
+				Bingo75.pattern = results[1].users[0].pattern;
+				Bingo75.user_details = results[3];
 			    
-			    res.render('bingo75/bingo75', {Bingo:Bingo});
+			    res.render('bingo75/bingo75', {Bingo75:Bingo75});
 			});
 			//asyncs ends
 						
