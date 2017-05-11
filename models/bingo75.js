@@ -4,52 +4,49 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 function createCards(obj){ 
-    for (var i=0; i<obj.cards; i++) {
+    for (var i=0; i<obj.cards75; i++) {
         for (var j=0; j<24; j++) {
-            obj.card_name['card_'+i+'_square0'] = 0;
+            obj.card_name75['card_'+i+'_square0'] = 0;
         }
     }
-    console.log(obj.card_name);
+    console.log(obj.card_name75);
 }
 
 var Bingo75 = function(cards, pattern){
-	this.cards = cards;
+	this.cards75 = cards;
 	this.pattern = pattern;
-	this.card_name = {};
+	this.card_name75 = {};
 
-	this.sayHello = function(){
-		return 'Hello' + this.cards;
-	}
     this.getRandomInt = function (min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
     this.getCard_name = function () {
-      return this.card_name;
+      return this.card_name75;
     }
 	this.newCards = function(){
         createCards(this);
 		var table = '';
         var nm = 0;
-		if(this.cards > 0){
-            for(var i=0; i < this.cards; i++) {
+		if(this.cards75 > 0){
+            for(var i=0; i < this.cards75; i++) {
                 
                 var num0 = this.getRandomInt(1, 15);
-                this.card_name['card_'+i+'_square0'] = num0;
+                this.card_name75['card_'+i+'_square0'] = num0;
                 var num1 = this.getRandomInt(16, 30);
-                this.card_name['card_'+i+'_square1'] = num1;
+                this.card_name75['card_'+i+'_square1'] = num1;
                 var num2 = this.getRandomInt(31, 45);
-                this.card_name['card_'+i+'_square2'] = num2;
+                this.card_name75['card_'+i+'_square2'] = num2;
                 var num3 = this.getRandomInt(46, 60);
-                this.card_name['card_'+i+'_square3'] = num3;
+                this.card_name75['card_'+i+'_square3'] = num3;
                 var num4 = this.getRandomInt(61, 75);
-                this.card_name['card_'+i+'_square4'] = num4;
+                this.card_name75['card_'+i+'_square4'] = num4;
 
                 var num7 = this.getRandomInt(31, 45);
-                this.card_name['card_'+i+'_square7'] = num7;
+                this.card_name75['card_'+i+'_square7'] = num7;
                 var num16 = this.getRandomInt(31, 45);
-                this.card_name['card_'+i+'_square16'] = num16;
+                this.card_name75['card_'+i+'_square16'] = num16;
                 var num21 = this.getRandomInt(31, 45);
-                this.card_name['card_'+i+'_square21'] = num21;
+                this.card_name75['card_'+i+'_square21'] = num21;
 
                 table += '<div class="col-md-15">\
                     <div class="cardBox75">\
@@ -164,7 +161,7 @@ var Bingo75 = function(cards, pattern){
                 } 
             }
             data.pattern = data.users[usr].pattern;
-            data.card_name[usr] = data.users[usr];
+            data.card_name75[usr] = data.users[usr];
         }
         
         return data;

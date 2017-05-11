@@ -28,59 +28,64 @@ module.exports = function(http){
 	// automate bingo 90
 	checkInterval = setInterval(function(){
 		hr = moment(new Date()).tz("Europe/Amsterdam").format("mmss");
+		hrhh = moment(new Date()).tz("Europe/Amsterdam").format("hh");
 		hr75 = moment(new Date()).tz("Europe/Amsterdam").format("mmss");
+		hrhh75 = moment(new Date()).tz("Europe/Amsterdam").format("hh");
     	//console.log(hr, 'current hour');
-    	if(hr == "0001" || hr == "0601" || hr == "1001" || hr == '1601' || hr == "2001" || hr == "2601" || hr == "3001" || hr == "3601" || hr == "4001" || hr == "4601" || hr == "5001"){
-    		if(hr == "0001"){ b90.game_round = 1; }
-    		if(hr == "0601"){ b90.game_round = 2; }
-    		if(hr == "1001"){ b90.game_round = 3; }
-    		if(hr == "1601"){ b90.game_round = 4; }
-    		if(hr == "2001"){ b90.game_round = 5; }
-    		if(hr == "2601"){ b90.game_round = 6; }
-    		if(hr == "3001"){ b90.game_round = 7; }
-    		if(hr == "3601"){ b90.game_round = 8; }
-    		if(hr == "4001"){ b90.game_round = 9; }
-    		if(hr == "4601"){ b90.game_round = 10; }
-    		if(hr == "5001"){ b90.game_round = 11; }
-    		// get the game and call 'game counter', that starts bingo 90
-	    	//if(!b90.round_started){
-	    		
-	    		//b90.round_started = true;
-	    		Game.findOne({type:'bingo90', started:false, completed:false}, function(err, game){
-	    			b90.game_id = game._id;
-	    			b90.game = game;
-	    			
-	    			//if(!game.started){
-	    				
-		    			ee.emit('game counter', b90);
-		    			// update room and games status
-			    		Game.gameStatusStarted(true, b90.game_id);
-						Room.roomStatus(true, b90.user_room);
-						
-					//}
-	    		})
-	    		
-	    	//}
+    	if(hrhh % 2 == 0){
+	    	if(hr == "0001" || hr == "0601" || hr == "1001" || hr == '1601' || hr == "2001" || hr == "2601" || hr == "3001" || hr == "3601" || hr == "4001" || hr == "4601" || hr == "5001"){
+	    		if(hr == "0001"){ b90.game_round = 1; }
+	    		if(hr == "0601"){ b90.game_round = 2; }
+	    		if(hr == "1001"){ b90.game_round = 3; }
+	    		if(hr == "1601"){ b90.game_round = 4; }
+	    		if(hr == "2001"){ b90.game_round = 5; }
+	    		if(hr == "2601"){ b90.game_round = 6; }
+	    		if(hr == "3001"){ b90.game_round = 7; }
+	    		if(hr == "3601"){ b90.game_round = 8; }
+	    		if(hr == "4001"){ b90.game_round = 9; }
+	    		if(hr == "4601"){ b90.game_round = 10; }
+	    		if(hr == "5001"){ b90.game_round = 11; }
+	    		// get the game and call 'game counter', that starts bingo 90
+		    	//if(!b90.round_started){
+		    		
+		    		//b90.round_started = true;
+		    		Game.findOne({type:'bingo90', started:false, completed:false}, function(err, game){
+		    			b90.game_id = game._id;
+		    			b90.game = game;
+		    			
+		    			//if(!game.started){
+		    				
+			    			ee.emit('game counter', b90);
+			    			// update room and games status
+				    		Game.gameStatusStarted(true, b90.game_id);
+							Room.roomStatus(true, b90.user_room);
+							
+						//}
+		    		})
+		    		
+		    	//}
+	    	}
     	}
     	console.log(hr75, 'current hour75');
     	//check for game 75
-    	if(hr75 == "0501"){		
-	    	//if(!b90.round_started){
-	    		//b90.round_started = true;
-	    		Game.findOne({type:'bingo75', started:false, completed:false}, function(err, game){
-	    			b75.game_id = game._id;
-	    			b75.game = game;
-	    			//if(!game.started){
-		    			ee.emit('game counter75', b75);
-		    			// update room and games status
-			    		Game.gameStatusStarted(true, b75.game_id);
-						Room.roomStatus(true, b75.user_room);
-						
-					//}
-	    		})
-	    	//}
-    	} // check75 ends
-    	
+    	if(hrhh75 % 2 != 0){
+	    	if(hr75 == "0001" || hr75 == "0601" || hr75 == "1001" || hr75 == '1601' || hr75 == "2001" || hr75 == "2601" || hr75 == "3001" || hr75 == "3601" || hr75 == "4001" || hr75 == "4601" || hr75 == "5001"){		
+		    	//if(!b90.round_started){
+		    		//b90.round_started = true;
+		    		Game.findOne({type:'bingo75', started:false, completed:false}, function(err, game){
+		    			b75.game_id = game._id;
+		    			b75.game = game;
+		    			//if(!game.started){
+			    			ee.emit('game counter75', b75);
+			    			// update room and games status
+				    		Game.gameStatusStarted(true, b75.game_id);
+							Room.roomStatus(true, b75.user_room);
+							
+						//}
+		    		})
+		    	//}
+	    	} // check75 ends
+    	}
     }, 1000);
 
     	// bingo 75 ---------------------------------------------- Start
