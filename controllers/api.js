@@ -135,6 +135,7 @@ app.use(jsonParser);
 						req.session.cards = req.body.Room.cards;
 						req.session.room_id = req.body.Room.room_id;
 						req.session.game_id =  req.body.Room.game_id;
+						req.session.room_img =  req.body.Room.room_img;
 						return res.status(200).json({status:true});
 					}
 					

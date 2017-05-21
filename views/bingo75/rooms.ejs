@@ -28,18 +28,20 @@
             </div> -->
             <div class="col-md-12">
                 <!-- <div class="row">
-                  <div class="col-md-12"> -->
+                  <div class="col-md-12"> <i class="fa fa-arrows-v" aria-hidden="true"></i>-->
                     <div class="rightSideBox">
-                        <div class="boxTitle">Account Information</div>
+                        <div class="boxTitle">Welcome : <%= Bingo75.user %>
+                          <span  style="float: right;font-size: 1rem;"><a id="pay_desk75" class="fa fa-arrows-v"> Pay Desk</a></span>
+                        </div>
                         <span id="error"></span>
                         <!-- a/c info box-->
                         <div class="accountInfoBox">
                             <div class="accountInfoBoxWhite">
                                 <!-- <h3>Account Information</h3> -->
                                 <div class="userName"><span>User Name:</span><span><%= Bingo75.user %></span></div>
-                                <div class="userName"><span>Total Credits:</span><span><%= Bingo75.user_details.deposit_amount %></span></div>
+                                <div class="userName"><span>Total Credits:</span><span><%= Bingo75.user_details.deposit_amount.toFixed(2) %></span></div>
                                 <% if(Bingo75.user_details.deposit_amount > 0) { %>
-                                  <div class="userName"><span>Bingo Credits:</span><span><%= Bingo75.user_details.win_amount %></span></div>
+                                  <div class="userName"><span>Bingo Credits:</span><span><%= Bingo75.user_details.win_amount.toFixed(2) %></span></div>
                                 <% } %>
                                 <hr>
                                 <div id="transfer_div">
@@ -84,7 +86,7 @@
                                 
                                   <div class="row">
                                   <div class="col-md-2">
-                                    <img src="/assets/img/list_img.jpg" alt="">
+                                    <img src="/assets/img/list_img<%= i %>.png" width="75" height="75" alt="">
                                    </div>
                                    <div class="col-md-4">
                                    <div class="roomDetailsLeft">
@@ -101,7 +103,7 @@
                                             </select>
                                         </span>      
                                         <span class="cardsRoom">Card Price: <i class="cardPrice">&euro; <%= Bingo75.rooms[i].card_price %></i> <!-- Previous round <i class="cardPrice">0.10</i> --></span> 
-                                        <a class="btn btn-success" href="#" data-room="<%= Bingo75.rooms[i]._id %>" data-game="<%= Bingo75.gameinplay._id %>"> 
+                                        <a class="btn btn-success" href="#" data-room="<%= Bingo75.rooms[i]._id %>" data-game="<%= Bingo75.gameinplay._id %>" data-room_img="list_img<%= i %>.png"> 
                                         Enter Room</a>       
                                    </div> 
                                    </div>
@@ -146,16 +148,21 @@
  <%- include('footer75'); %>         
 
 <script type="text/javascript">
-<% if(!Bingo75.user_bingo_credits) { %>
-  $('#transfer_div').show();
+$('.accountInfoBox').hide();
+$("#pay_desk75").click(function(){
+    $(".accountInfoBox").slideToggle();
+});
+<% if(Bingo75.user_details.win_amount > 0) { %>
+  //$('.accountInfoBox').hide();
 <% } %>
-<% if(Bingo75.user_bingo_credits > 0) { %>
-  $('#transfer_div').hide();
+<% if(Bingo75.user_details.win_amount < 0) { %>
+  //$('.accountInfoBox').show();
 <% } %>
     Room = {
         cards:1,
         room_id: false,
-        game_id:false
+        game_id:false,
+        room_img: 'list_img1.png'
     };
     /*$('.chosen-room').find('.room-cards').on('change', function(){
 
@@ -165,6 +172,7 @@
 
         Room.room_id = $(this).attr('data-room');
         Room.game_id = $(this).attr('data-game');
+        Room.room_img = $(this).attr('data-room_img');
         Room.cards = $(this).parent('.roomDetailsLeft').find('.room-cards').val();
         //console.log(Room);
         //return;
@@ -198,8 +206,8 @@
     
 
      $('#transfer').on('click', function(){ 
-    var total_credits = parseInt($('#total_credits').val());
-    var transfer_credits = parseInt($('#transfer_credits').val());
+    var total_credits = parseFloat($('#total_credits').val());
+    var transfer_credits = parseFloat($('#transfer_credits').val());
     console.log('cliked', total_credits, transfer_credits)
     if(total_credits >= transfer_credits){
     $.ajax({

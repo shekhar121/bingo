@@ -5,11 +5,11 @@
 
 
 <!-- Main Section Five Cols -->
-<div class="container-fluid allCardsWrap">
+<div class="container-fluid bg_gradient">
        <div class="row" style="position: relative;">
             
             <%  if(Bingo.cards_type){ %>
-                <div class="col-md-12">
+                <div class="col-md-12 ">
 
                     <div class="row" id="full_view">
                         <div class="col-md-12" style="margin-bottom: -1rem;">
@@ -22,9 +22,9 @@
                     </div>
                 </div>
             <%  } else { %>
-            <div class="col-md-12">
+            <div class="col-md-12 allCardsWrap">
                 <div class="row" >
-                    <div class="col-md-4">
+                    <div class="col-md-5" style="border-right: 1px solid #999;">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="infoBoxWrap winnerBox playerOverFlow">
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     <!--Col end-->
-                    <div class="col-md-8" style="max-height: 530px; overflow: scroll;">
+                    <div class="col-md-7" style="max-height: 530px; overflow: scroll;">
                         <div class="row">
                             
                             <div class="col-md-5" style="margin-bottom: -0.5rem;" >
@@ -122,11 +122,11 @@
                                   </div>
                                 </div>
                             </div>
-                            <div class="col-md-3" style="margin-bottom: -1rem; text-align: right;">
+                            <div class="col-md-3" style="text-align: right;">
                                 <a class="btn btn-yellow" id="all_cards">All Cards</a>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="border-top: 1px solid #999; border-bottom: 1px solid #999; padding: 5px 5px 10px;">
 
                             <%  if(Bingo.cards > 0){ %>
                                 <%- Bingo.table %>
@@ -140,7 +140,7 @@
             </div>
             <%  }  %>
             <div class="row marquee-row">
-                <div class="col-md-12 marquee" ><marquee><%- Bingo.marquee %></marquee></div>
+                <div class="col-md-12 marquee grad" ><marquee><%- Bingo.marquee %></marquee></div>
             </div>
 
        </div>
@@ -229,12 +229,12 @@ var data = {};
         console.log(users);
         var user_list = '';
         for(i=0;i<users.length;i++){
-            if(users[i] != "<%= Bingo.user %>"){
+            //if(users[i] != "<%= Bingo.user %>"){
                 user_list += '<li class="active"><i class="online"></i><a id="'+users[i]+'" href="#">'+users[i]+'</a></li>';
-            }
+            //}
         }
-        user_list += '<li class="active"><i class="online"></i><a id="abhi" href="#">abhi</a></li>';
-        user_list += '<li class="active"><i class="online"></i><a id="sabhi" href="#">sabhi</a></li>';
+        //user_list += '<li class="active"><i class="online"></i><a id="abhi" href="#">abhi</a></li>';
+        //user_list += '<li class="active"><i class="online"></i><a id="sabhi" href="#">sabhi</a></li>';
         if(user_list){
             $('#users_in_room').html(user_list);
         }
@@ -303,8 +303,8 @@ $( document ).ready(function() {
             $('#rolling_ball').append(bingoballHTML);   
             $("#counter_ball_"  + data.counter_ball).addClass('green');
             $('.ball_num'+cnt).html(data.counter_ball);
-            $('#balls').html(cnt);
-            $('#game_round').html(data.game_round);
+            $('#balls').html(data.ball_number);
+            //$('#game_round').html(data.game_round);
             var colors=["blue","orange","red","green","yellow","pink","aqua","lime","purple","cyan","brown","grey","darkred","deeppink","gold","indigo"];
      
             jQuery('svg .ballcolor'+cnt).css('fill',colors[~~(Math.random()*colors.length)]);

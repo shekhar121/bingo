@@ -19,14 +19,15 @@
 
 <div class="container-fluid">
 <nav class="navbar fixed-bottom navbar-light bg-faded">
-       <div class="row footer">
+       <div class="row footer foot-grad">
       <div class="botom_infoTxt">
             <a href="#" class=""><i class="fa fa-lock left"></i> Logged in As: test</a>
-            <a href="#" class="" data-toggle="modal" data-target="#modalMyAccount"><i class="fa fa-user left"></i> My Account</a>
-            <a href="#" class=""><i class="fa fa-gear left"></i> Total Amount: €<%- Bingo.user_details.deposit_amount %></a>
-            <a href="#" class=""><i class="fa fa-gift left"></i> Bingo/Won Amount: €<%- Bingo.user_details.win_amount %></a>
-            <a href="#" class="" data-toggle="modal" data-target="#paydeskModal"><i class="fa fa-money left"></i> Pay Desk</a>
-            <a href="#" class="" data-toggle="modal" data-target="#modalHelp"><i class="fa fa-info left"></i> Help</a>
+            <!-- <a href="#" class="" data-toggle="modal" data-target="#modalMyAccount"><i class="fa fa-user left"></i> My Account</a> -->
+            <a href="#" class=""><i class="fa fa-gear left"></i> Cards: <span class="foot_btn grad"><%- Bingo.cards %></span></a>
+            <a href="#" class=""><i class="fa fa-gear left"></i> Total Amount: <span class="foot_btn grad">€ <%- Bingo.user_details.deposit_amount.toFixed(2) %></span></a>
+            <a href="#" class=""><i class="fa fa-gift left"></i> Bingo/Won Amount: <span class="foot_btn grad">€ <%- Bingo.user_details.win_amount.toFixed(2) %></span></a>
+            <a href="#" class="foot-help-grad" data-toggle="modal" data-target="#paydeskModal"><i class="fa fa-money left"></i> Pay Desk</a>
+            <a href="#" class="foot-help-grad" data-toggle="modal" data-target="#modalHelp"><i class="fa fa-info left"></i> Help</a>
             
             </div>          
     </div>
@@ -58,8 +59,8 @@
 <% } %>
 
   $('#transfer').on('click', function(){ 
-    var total_credits = parseInt($('#total_credits').val());
-    var transfer_credits = parseInt($('#transfer_credits').val());
+    var total_credits = parseFloat($('#total_credits').val());
+    var transfer_credits = parseFloat($('#transfer_credits').val());
     console.log('cliked', total_credits, transfer_credits)
     if(total_credits >= transfer_credits){
     $.ajax({
@@ -67,13 +68,13 @@
               url: '/api/transfer_credits',
               data: JSON.stringify({total_credits:total_credits, transfer_credits:transfer_credits}),
               success: function(res){
-                console.log('logged in'+ res.transfer_credits);
+                console.log('transfer_credits'+ res);
                   $('#bingo_credits').focus();
                   $('#transfer_credits').val(0);
                   $('#bingo_credits').val(res.transfer_credits);
                   $('#won_credits').html(res.transfer_credits);
                   $('#paydeskModal').modal('hide');
-                  window.location.href = '/bingo90/rooms';
+                  //window.location.href = '/bingo90/rooms';
                     return;
               },
               error:function(xhr){
@@ -104,38 +105,7 @@
         <p class="white-text">Hurray! We have a 1 line winner!</p>
       </div>
       <div id="l1wcard"></div>
-      <!-- <div class="col-md-12">
-                    <div class="cardBoxT ChatCol">
-                    <span id="card_'+i+'_square0" class="selectedBox">1</span>
-                    <span id="card_'+i+'_square1"></span>
-                    <span id="card_'+i+'_square2" class="selectedBox">3</span>
-                    <span id="card_'+i+'_square3" class="selectedBox">3</span>
-                    <span id="card_'+i+'_square4"></span>
-                    <span id="card_'+i+'_square5"></span>
-                    <span id="card_'+i+'_square6"></span>
-                    <span id="card_'+i+'_square7" class="selectedBox">6</span>
-                    <span id="card_'+i+'_square8" class="selectedBox">8</span>
-                    
-                    <span id="card_'+i+'_square10"></span>
-                    <span id="card_'+i+'_square11" class="selectedBox">45</span>
-                    <span id="card_'+i+'_square12" class="selectedBox">3</span>
-                    <span id="card_'+i+'_square13"></span>
-                    <span id="card_'+i+'_square14" class="selectedBox">11</span>
-                    <span id="card_'+i+'_square15" class="selectedBox">2</span>
-                    <span id="card_'+i+'_square16" class="selectedBox">2</span>
-                    <span id="card_'+i+'_square17"></span>
-                    <span id="card_'+i+'_square18"></span>
-                    
-                    <span id="card_'+i+'_square20" class="selectedBox">5</span>
-                    <span id="card_'+i+'_square21" class="selectedBox">55</span>
-                    <span id="card_'+i+'_square22"></span>
-                    <span id="card_'+i+'_square23" class="selectedBox">76</span>
-                    <span id="card_'+i+'_square24"></span>
-                    <span id="card_'+i+'_square25" class="selectedBox">4</span>
-                    <span id="card_'+i+'_square26"></span>
-                    <span id="card_'+i+'_square27"></span>
-                    <span id="card_'+i+'_square28" class="selectedBox">43</span>
-             <div class="clearfix"></div><img src="assets/img/bingoBall.png" alt=""></div></div> -->
+      
 
       <hr>
       <div class="text-center">
@@ -244,6 +214,7 @@
 
 
 <script>
+<% if(Bingo.url == 'bingo90') { %>
 $('#clockdiv').hide();
 function getTimeRemaining(endtime) {
   var t = Date.parse(endtime) - Date.parse(new Date());
@@ -301,6 +272,7 @@ checkInterval = setInterval(function(){
         initializeClock('clockdiv', deadline);
     }
   }, 1000);
+<% } %>
 </script>
 </body>
 

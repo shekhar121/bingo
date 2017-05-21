@@ -34,7 +34,7 @@ module.exports = function(http){
     	//console.log(hr, 'current hour');
     	if(hrhh % 2 == 0){
 	    	if(hr == "0001" || hr == "0601" || hr == "1001" || hr == '1601' || hr == "2001" || hr == "2601" || hr == "3001" || hr == "3601" || hr == "4001" || hr == "4601" || hr == "5001"){
-	    		if(hr == "0001"){ b90.game_round = 1; }
+	    		/*if(hr == "0001"){ b90.game_round = 1; }
 	    		if(hr == "0601"){ b90.game_round = 2; }
 	    		if(hr == "1001"){ b90.game_round = 3; }
 	    		if(hr == "1601"){ b90.game_round = 4; }
@@ -44,7 +44,7 @@ module.exports = function(http){
 	    		if(hr == "3601"){ b90.game_round = 8; }
 	    		if(hr == "4001"){ b90.game_round = 9; }
 	    		if(hr == "4601"){ b90.game_round = 10; }
-	    		if(hr == "5001"){ b90.game_round = 11; }
+	    		if(hr == "5001"){ b90.game_round = 11; }*/
 	    		// get the game and call 'game counter', that starts bingo 90
 		    	//if(!b90.round_started){
 		    		
@@ -167,6 +167,7 @@ module.exports = function(http){
 		var data = {};
 		data = b90;
 		data.current_game = {};  //  to create a winning card
+		data.ball_number = 1;
 		var array90 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
                        21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
                        41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,
@@ -195,9 +196,11 @@ module.exports = function(http){
 					array90.splice(index, 1);
 				}
 				data.counter_ball = ball;
+				data.ball_number++;
 				//game completes here - update db
 				if(array90.length == 0 || data.winnerLine3 == 1){
 	                data.game_completed = true;
+	                data.ball_number = 0;
 	                //b90.round_started = false;
 	                //console.log(data)
 	                // new game add

@@ -109,6 +109,7 @@ module.exports = function(app){
 			cards : req.session.cards,
 			user_room : req.session.room_id,
 			game_id : req.session.game_id,
+			room_img : req.session.room_img,
 			card_name : {},
 			url : 'bingo75' //req.url
 		}

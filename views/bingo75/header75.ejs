@@ -26,7 +26,17 @@
         html,
         body {
             height: 100%;
-        }
+            <% if(Bingo75.url == 'bingo75/rooms') { %>
+                background: url(/assets/img/list_img2.png) no-repeat center center fixed;
+            <% } else { %> 
+                background: url(/assets/img/<%= Bingo75.room_img %>) no-repeat center center fixed;
+            <% } %>
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            }
+
       
     </style>
 

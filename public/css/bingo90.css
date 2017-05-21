@@ -1,6 +1,7 @@
 /* YOUR CUSTOM STYLES */
 @import url('https://fonts.googleapis.com/css?family=Fascinate+Inline');
-body{background-color:#004253; /*padding:10px;*/}
+body{ /*padding:10px;*/}
+
 .bgcolor{background-color:#ffffff; border:4px #fff solid;}
 .colBorder{border-right:0.5rem #004253 solid;}
 .noborder{border-bottom:0px;}
@@ -102,8 +103,11 @@ body{background-color:#004253; /*padding:10px;*/}
 .col-md-16 {width: 16.666%;float: left;}
 .badge{color:#666 !important; margin-left:3px;padding-left:2px;}
 /* Bingo 90 cards */
+.allCardsWrap{
+    background: url(/assets/img/wave.png);
+}
 .allCardsWrapClose{padding-top:30px;background:url(/assets/img/close.png) no-repeat top right; }
-.balls_wrp{background:url(/assets/img/ring.png) no-repeat top right; height:98px; float:right; padding-right:70px;}
+.balls_wrp{background:url(/assets/img/ring.png) no-repeat top right; height:97.5px; float:right; padding-right:70px;}
 .topLeftBtnWrap{float:right;height:97.5px; overflow:hidden;}
 .topLeftBtn{     background: #eee; display:block;
     background: -webkit-linear-gradient(#ccc, #fff);
@@ -121,18 +125,18 @@ body{background-color:#004253; /*padding:10px;*/}
 
 
 .cardBoxT {
-  background-color:#b1c7d2;
+  /*background-color:#b1c7d2;*/
     border-radius: 5px;
 
-    font-size:12px; margin-top:1px; margin-left:20px;
+    font-size:12px; margin-top:1px; margin-left:15px;
 }
-.cardBoxT span{    border: 1px solid #666;
+.cardBoxT span{    border: 1px solid #999;
     float: left;
-    width: 11.1%;
+    width: 10%;
     height: 26px;
     text-align: center;
 
-    padding: 3px 0px;
+    padding: 1px 0px;
 
     /*border-right: 0px;
     border-top: 0px;*/ border-radius: 15%;}
@@ -184,10 +188,10 @@ body{background-color:#004253; /*padding:10px;*/}
 .botom_infoTxt{padding:10px; font-size:18px;}	
 .botom_infoTxt a{color:#fff; padding-right:30px;}
 /*chat room page*/
-.ChatCol{position:relative; margin-top:5px; border: 3px #f0f0f0 solid; width: 98%;}
-.ChatCol img{position:absolute; left:-25px; top:-2px; height: 70px;}
+.ChatCol{position:relative; margin-top:5px; border: 1px #999 solid; width: 98%;padding: 2px;}
+.ChatCol img{position:absolute; left:-25px; top:0px; height: 70px;}
 /*.ChatCol span{height:44px; font-size:18px; line-height:36px;    }*/
-.ChatCol span{height:22px; font-size:12px; line-height:15px;    }
+.ChatCol span{height:19.5px; font-size:12px; line-height:15px;   margin: 1px auto; }
 .infoBoxWrap{background-color:#FFF; border-radius:20px; position:relative; padding:24px 15px 15px;}
 .boxtitle{    position: absolute;
     font-family: 'Fascinate Inline', cursive;
@@ -195,7 +199,7 @@ body{background-color:#004253; /*padding:10px;*/}
     top: -15px;
     left: -8px;
     color: #fce540;
-    background-color: #000;
+    /*background-color: #000;*/
     border-radius: 26px;
     padding: 0px 12px;}
 .winner-title{
@@ -249,7 +253,7 @@ body{background-color:#004253; /*padding:10px;*/}
     }
 }*/
 /*five cols closed*/
-.chatRoomTxt{height: 255px; overflow:auto;}
+.chatRoomTxt{height: 240px; overflow:auto;}
 .floatLedt{float:left; margin:0px; width:80%;}
 .floatLedt input{padding:3px; margin:0px;}
 .animate {
@@ -282,8 +286,8 @@ body{background-color:#004253; /*padding:10px;*/}
     margin-top: 0.65rem;
 }
 #rolling_ball > div { margin-left:-1rem; margin-right:-11rem;
-    width: 5rem;
-    height: 5rem; float: left;
+    width: 4rem;
+    height: 4rem; float: left;
     position: relative;
     -webkit-animation: spin 2s linear infinite;
     -moz-animation: spin 2s linear infinite;
@@ -292,9 +296,9 @@ body{background-color:#004253; /*padding:10px;*/}
     }
     #rolling_ball > div > h3 {
     position: absolute;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     left: 20%;
-    top: 30%;
+    top: 35%;
     color: #333;
     width: 2em;
     text-align: center;
@@ -395,24 +399,45 @@ body{background-color:#004253; /*padding:10px;*/}
 .wrapper span:nth-child(7)  { animation-name: loading-7;  }
 
 .marquee{
-    border: 5px solid #eee;
-    padding: 10px;
+    border: 2px solid #666;
+    padding: 5px;
     margin-top: 10px;
-    background: #fbc846;
+    /*background: #fbc846;*/
     color: #fff;
-        font-size: 1.5rem;
+    font-size: 1.5rem;
     /*animation: marquee 50s linear infinite;*/
 }
 .marquee-row{
         position: absolute;
-    bottom: 10px;
+    bottom: 0px;
     right: 0;
     margin-right: 0rem;
-    width: 67%;
+    width: 58.5%;
+}
+.grad {
+    background: -webkit-linear-gradient(left, #EE2B1B, orange, yellow, orange, #EE2B1B); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(left,#EE2B1B, orange, yellow, orange, #EE2B1B); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, #EE2B1B, orange, yellow, orange, #EE2B1B); /* For Fx 3.6 to 15 */
+    background: linear-gradient(to right, #EE2B1B, orange, yellow, orange, #EE2B1B); /* Standard syntax (must be last) */
+}
+.foot-grad {
+ background: -webkit-linear-gradient(#ddd 10%, #0275d8 90%); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#ddd 10%, #0275d8 90%); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#ddd 10%, #0275d8 90%); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#ddd 10%, #0275d8 90%); /* Standard syntax (must be last) */
+}
+.foot-help-grad {
+    background: -webkit-linear-gradient(left, blue, #0275d8, #ccc, #0275d8, blue); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(left,blue, #0275d8, #ccc, #0275d8, blue); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, blue, #0275d8, #ccc, #0275d8, blue); /* For Fx 3.6 to 15 */
+    background: linear-gradient(to right, blue, #0275d8, #ccc, #0275d8, blue); /* Standard syntax (must be last) */
+    padding: 5px 20px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
 }
 .footer{
     background: #00c1ff;
-    border: 5px solid #eee;
+    border: 1px solid #999;
 }
 #clockdiv{
   font-family: sans-serif;
@@ -441,6 +466,17 @@ body{background-color:#004253; /*padding:10px;*/}
 .smalltext{
   padding-top: 5px;
   font-size: 16px;
+}
+.foot_btn{
+    padding: 5px 10px;
+    font-weight: 400;
+    border: 2px solid #999;
+}
+.foot-grad {
+ background: -webkit-linear-gradient(#ddd 10%, #0275d8 90%); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#ddd 10%, #0275d8 90%); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#ddd 10%, #0275d8 90%); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#ddd 10%, #0275d8 90%); /* Standard syntax (must be last) */
 }
 @keyframes rota {
     to { transform: rotate(360deg); }

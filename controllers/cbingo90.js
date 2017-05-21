@@ -5,6 +5,7 @@ var User = require('../models/user');
 var Game = require('../models/game');
 var Setting = require('../models/setting');
 var Bingo90 = require('../models/bingo90');
+var moment = require('moment-timezone');
 var Bingo = Bingo || {}; 
 /*function removeByAttr(arr, attr, value){
     var i = arr.length;
@@ -125,6 +126,9 @@ module.exports = function(app){
 			return;
 		}
 		var cards_type = (req.query.cards_type)? true:false;
+		var hrhh = moment(new Date()).tz("Europe/Amsterdam").format("hh");
+		var hr = moment(new Date()).tz("Europe/Amsterdam").format("mmss");
+
 		Bingo = {
 			user : req.session.user.username,
 			//user_bingo_credits:req.session.user_bingo_credits,
@@ -136,8 +140,11 @@ module.exports = function(app){
 			body_bg: req.session.body_bg,
 			pin_bg: req.session.pin_bg,
 			cards_type : cards_type,
-			url : 'bingo90' //req.url
+			url : 'bingo90', //req.url
+			game_round: 0,
+			game_round_clr: '#fff'
 		}
+		
 	
 			var gameID = req.session.game_id;
 			//try with async
@@ -159,6 +166,22 @@ module.exports = function(app){
 		            throw callback(err);
 		            return;
 		        }
+		        if(hrhh % 2 == 0){ //console.log('AAAAAAAAAAAAAAAAAAAAAAAAAA')
+					//if(hr == "0001" || hr == "0601" || hr == "1001" || hr == '1601' || hr == "2001" || hr == "2601" || hr == "3001" || hr == "3601" || hr == "4001" || hr == "4601" || hr == "5001"){
+						//console.log('VVVVVVVVVVVVVVVVVVVVVV')
+			    		if(hr < "0001" && hr > "5601"){ Bingo.game_round = 1; Bingo.game_round_clr = '#fc4000';}
+			    		if(hr > "0001" && hr < "0601"){ Bingo.game_round = 2; Bingo.game_round_clr = '#9b0298';}
+			    		if(hr > "0601" && hr < "1001"){ Bingo.game_round = 3; Bingo.game_round_clr = '#4e2900';}
+			    		if(hr > "1001" && hr < "1601"){ Bingo.game_round = 4; Bingo.game_round_clr = '#fd02b1';}
+			    		if(hr > "1601" && hr < "2001"){ Bingo.game_round = 5; Bingo.game_round_clr = '#00f05b';}
+			    		if(hr > "2001" && hr < "2601"){ Bingo.game_round = 6; Bingo.game_round_clr = '#429022';}
+			    		if(hr > "2601" && hr < "3001"){ Bingo.game_round = 7; Bingo.game_round_clr = '#0011cb';}
+			    		if(hr > "3001" && hr < "3601"){ Bingo.game_round = 8; Bingo.game_round_clr = '#00c1ff';}
+			    		if(hr > "3601" && hr < "4001"){ Bingo.game_round = 9; Bingo.game_round_clr = '#FF00FF';}
+			    		if(hr > "4001" && hr < "4601"){ Bingo.game_round = 10; Bingo.game_round_clr = '#808000';}
+			    		if(hr > "4601" && hr < "5001"){ Bingo.game_round = 11; Bingo.game_round_clr = '#800000';}
+				    //}
+				}
 			    Bingo.room  = results[0]; //rooms
 			    //Bingo.gameinplay  = results[1]; //gameinplay
 
@@ -167,6 +190,7 @@ module.exports = function(app){
 				Bingo.room_id = req.session.room_id;
 				Bingo.marquee  = results[2].bingo90_broadcast_msg;
 				Bingo.user_details = results[3];
+
 			    
 			    res.render('bingo90/bingo90', {Bingo:Bingo});
 			});
