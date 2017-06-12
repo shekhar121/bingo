@@ -2,9 +2,9 @@
     <div class="row chat-window  col-md-3" id="chat_window" >
         <div class="col-xs-12 col-md-12">
         	<div class="panel panel-default">
-                <div class="panel-heading top-bar">
+                <div class="row panel-heading top-bar">
                     <div class="col-md-8 col-xs-8">
-                        <h3 class="panel-title" id="chat_box_title"><!-- <span class="glyphicon glyphicon-comment"></span> Chat - Miguel --></h3>
+                        <div class="panel-title" id="chat_box_title"><!-- <span class="glyphicon glyphicon-comment"></span> Chat - Miguel --></div>
                     </div>
                     <div class="col-md-4 col-xs-4" style="text-align: right;">
                         <a href="#"><span id="minim_chat_window" class="fa fa-minus icon_minim"></span>
@@ -269,6 +269,10 @@ $('#chat_container').on('keypress', '.chat-btn-input', function(e){ //console.lo
 .col-md-2, .col-md-10{
     padding:0;
 }
+.panel-footer{
+  background: #fff; 
+     border: 1px solid #999; 
+}
 .panel{
     margin-bottom: 0px;
 }
@@ -294,21 +298,22 @@ $('#chat_container').on('keypress', '.chat-btn-input', function(e){ //console.lo
 .top-bar {
   background: #666;
   color: white;
-  padding: 10px;
+  padding: 5px;
+  margin:0;
   position: relative;
   overflow: hidden;
 }
 .msg_receive{
-    padding-left:0;
-    margin-left:0;
+    padding-bottom:15px !important;
+    margin-right:0;
 }
 .msg_sent{
-    padding-bottom:20px !important;
+    padding-bottom:15px !important;
     margin-right:0;
 }
 .messages {
   background: white;
-  padding: 10px;
+  padding: 5px;
   border-radius: 2px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   max-width:100%;
@@ -322,7 +327,7 @@ $('#chat_container').on('keypress', '.chat-btn-input', function(e){ //console.lo
     color: #ccc;
 }
 .msg_container {
-    padding: 10px;
+    padding: 5px 15px;
     overflow: hidden;
     display: flex;
 }
@@ -332,19 +337,19 @@ img {
 }
 .avatar1 {
     position: relative;
-    border-radius: 25%;
+    border-radius: 50%;
     background: grey;
     width: 40px;
     height: 40px;
-    padding: 1rem;
+    padding: 10px 20px;
 }
 .avatar2 {
     position: relative;
-    border-radius: 25%;
+    border-radius: 50%;
     background: orange;
     width: 40px;
     height: 40px;
-    padding: 1rem;
+    padding: 10px 20px;
 }
 .base_receive > .avatar:after {
     content: "";
@@ -378,7 +383,9 @@ img {
 .msg_sent > time{
     float: right;
 }
-
+.msg_receive > time{
+    float: right;
+}
 
 
 .msg_container_base::-webkit-scrollbar-track

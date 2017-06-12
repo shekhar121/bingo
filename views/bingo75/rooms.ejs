@@ -103,7 +103,7 @@
                                             </select>
                                         </span>      
                                         <span class="cardsRoom">Card Price: <i class="cardPrice">&euro; <%= Bingo75.rooms[i].card_price %></i> <!-- Previous round <i class="cardPrice">0.10</i> --></span> 
-                                        <a class="btn btn-success" href="#" data-room="<%= Bingo75.rooms[i]._id %>" data-game="<%= Bingo75.gameinplay._id %>" data-room_img="list_img<%= i %>.png"> 
+                                        <a class="btn btn-success" href="#" data-room="<%= Bingo75.rooms[i]._id %>" data-game="" data-room_img="list_img<%= i %>.png"> 
                                         Enter Room</a>       
                                    </div> 
                                    </div>
@@ -164,9 +164,7 @@ $("#pay_desk75").click(function(){
         game_id:false,
         room_img: 'list_img1.png'
     };
-    /*$('.chosen-room').find('.room-cards').on('change', function(){
 
-    })*/
     $('.chosen-room').find('a').on('click', function(e){
         e.preventDefault();
 
@@ -176,8 +174,8 @@ $("#pay_desk75").click(function(){
         Room.cards = $(this).parent('.roomDetailsLeft').find('.room-cards').val();
         //console.log(Room);
         //return;
-        if(Room.room_id && Room.game_id){
-        
+        //if(Room.room_id && Room.game_id){
+        if(Room.room_id){
             $.ajax({
               type: "POST",
               url: '/api/gotobingo75',

@@ -2,41 +2,61 @@
 <script src="/socket.io/socket.io.js"></script>
     <!-- Page Content -->
 <div class="container-fluid bgcolor" style="margin-top: -0.75rem;">
-<span id="error"></span>
-       <div class="row"     style="background: url('/assets/img/wave.png')";>
-       <% if(Bingo.rooms.length > 0){ 
+
+    <div class="row" style="background: url('/assets/img/wave.png')";>
+        <% if(Bingo.rooms.length > 0){ 
             for(i=0;i<Bingo.rooms.length;i++){
         %>
-           <div class="col-md-15 colBorder" <% if(i==0){ %> style="border-left: 0.5rem #004253 solid;" <% } %>>
-                <div class="roomHead"><%= Bingo.rooms[i].name %> (<span>0</span>)</div>
-                <div class="roomTxtBox">
-                    <div class="titleTxt">Status: 
+        <div class="col-md-15 colBorder" <% if(i==0){ %> style="border-left: 0.5rem #004253 solid;" <% } %>>
+            <div class="roomHead"><%= Bingo.rooms[i].name %> (<span>0</span>)</div>
+            <div class="roomTxtBox">
+                <div class="titleTxt">Status: 
                     <% if(!Bingo.rooms[i].if_open){ %> 
                        <span class="status" style="color: red;"> Closed...</span>
                     <% } else{  %>
                        <span class="status"> Open</span> 
                     <% } %>
-                    </div>
-                    <div class="roominfoTxt">Game Starts: <span class="Time">2016-12-14, 20:00:00</span></div>
+                </div>
+                <div class="roominfoTxt">
+                    Game Starts: <span class="Time">2016-12-14, 20:00:00</span>
+                </div>
                     <!-- <div class="roominfoTxt">Rounds to go: <span class="rounds">0</span><span class="clearfix"></span></div> -->
                     <!--**********************************-->
                     <div class="titleTxt">Books:</div>
-                    <div class="roominfoTxt">1 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book1_cost %></span><span class="clearfix"></span></div>
-                    <div class="roominfoTxt">2 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book2_cost %></span><span class="clearfix"></span></div>
-                    <div class="roominfoTxt">3 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book3_cost %></span><span class="clearfix"></span></div>
-                    <div class="roominfoTxt">4 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book4_cost %></span><span class="clearfix"></span></div>
-                    <div class="roominfoTxt">5 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book5_cost %>0</span><span class="clearfix"></span></div>
-                    <div class="roominfoTxt">6 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book6_cost %></span><span class="clearfix"></span></div>
+                    <div class="roominfoTxt">
+                        1 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book1_cost %></span><span class="clearfix"></span>
+                    </div>
+                    <div class="roominfoTxt">
+                        2 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book2_cost %></span><span class="clearfix"></span>
+                    </div>
+                    <div class="roominfoTxt">
+                        3 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book3_cost %></span><span class="clearfix"></span>
+                    </div>
+                    <div class="roominfoTxt">
+                        4 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book4_cost %></span><span class="clearfix"></span>
+                    </div>
+                    <div class="roominfoTxt">
+                        5 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book5_cost %>0</span><span class="clearfix"></span>
+                    </div>
+                    <div class="roominfoTxt">
+                        6 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book6_cost %></span><span class="clearfix"></span>
+                    </div>
                     <!--**********************************-->
                     <div class="titleTxt">Priced in the room:</div>
-                    <span class="roomPrice elven">Line 1 - &euro; <%= Bingo.rooms[i].line1_prize %></span>
-                    <span class="roomPrice elven">Line 2 - &euro; <%= Bingo.rooms[i].line2_prize %></span>
-                    <span class="roomPrice elven">Full House - &euro; <%= Bingo.rooms[i].fullhouse_prize %></span>
-                    <span class="roomPrice elven">Jackpot - &euro; <%= Bingo.rooms[i].jackpot_prize %></span>
+                    <span class="roomPrice elven">
+                        Line 1 - &euro; <%= Bingo.rooms[i].line1_prize %>
+                    </span>
+                    <span class="roomPrice elven">
+                        Line 2 - &euro; <%= Bingo.rooms[i].line2_prize %>
+                    </span>
+                    <span class="roomPrice elven">
+                        Full House - &euro; <%= Bingo.rooms[i].fullhouse_prize %>
+                    </span>
+                    <!-- <span class="roomPrice elven">Jackpot - &euro; <%= Bingo.rooms[i].jackpot_prize %></span> -->
                     <!-- <span class="roomPrice">6 x &euro; 30.00,</span>
                     <span class="roomPrice">5 x &euro; 100.00</span> -->
                     <!--**********************************-->
-                    <!-- <div class="titleTxt">Buy Books!</div>
+                    <div class="titleTxt">Buy Books!</div>
                     <div id="btn_card" class="btnWrap">
                         <a href="javascript:void(0)" class="blackglass" data-val="1">1</a> 
                         <a href="javascript:void(0)" class="blackglass" data-val="2">2</a>
@@ -49,7 +69,7 @@
                         <i class="fa fa-chevron-down"></i>
                         <span id="selected_card" class="selectedBook">1</span>
                         <i class="fa fa-chevron-down"></i>
-                    </div> --> 
+                    </div> 
                     <!--**********************************-->
                     <span class="clearfix"></span>
                     <div class="titleTxt">Select Blackground 
@@ -72,9 +92,13 @@
                     </div> --> 
                     <!--**********************************-->
                     <span class="clearfix"></span>
-                    <div class="titleTxt">Click on pin you want to use: <span id="selected_pin_bg" class="selectedColor_2">&nbsp;</span></div>
+                    <div class="titleTxt">Click on pin you want to use: 
+                        <span id="selected_pin_bg" class="selectedColor_2">&nbsp;</span>
+                    </div>
                     <div id="pin_bg" class="btnWrap pinWrap" > 
-                    <a href="javascript:void(0)" class="pin_3" data-bg="#429022"><img src="/assets/img/Marker_3.svg" width="15%"  /></a>
+                        <a href="javascript:void(0)" class="pin_3" data-bg="#429022">
+                            <img src="/assets/img/Marker_3.svg" width="15%"  />
+                        </a>
                         <a href="javascript:void(0)" class="pin_1" data-bg="#00c1ff"> <!-- <i class="fa fa-thumb-tack" aria-hidden="true"></i> -->
                             <img src="/assets/img/Marker_1.svg"   width="15%"/>
                         </a>
@@ -99,43 +123,43 @@
                     </div>
                     
 
-                    <% if(i==0){ %>
-                        <% if(Bingo.game_id){ %>
-                        <div class="enterRoom"  style=" bottom: 85px;"><a style="border-radius: 0px;background: #004253;" href="/bingo90" class="glass" >Go Back To Game</a></div>
-                        <% }  %>
-                    <span class="clearfix"></span>
-                        <% if(!Bingo.rooms[i].status){ %>
-                            <div class="enterRoom"><a style="background: #004253;border-radius: 0px;" id="room_id" href="#" class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>">Update / Enter Room</a></div>
-                        <% } else{  %>
+                    <% if(i==0){  %> 
+                        <% if(Bingo.user_playing){ %>
+                            <div class="enterRoom2"  data-room="<%= Bingo.rooms[i]._id %>" style=" bottom: 65px;">
+                                <a style="border-radius: 0px;background: #004253;" href="/bingo90" class="glass" >Back To Game</a>
+                            </div>
+                            <span class="clearfix"></span>
+                            <!-- <div class="enterRoom2"><a style="background: #004253;border-radius: 0px;" id="update_room" href="#" class="glass" >Update/Buys Books & Enter Room</a></div> -->
+                        <% } else {  %>
+                            <span class="clearfix"></span>
                             <div class="enterRoom">
-                            <a style="background: #004253;border-radius: 0px;color:red;"   class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>"> Busy (Game in Play)</a></div>
+                                <a style="background: #004253;border-radius: 0px;" id="enter_room" href="#" class="glass" >Enter Room</a>
+                            </div>
+                        <% }  %>
+                        <span class="clearfix"></span>
+                        <% if(!Bingo.rooms[i].status){ %>
+                            <div class="enterRoom2">
+                                <a style="background: #004253;border-radius: 0px;" id="update_room" href="#" class="glass" >Update/Buys Books & Enter Room</a>
+                            </div>
+                        <% } else{  %>
+                            <div class="enterRoom2">
+                                <a style="background: #004253;border-radius: 0px;color:red;"   class="glass"> Busy</a>
+                            </div>
                         <% }  %>
                     <% } else {  %>
                         <div class="enterRoom">
-                        <a style="background: #004253;border-radius: 0px;color:#fff;"   class="glass" data-room="<%= Bingo.rooms[i]._id %>" data-game="<%= Bingo.gameinplay._id %>"> Enter Room (Closed)</a></div>
+                            <a style="background: #004253;border-radius: 0px;color:#fff;"   class="glass"> Enter Room (Closed)</a>
+                        </div>
                     <% }  %>
-                    <!-- <div class="BuyBook" >
-                        <i class="fa fa-chevron-down"></i>
-                        <span id="selected_pin_bg" class="selectedColor_2">&nbsp;</span>
-                        <i class="fa fa-chevron-down"></i>
-                    </div>  -->
-                    <!--**********************************-->
-                   <!--  <span class="clearfix"></span> -->
-                    
-                    
-                  
-                    
                     <!--Closed-->                  
                 </div>
            </div>
         <% }  } %>
-         
-           
         <!-- rooms for loop end - -->
            
-            
-       </div>
+    </div>
 </div>
+
 <div class="bg_load"></div>
 <div class="wrapper">
     <div class="inner">
@@ -157,12 +181,12 @@
 <%- include('footer90'); %>
 
 <script type="text/javascript">
-$( document ).ready(function() {
+/*$( document ).ready(function() {
     $("#ex8").slider({
         tooltip: 'always'
     });
     
-});
+});*/
 </script>
 <script type="text/javascript">
 $(".bg_load, .wrapper").hide();
@@ -170,8 +194,7 @@ $(".bg_load, .wrapper").hide();
         body_bg: '#e80000',
         pin_bg: '#429022',
         cards:1,
-        room_id: false,
-        game_id:false
+        room_id: false
     };
     $('#body_bg a').on('click', function(e){
         Room.body_bg = $(this).attr('data-bg');
@@ -183,25 +206,24 @@ $(".bg_load, .wrapper").hide();
         $('#selected_pin_bg').css('background',Room.pin_bg);
         console.log(Room);
     })
-    /*$('#btn_card a').on('click', function(e){
-        Room.cards = $(this).attr('data-val');
+    $('#btn_card a').on('click', function(e){
+        Room.cards = $(this).attr('data-val'); console.log(Room);
         $('#selected_card').text(Room.cards);
-    })*/
-    $("#ex8").on("slide", function(slideEvt) {
+    })
+    /*$("#ex8").on("slide", function(slideEvt) {
         //$("#ex6SliderVal").text(slideEvt.value);
         //console.log(slideEvt.value);
         Room.cards = slideEvt.value;
-    });
-    $('#room_id').on('click', function(e){
+    });*/
+    $('#enter_room, #update_room').on('click', function(e){
         e.preventDefault(); 
         $(".bg_load, .wrapper").show();
         $(".bg_load").fadeOut("slow");
         $(".wrapper").fadeOut("slow");
-        Room.room_id = $(this).attr('data-room');
-        Room.game_id = $(this).attr('data-game');
+        //Room.room_id = $(this).attr('data-room');
         //console.log(Room); 
         //return;
-        if(Room.room_id && Room.game_id){
+        //if(Room.room_id){
         
             $.ajax({
               type: "POST",
@@ -224,9 +246,9 @@ $(".bg_load, .wrapper").hide();
               dataType: 'json',
               contentType: "application/json; charset=utf-8",
             });
-        } else{
+        /*} else{
             alert('oops! something went wrong!');
-        }
+        }*/
     });
     
 </script>

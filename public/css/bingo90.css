@@ -41,8 +41,8 @@ body{ /*padding:10px;*/}
 .elven{display:block;}
 /*.btnWrap{float:left; width:78%; margin-top:6px;}*/    
     
-.btnWrap{/*float:left;text-align: center;*/  margin-top:5px;margin-bottom: 20px;}
-.BuyBook{float:right; width:20%; text-align:center;margin-top: -2rem}
+.btnWrap{/*float:left;text-align: center;*/  margin-top:1px;margin-bottom: 5px;}
+.BuyBook{float:right; width:16%; text-align:center;margin-top: -3.2rem}
 .selectedBook{background-color: #004253;color: #FFF;border-radius: 30px;display: block;padding: 1px;font-size: 1rem;font-weight: bold;}
 .selectedColor_1{background-color: #0011cb;border-radius: 5px;display: inline-block;font-size: 1rem;width:1rem;/*width:48px; height:48px;*/}
 .selectedColor_2{background-color: #66ffff;border-radius: 5px;display: inline-block;font-size: 1rem;width:1rem;/*width:48px; height:48px;*/}
@@ -77,6 +77,7 @@ body{ /*padding:10px;*/}
 .pin_10{color:#004209;}	
 
 .enterRoom{text-align:center; /*margin-top:20px;*/ position: absolute;bottom: 55px;}
+.enterRoom2{text-align:center; /*margin-top:20px;*/ position: absolute;bottom: 35px;}
 /*gray glassy Button*/
 .glass2{position: relative;	display: inline-block;	padding: 6px 20px;	background:linear-gradient(#000,#888);text-decoration: none;color: #fff;font-size: 16px;font-family: sans-serif;font-weight: bold;border-radius: 20px;box-shadow: 0px 1px 4px -2px #333;text-shadow: 0px -1px #333;}
 .glass{padding: 5px 10px; color: #fff;}
@@ -88,7 +89,7 @@ body{ /*padding:10px;*/}
 .glass:hover{background: linear-gradient(#666,#ccc); color:#ccc;}
 
 
-.blackglass{position: relative;	display: inline-block;	padding: 1px 15px;	background:linear-gradient(#999,#004253);text-decoration: none;color: #fff;font-size: 1rem;font-family: sans-serif;font-weight: bold;border-radius: 20px;box-shadow: 0px 1px 4px -2px #000;text-shadow: 0px -1px #000; margin-bottom:6px; margin-right:3px;}
+.blackglass{position: relative;	display: inline-block;	padding: 1px 10px;	background:linear-gradient(#999,#004253);text-decoration: none;color: #fff;font-size: 1rem;font-family: sans-serif;font-weight: bold;border-radius: 20px;box-shadow: 0px 1px 4px -2px #000;text-shadow: 0px -1px #000; margin-bottom:6px; margin-right:3px;}
 .blackglass:after{
 	content: '';
 	position: absolute;	top: 2px;left: 2px;	width: calc(100% - 4px);border-radius: 10px 10px 0px 0px;height: 50%;background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));}
@@ -132,7 +133,7 @@ body{ /*padding:10px;*/}
 }
 .cardBoxT span{    border: 1px solid #999;
     float: left;
-    width: 10%;
+    width: 11%;
     height: 26px;
     text-align: center;
 
@@ -151,7 +152,7 @@ body{ /*padding:10px;*/}
     -webkit-box-shadow: 0 0 18px #e74c3c inset;
     -moz-box-shadow: 0 0 18px #e74c3c inset;
     box-shadow: 0 0 18px #e74c3c inset;
-    background-color: #fa9d93;
+    /*background-color: rgba(255,255,255,0.1) !important;*/
     border-radius: 15%;}	
 .cardBoxT span.freeBox{color: white;
     text-shadow: 1px 1px 2px blue;
@@ -185,7 +186,7 @@ body{ /*padding:10px;*/}
 .cardBoxT span:first-child{border-left:0px;}
 .cardBoxT span:nth-child(19) { border-left:0px; border-bottom:0px;}	
 .cardBoxT span:nth-child(27) { border-bottom:0px;}
-.botom_infoTxt{padding:10px; font-size:18px;}	
+.botom_infoTxt{/*padding:10px;*/ font-size:18px;}	
 .botom_infoTxt a{color:#fff; padding-right:30px;}
 /*chat room page*/
 .ChatCol{position:relative; margin-top:5px; border: 1px #999 solid; width: 98%;padding: 2px;}
@@ -432,12 +433,13 @@ body{ /*padding:10px;*/}
     background: -moz-linear-gradient(left, blue, #0275d8, #ccc, #0275d8, blue); /* For Fx 3.6 to 15 */
     background: linear-gradient(to right, blue, #0275d8, #ccc, #0275d8, blue); /* Standard syntax (must be last) */
     padding: 5px 20px;
-    border-radius: 50%;
-    border: 1px solid #ccc;
+    border-radius: 25%;
+    border: 2px solid #ccc;
 }
 .footer{
     background: #00c1ff;
     border: 1px solid #999;
+    padding: 1rem 0;
 }
 #clockdiv{
   font-family: sans-serif;
@@ -445,8 +447,8 @@ body{ /*padding:10px;*/}
   display: inline-block;
   font-weight: 100;
   text-align: center;
-  font-size: 20px;
-  padding-top: 5px
+  /*font-size: 20px;
+  padding-top: 5px*/
 }
 
 #clockdiv > div{
@@ -477,6 +479,12 @@ body{ /*padding:10px;*/}
     background: -o-linear-gradient(#ddd 10%, #0275d8 90%); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#ddd 10%, #0275d8 90%); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#ddd 10%, #0275d8 90%); /* Standard syntax (must be last) */
+}
+.head-bar-grad {
+ background: -webkit-linear-gradient(#ddd 10%, #666 90%); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#ddd 10%, #666 90%); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#ddd 10%, #666 90%); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#ddd 10%, #666 90%); /* Standard syntax (must be last) */
 }
 @keyframes rota {
     to { transform: rotate(360deg); }

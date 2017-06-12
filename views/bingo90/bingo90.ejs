@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="md-form floatLedt">
                                         <input type="text" id="message" name="message" class="form-control">
-                                        <label for="form1" class="">Type your massage here</label>
+                                        <label for="form1" class="">Type your message here</label>
                                     </div>
                                     <a href="#" class="action-button shadow animate sendBtn blue" id="send_msg_btn">Send</a>
   <!-- <a href="#" class="action-button shadow animate sendBtn blue" id="show_btn">Start</a> -->
@@ -95,10 +95,10 @@
                     </div>
                     <!--Col end-->
                     <div class="col-md-7" style="max-height: 530px; overflow: scroll;">
-                        <div class="row">
+                        <div class="row head-bar-grad">
                             
                             <div class="col-md-5" style="margin-bottom: -0.5rem;" >
-                                     <a class="btn btn-yellow dropdown-toggle waves-effect waves-light" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-weixin" aria-hidden="true"></i></a>
+                                     <a style="padding: 0.25rem;" class="btn foot-help-grad dropdown-toggle waves-effect waves-light" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-weixin" aria-hidden="true"></i></a>
                                     <div class="dropdown-menu dropdown-warning" aria-labelledby="dropdownMenu4" id="get_chat_users">
                                         <!-- <a class="dropdown-item waves-effect waves-light">Action</a>
                                         <a class="dropdown-item waves-effect waves-light">Another action</a>
@@ -123,7 +123,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3" style="text-align: right;">
-                                <a class="btn btn-yellow" id="all_cards">All Cards</a>
+                                <a style="padding: 0.25rem;" class="btn foot-help-grad" id="all_cards">All Cards</a>
                             </div>
                         </div>
                         <div class="row" style="border-top: 1px solid #999; border-bottom: 1px solid #999; padding: 5px 5px 10px;">
@@ -166,6 +166,7 @@ bksound.once('load', function(){
   bksound.play();
 });
 function ballsound(num){
+    bksound.pause();
     var sound = Sound.gender;
     var bksnd = new Howl({
       src: ['/assets/sound/mp3/'+sound+'/'+num+'.mp3']
@@ -177,6 +178,7 @@ function ballsound(num){
     });  
 }
 function bingosound(){
+    bksound.pause();
     var sound = Sound.gender;
     var bingosnd = new Howl({
       src: ['/assets/sound/mp3/'+sound+'/bingo.mp3']
@@ -280,7 +282,7 @@ $( document ).ready(function() {
             } else {
                 console.info( "This page is not reloaded");
             }*/
-            if(data.game_completed){
+            if(data.round_completed){
                 //performance.navigation.type = 0;
                 setTimeout(function(){ 
                     window.location = '/bingo90/rooms?game_c=yes&game_c_id='+data.game_id; 
@@ -289,10 +291,12 @@ $( document ).ready(function() {
             }
             var user = '<%= Bingo.user %>';
             for(key in data.card_name[user]){
-            //console.log(key, 'key', <%= Bingo.pin_bg %>);
+            //console.log(data.card_name[user][key]);
                     if(data.card_name[user][key] == 'matched'){
+                        //console.log('data.card_name[user][key]');
                         //document.getElementById(key).className ='matched-cell';
-                        $('#'+key).css('background','<%= Bingo.pin_bg %>');;
+                        $('#'+key).css('background','<%= Bingo.pin_bg %>');
+                        //$('#'+key).css('background','#000');
                         //$('#'+key).addClass('matched-cell');
                     }
                 }
@@ -304,7 +308,7 @@ $( document ).ready(function() {
             $("#counter_ball_"  + data.counter_ball).addClass('green');
             $('.ball_num'+cnt).html(data.counter_ball);
             $('#balls').html(data.ball_number);
-            //$('#game_round').html(data.game_round);
+            $('#game_round').html(data.game_round);
             var colors=["blue","orange","red","green","yellow","pink","aqua","lime","purple","cyan","brown","grey","darkred","deeppink","gold","indigo"];
      
             jQuery('svg .ballcolor'+cnt).css('fill',colors[~~(Math.random()*colors.length)]);

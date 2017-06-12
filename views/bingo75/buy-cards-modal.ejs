@@ -1,0 +1,79 @@
+<!--//modals-->
+<div class="modal fade" id="modalBuyCards" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg_gradient" style="border:3px solid #333; border-radius: 15%;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <img src="/assets/img/bg_head.svg" style="height: 98px;width: 100%;display: inline;    opacity: 0.5;">
+       </div>
+      <div class="modal-body text-center">
+      <h1 class="modal-title winner-title"><i class="fa fa-gift"></i> <%= Bingo75.room.name %></h1>
+        <!-- <p class="white-text" id="game_winner"></p> -->
+        <div class="roomDetailsLeft-old" id="chosen-room">
+                                        <span class="roomTitle"><%= Bingo75.room.name %></span>
+                                        <br>
+                                        <span class="roomTitle">Upto <%= Bingo75.room.cards_upto %> cards per room</span> <br>
+                                        <span class="roomTitle">Choose cards:
+                                            <select class="room-cards">
+                                                <% 
+                                                    for(j=1;j<=Bingo75.room.cards_upto;j++){
+                                                %>
+                                                <option value="<%= j %>"><%= j %></option>
+                                                <% } %>
+                                            </select>
+                                        </span> <br>     
+                                        <span class="roomTitle">Card Price: <i class="cardPrice">&euro; <%= Bingo75.room.card_price %></i> <!-- Previous round <i class="cardPrice">0.10</i> --></span> 
+                                        <a class="btn btn-success" href="#" data-room="<%= Bingo75.room_id %>" data-game="" data-room_img="<%= Bingo75.room_img %>"> 
+                                        Buy Now!</a>       
+                                   </div>
+      </div>
+      <hr>
+      <div class="text-center">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+   Room = {
+        cards:<%= Bingo75.cards %>,
+        room_id: "<%= Bingo75.room_id %>"
+    };
+
+    $('#chosen-room').find('a').on('click', function(e){
+        e.preventDefault();
+
+        Room.room_id = $(this).attr('data-room');
+        Room.room_img = $(this).attr('data-room_img');
+        Room.cards = $(this).parent('.roomDetailsLeft').find('.room-cards').val();
+        //console.log(Room);
+        //return;
+        //if(Room.room_id && Room.game_id){
+        if(Room.room_id){
+            $.ajax({
+              type: "POST",
+              url: '/api/gotobingo75',
+              data: JSON.stringify({Room}),
+              success: function(res){
+                console.log('logged in'+ res);
+                if(res.status){
+                    window.location.href = '/bingo75';
+                    return;
+                }
+                if(!res.status){
+                    $('#error').addClass('error-red red text-center' ).html('not enough credits! tranfer credits to bingo or get more credits');
+                    return;
+                }
+              },
+              error:function(xhr){
+                $('#error').addClass('error-red red').html('There is some issue!');
+              },
+              dataType: 'json',
+              contentType: "application/json; charset=utf-8",
+            });
+        } else{
+            alert('oops! something went wrong!');
+        }
+    });
+</script>

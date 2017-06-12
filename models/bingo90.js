@@ -1,6 +1,8 @@
 var User = require('./user');
 var Room = require('./room');
-var Game = require('./game');
+var Game = require('./game90');
+var Game90archive = require('../models/game90archive');
+//var Game = require('./game90');
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -24,7 +26,7 @@ function createCards(obj){
         obj.card_name['card_'+i+'_square25'] = 0;
         obj.card_name['card_'+i+'_square28'] = 0;
     }
-    console.log(obj.card_name);
+    //console.log(obj.card_name);
 }
 function update_credit(data, usr, lineprize){
     console.log(data.user_room, 'in update credit', usr);
@@ -47,7 +49,7 @@ function update_credit(data, usr, lineprize){
             if(lineprize == 3){
                 room_prize = room.fullhouse_prize;
                 //update losers here
-                for(u in data.users){
+                /*for(u in data.users){
                     //data.card_name = data.users[usr];
                     var obj_length = Object.keys(data.users[u]).length;
                     if(u != usr){
@@ -67,7 +69,7 @@ function update_credit(data, usr, lineprize){
                         });
 
                     }
-                }
+                }*/
                 // looser updates ends
             }
             User.findOne({'username':usr},  function(err, user){
@@ -102,7 +104,7 @@ var Bingo90 = function(cards, pattern){
       return this.card_name;
     }
     this.getLineWinningCard = function(i,usr, data, line){
-        console.log(i,usr, line, 'this.getLineWinningCard')
+        //console.log(i,usr, line, 'this.getLineWinningCard')
         var table = '';
         table += '<div class="col-md-12">\
                     <div class="cardBoxT ChatCol">\
@@ -141,18 +143,173 @@ var Bingo90 = function(cards, pattern){
                     console.log('could not update game with winner card:'+ data.current_game[usr]);
                     return;
                 }
-                if(line == 'L1'){
-                    gm.winnerLine1 = usr;
-                    gm.winnerLine1Card = table;
+                if(data.game_round == 1){
+                    if(line == 'L1'){
+                        gm.r1winnerLine1 = usr;
+                        gm.r1winnerLine1Card = table;
+                    }
+                    if(line == 'L2'){
+                        gm.r1winnerLine2 = usr;
+                        gm.r2winnerLine2Card = table;
+                    }
+                    if(line == 'L3'){
+                        data.winnerLine3 = 1;
+                        gm.r1winnerLine3 = usr;
+                        gm.r1winnerLine3Card = table;
+                    }
                 }
-                if(line == 'L2'){
-                    gm.winnerLine2 = usr;
-                    gm.winnerLine2Card = table;
+                if(data.game_round == 2){
+                    if(line == 'L1'){
+                        gm.r2winnerLine1 = usr;
+                        gm.r2winnerLine1Card = table;
+                    }
+                    if(line == 'L2'){
+                        gm.r2winnerLine2 = usr;
+                        gm.r2winnerLine2Card = table;
+                    }
+                    if(line == 'L3'){
+                        data.winnerLine3 = 1;
+                        gm.r2winnerLine3 = usr;
+                        gm.r2winnerLine3Card = table;
+                    }
                 }
-                if(line == 'L3'){
-                    gm.winnerLine3 = usr;
-                    gm.winnerLine3Card = table;
+                if(data.game_round == 3){
+                    if(line == 'L1'){
+                        gm.r3winnerLine1 = usr;
+                        gm.r3winnerLine1Card = table;
+                    }
+                    if(line == 'L2'){
+                        gm.r3winnerLine2 = usr;
+                        gm.r3winnerLine2Card = table;
+                    }
+                    if(line == 'L3'){
+                        data.winnerLine3 = 1;
+                        gm.r3winnerLine3 = usr;
+                        gm.r3winnerLine3Card = table;
+                    }
                 }
+                if(data.game_round == 4){
+                    if(line == 'L1'){
+                        gm.r4winnerLine1 = usr;
+                        gm.r4winnerLine1Card = table;
+                    }
+                    if(line == 'L2'){
+                        gm.r4winnerLine2 = usr;
+                        gm.r4winnerLine2Card = table;
+                    }
+                    if(line == 'L3'){
+                        data.winnerLine3 = 1;
+                        gm.r4winnerLine3 = usr;
+                        gm.r4winnerLine3Card = table;
+                    }
+                }
+                if(data.game_round == 5){
+                    if(line == 'L1'){
+                        gm.r5winnerLine1 = usr;
+                        gm.r5winnerLine1Card = table;
+                    }
+                    if(line == 'L2'){
+                        gm.r5winnerLine2 = usr;
+                        gm.r5winnerLine2Card = table;
+                    }
+                    if(line == 'L3'){
+                        data.winnerLine3 = 1;
+                        gm.r5winnerLine3 = usr;
+                        gm.r5winnerLine3Card = table;
+                    }
+                }
+                if(data.game_round == 6){
+                    if(line == 'L1'){
+                        gm.r6winnerLine1 = usr;
+                        gm.r6winnerLine1Card = table;
+                    }
+                    if(line == 'L2'){
+                        gm.r6winnerLine2 = usr;
+                        gm.r6winnerLine2Card = table;
+                    }
+                    if(line == 'L3'){
+                        data.winnerLine3 = 1;
+                        gm.r6winnerLine3 = usr;
+                        gm.r6winnerLine3Card = table;
+                    }
+                }
+                if(data.game_round == 7){
+                    if(line == 'L1'){
+                        gm.r7winnerLine1 = usr;
+                        gm.r7winnerLine1Card = table;
+                    }
+                    if(line == 'L2'){
+                        gm.r7winnerLine2 = usr;
+                        gm.r7winnerLine2Card = table;
+                    }
+                    if(line == 'L3'){
+                        data.winnerLine3 = 1;
+                        gm.r7winnerLine3 = usr;
+                        gm.r7winnerLine3Card = table;
+                    }
+                }
+                if(data.game_round == 8){
+                    if(line == 'L1'){
+                        gm.r8winnerLine1 = usr;
+                        gm.r8winnerLine1Card = table;
+                    }
+                    if(line == 'L2'){
+                        gm.r8winnerLine2 = usr;
+                        gm.r8winnerLine2Card = table;
+                    }
+                    if(line == 'L3'){
+                        data.winnerLine3 = 1;
+                        gm.r8winnerLine3 = usr;
+                        gm.r8winnerLine3Card = table;
+                    }
+                }
+                if(data.game_round == 9){
+                    if(line == 'L1'){
+                        gm.r9winnerLine1 = usr;
+                        gm.r9winnerLine1Card = table;
+                    }
+                    if(line == 'L2'){
+                        gm.r9winnerLine2 = usr;
+                        gm.r9winnerLine2Card = table;
+                    }
+                    if(line == 'L3'){
+                        data.winnerLine3 = 1;
+                        gm.r9winnerLine3 = usr;
+                        gm.r9winnerLine3Card = table;
+                    }
+                }
+                if(data.game_round == 10){
+                    if(line == 'L1'){
+                        gm.r10winnerLine1 = usr;
+                        gm.r10winnerLine1Card = table;
+                    }
+                    if(line == 'L2'){
+                        gm.r10winnerLine2 = usr;
+                        gm.r10winnerLine2Card = table;
+                    }
+                    if(line == 'L3'){ 
+                        data.winnerLine3 = 1;
+                        gm.r10winnerLine3 = usr;
+                        gm.r10winnerLine3Card = table;
+                    }
+                }
+                if(data.game_round == 11){ 
+                    data.r11winnerLine3 = 1;
+                    if(line == 'L1'){
+                        gm.r11winnerLine1 = usr;
+                        gm.r11winnerLine1Card = table;
+                    }
+                    if(line == 'L2'){
+                        gm.r11winnerLine2 = usr;
+                        gm.r11winnerLine2Card = table;
+                    }
+                    if(line == 'L3'){ 
+                        data.winnerLine3 = 1;
+                        gm.r11winnerLine3 = usr;
+                        gm.r11winnerLine3Card = table;
+                    }
+                }
+                gm.round = data.game_round;
                 gm.save(function(err, data){
                     if(err){
                         console.log(err, 'could not update game after win', data);
@@ -350,7 +507,7 @@ var Bingo90 = function(cards, pattern){
                     data.users[usr]["card_"+i+"_square25"] == 'matched' &&
                     data.users[usr]["card_"+i+"_square28"] == 'matched'){
                     //user update credits
-                        update_credit(data, usr, 3);
+                    update_credit(data, usr, 3);
                     data.winnerLine3 = 1;
                     data.winnerLine3User = usr;
                     data.line3WinningCard = this.getLineWinningCard(i, usr, data, 'L3');
@@ -377,6 +534,183 @@ var Bingo90 = function(cards, pattern){
         
         return data;
     }
+    this.archive_current_game = function(game_id){
+        
+        Game.findOne({'_id':game_id},  function(err, gm90){
+            if(err){
+                console.log('could not update game with winner card:'+ data.current_game[usr]);
+                return;
+            }
+            //archive and remove and insert new
+            //gm90._id = null;
+            game90archive = new Game90archive(gm90);
+            //game90archive.save();
+            //game90archive._id = mongoose.Types.ObjectId();
+            game90archive.isNew = true;
+            game90archive.save(function(err, data){
+                        if(err){
+                            console.log(err,'could not archive_current_game game after completed - ');
+                            return;
+                        }
+                        return true;
+                    });
+            /*game90archive.users = gm90.users;
+            game90archive.game_id = game_id;
+            game90archive.round = gm90.round;
+            game90archive.hour = gm90.hour;
+            game90archive.r1winnerLine1 = gm90.r1winnerLine1;
+            game90archive.r1winnerLine1Card= gm90.r1winnerLine1Card;
+            game90archive.r1winnerLine2= gm90.r1winnerLine2;
+            game90archive.r1winnerLine2Card= gm90.r1winnerLine2Card;
+            game90archive.r1winnerLine3 = gm90.r1winnerLine3;
+            game90archive.r1winnerLine3Card = gm90.r1winnerLine3Card;
+            game90archive.r2winnerLine1 = gm90.r2winnerLine1;
+            game90archive.r2winnerLine1Card = gm90.r2winnerLine1Card;
+            game90archive.r2winnerLine2 = gm90.r2winnerLine2;
+            game90archive.r2winnerLine2Card = gm90.r2winnerLine2Card;
+            game90archive.r2winnerLine3 = gm90.r2winnerLine3;
+            game90archive.r2winnerLine3Card = gm90.r2winnerLine3Card;
+            game90archive.r3winnerLine1 = gm90.r3winnerLine1;
+            game90archive.r3winnerLine1Card = gm90.r3winnerLine1Card;
+            game90archive.r3winnerLine2 = gm90.r3winnerLine2;
+            game90archive.r3winnerLine2Card = gm90.r3winnerLine2Card;
+            game90archive.r3winnerLine3 = gm90.r3winnerLine3;
+            game90archive.r3winnerLine3Card = gm90.r3winnerLine3Card;
+            game90archive.r4winnerLine1 = gm90.r4winnerLine1;
+            game90archive.r4winnerLine1Card = gm90.r4winnerLine1Card;
+            game90archive.r4winnerLine2 = gm90.r4winnerLine2;
+            game90archive.r4winnerLine2Card = gm90.r4winnerLine2Card;
+            game90archive.r4winnerLine3 = gm90.r4winnerLine3;
+            game90archive.r4winnerLine3Card = gm90.r4winnerLine3Card;
+            game90archive.r5winnerLine1 = gm90.r5winnerLine1;
+            game90archive.r5winnerLine1Card = gm90.r5winnerLine1Card;
+            game90archive.r5winnerLine2 = gm90.r5winnerLine2;
+            game90archive.r5winnerLine2Card = gm90.r5winnerLine2Card;
+            game90archive.r5winnerLine3 = gm90.r5winnerLine3;
+            game90archive.r5winnerLine3Card = gm90.r5winnerLine3Card;
+            game90archive.r6winnerLine1 = gm90.r6winnerLine1;
+            game90archive.r6winnerLine1Card = gm90.r6winnerLine1Card;
+            game90archive.r6winnerLine2 = gm90.r6winnerLine2;
+            game90archive.r6winnerLine2Card = gm90.r6winnerLine2Card;
+            game90archive.r6winnerLine3 = gm90.r6winnerLine3;
+            game90archive.r6winnerLine3Card = gm90.r6winnerLine3Card;
+            game90archive.r7winnerLine1 = gm90.r7winnerLine1;
+            game90archive.r7winnerLine1Card = gm90.r7winnerLine1Card;
+            game90archive.r7winnerLine2 = gm90.r7winnerLine2;
+            game90archive.r7winnerLine2Card = gm90.r7winnerLine2Card;
+            game90archive.r7winnerLine3 = gm90.r7winnerLine3;
+            game90archive.r7winnerLine3Card = gm90.r7winnerLine3Card;
+            game90archive.r8winnerLine1 = gm90.r8winnerLine1;
+            game90archive.r8winnerLine1Card = gm90.r8winnerLine1Card;
+            game90archive.r8winnerLine2 = gm90.r8winnerLine2;
+            game90archive.r8winnerLine2Card = gm90.r8winnerLine2Card;
+            game90archive.r8winnerLine3 = gm90.r8winnerLine3;
+            game90archive.r8winnerLine3Card = gm90.r8winnerLine3Card;
+            game90archive.r9winnerLine1 = gm90.r9winnerLine1;
+            game90archive.r9winnerLine1Card = gm90.r9winnerLine1Card;
+            game90archive.r9winnerLine2 = gm90.r9winnerLine2;
+            game90archive.r9winnerLine2Card = gm90.r9winnerLine2Card;
+            game90archive.r9winnerLine3 = gm90.r9winnerLine3;
+            game90archive.r9winnerLine3Card = gm90.r9winnerLine3Card;
+            game90archive.r10winnerLine1 = gm90.r10winnerLine1;
+            game90archive.r10winnerLine1Card = gm90.r10winnerLine1Card;
+            game90archive.r10winnerLine2 = gm90.r10winnerLine2;
+            game90archive.r10winnerLine2Card = gm90.r10winnerLine2Card;
+            game90archive.r10winnerLine3 = gm90.r10winnerLine3;
+            game90archive.r10winnerLine3Card = gm90.r10winnerLine3Card; 
+            game90archive.r11winnerLine1 = gm90.r11winnerLine1;
+            game90archive.r11winnerLine1Card = gm90.r11winnerLine1Card;
+            game90archive.r11winnerLine2 = gm90.r11winnerLine2;
+            game90archive.r11winnerLine2Card = gm90.r11winnerLine2Card;
+            game90archive.r11winnerLine3 = gm90.r11winnerLine3;
+            game90archive.r11winnerLine3Card = gm90.r11winnerLine3Card;*/
+
+            
+            
+         });
+    }
+    this.update_current_game = function(game_id){
+            Game.findOne({'_id':game_id}, function(err,g){
+                if(err){
+                    console.log('could not update_current_game:'+ game_id);
+                    return;
+                }
+                    g.users = [];
+                    g.r1winnerLine1 = '';
+                    g.r1winnerLine1Card= '';
+                    g.r1winnerLine2= '';
+                    g.r1winnerLine2Card= '';
+                    g.r1winnerLine3 = '';
+                    g.r1winnerLine3Card = '';
+                    g.r2winnerLine1 = '';
+                    g.r2winnerLine1Card = '';
+                    g.r2winnerLine2 = '';
+                    g.r2winnerLine2Card = '';
+                    g.r2winnerLine3 = '';
+                    g.r2winnerLine3Card = '';
+                    g.r3winnerLine1 = '';
+                    g.r3winnerLine1Card = '';
+                    g.r3winnerLine2 = '';
+                    g.r3winnerLine2Card = '';
+                    g.r3winnerLine3 = '';
+                    g.r3winnerLine3Card = '';
+                    g.r4winnerLine1 = '';
+                    g.r4winnerLine1Card = '';
+                    g.r4winnerLine2 = '';
+                    g.r4winnerLine2Card = '';
+                    g.r4winnerLine3 = '';
+                    g.r4winnerLine3Card = '';
+                    g.r5winnerLine1 = '';
+                    g.r5winnerLine1Card = '';
+                    g.r5winnerLine2 = '';
+                    g.r5winnerLine2Card = '';
+                    g.r5winnerLine3 = '';
+                    g.r5winnerLine3Card = '';
+                    g.r6winnerLine1 = '';
+                    g.r6winnerLine1Card = '';
+                    g.r6winnerLine2 = '';
+                    g.r6winnerLine2Card = '';
+                    g.r6winnerLine3 = '';
+                    g.r6winnerLine3Card = '';
+                    g.r7winnerLine1 = '';
+                    g.r7winnerLine1Card = '';
+                    g.r7winnerLine2 = '';
+                    g.r7winnerLine2Card = '';
+                    g.r7winnerLine3 = '';
+                    g.r7winnerLine3Card = '';
+                    g.r8winnerLine1 = '';
+                    g.r8winnerLine1Card = '';
+                    g.r8winnerLine2 = '';
+                    g.r8winnerLine2Card = '';
+                    g.r8winnerLine3 = '';
+                    g.r8winnerLine3Card = '';
+                    g.r9winnerLine1 = '';
+                    g.r9winnerLine1Card = '';
+                    g.r9winnerLine2 = '';
+                    g.r9winnerLine2Card = '';
+                    g.r9winnerLine3 = '';
+                    g.r9winnerLine3Card = '';
+                    g.r10winnerLine1 = '';
+                    g.r10winnerLine1Card = '';
+                    g.r10winnerLine2 = '';
+                    g.r10winnerLine2Card = '';
+                    g.r10winnerLine3 = '';
+                    g.r10winnerLine3Card = '';
+                    g.r11winnerLine1 = '';
+                    g.r11winnerLine1Card = '';
+                    g.r11winnerLine2 = '';
+                    g.r11winnerLine2Card = '';
+                    g.r11winnerLine3 = '';
+                    g.r11winnerLine3Card = '';
+                    g.save(function(err, data){
+                        if(err){
+                            console.log(err,'could not update game after completed - ');
+                            return;
+                        }
+                        return true;
+                    });
+            });
+        }
 }
 
 module.exports = Bingo90;

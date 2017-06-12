@@ -6,13 +6,38 @@
 <div class="container-fluid">
     
     <div class="row">
-        <div class="col-md-9" style="overflow-y: scroll;height: 395px;">
+        <div class="col-md-9" style="overflow-y: scroll;height: 292px;">
             <div class="row">
                 <div class="col-md-12">
                    <%  if(Bingo75.cards > 0){ %>
                         <%- Bingo75.table %>
                     <%  }  %>
                                                      
+                </div>
+                <div class="col-md-12" style="position: fixed;top: 300px;">
+                    <div class="midBtnsWrap">
+                        <div class="roominfoTxt75">Balls<span id="counter_ball75" class="volume75">0</span><span class="clearfix"></span></div>
+                        <div class="roominfoTxt75">Card Price<span class="volume75"><%= Bingo75.room.card_price %></span><span class="clearfix"></span></div>
+                        <div class="roominfoTxt75"><a href="#" class="btnsBlue" data-toggle="modal" data-target="#modalBuyCards">Buy Cards</a></div>
+                        <div class="roominfoTxt75"><i class="busy"></i></div>
+                        <div class="roominfoTxt75 btnsorange">golden hall start over &nbsp;<span class="volume75">
+                            
+                            <div id="clockdiv75">
+                                  <div class="minutes" style="display: inline;">
+                                    <!-- <span class="minutes"></span> -->
+                                    <!-- <div class="smalltext">Minutes</div> -->
+                                  </div>
+                                 
+                                    <div style="display: inline;" class="">:</div>
+                                 
+                                  <div class="seconds" style="display: inline;"> 
+                                   <!--  <span class="seconds"></span> -->
+                                    <!-- <div class="smalltext">Seconds</div> -->
+                                  </div>
+                                </div>
+                        </span><span class="clearfix"></span></div>
+                        <!-- <div class="roominfoTxt75"><a href="#" class="btnsBlue" id="start_game">Start</a></div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -58,7 +83,7 @@
                                 </div>
                             </div>
                         <div class="watchWrap"><!-- <img src="/assets/img/watch.jpg" alt=""> -->
-                            <canvas id="canvas"  style="background-color:#333"></canvas>
+                            <canvas id="canvas"   width="150" height="150" style="background-color:#333"></canvas>
                         </div>
                     </div>
                     <span class="clearfix"></span>
@@ -80,21 +105,20 @@
     </div>
 </div>
 
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="midBtnsWrap">
                 <div class="roominfoTxt75">Balls<span class="volume75">0</span><span class="clearfix"></span></div>
                 <div class="roominfoTxt75">Card Price<span class="volume75"><%= Bingo75.room.card_price %></span><span class="clearfix"></span></div>
                 <div class="roominfoTxt75"><a href="/bingo75/rooms" class="btnsBlue">Buy Cards</a></div>
-                <!-- <div class="roominfoTxt75"><a href="#" class="btnsBlue">Auto Rebuy</a></div> -->
                 <div class="roominfoTxt75"><i class="busy"></i></div>
                 <div class="roominfoTxt75 btnsorange">golden hall start over<span class="volume75">0:36:09</span><span class="clearfix"></span></div>
                 <div class="roominfoTxt75"><a href="#" class="btnsBlue" id="start_game">Start</a></div>
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- bolls rolling area-->
 <div class="container-fluid bg_gradient">
@@ -121,7 +145,7 @@
                           </ul>
                 </div>                              
                 <div class="md-form floatLedt">
-                    <input type="text" id="message" name="message" class="form-control" placeholder="Type your massage here">
+                    <input type="text" id="message" name="message" class="form-control" placeholder="Type your message here">
                 </div>
                 <!-- <a href="#" class="action-button shadow animate sendBtn blue">Set up</a> -->
                 <a href="#" class="action-button shadow animate sendBtn blue" id="send_msg_btn">Send</a>
@@ -129,8 +153,8 @@
             </div>
             
             <div class="midBtnsWrap midBtnsWrap75">
-                <div class="roominfoTxt75"><a href="#" class="btnsBlue">Rooms</a></div>
-                <div class="roominfoTxt75"><a href="#" class="btnsBlue">Info</a></div>
+                <div class="roominfoTxt75"><a href="/bingo75/rooms" class="btnsBlue">Rooms</a></div>
+                <div class="roominfoTxt75"><a href="#" class="btnsBlue" data-toggle="modal" data-target="#modalInfo">Info</a></div>
                 <div class="roominfoTxt75"><a href="#" class="btnsBlue"><i class="fa fa-bullhorn"></i></a></div>
                 
                 <div class="roominfoTxt75">Credit:<span class="volume75"><input type="text" placeholder="€ <%= Bingo75.user_details.deposit_amount %>"></span><span class="clearfix"></span></div>
@@ -140,7 +164,7 @@
         </div>
         <div class="col-md-3">
             <div class="playersWrap75"><h3>Players</h3>
-               <ul id="users_in_room">
+               <ul id="users_in_room" >
                     <!-- <li>Opamart 1</li>
                     <li>Opamart 2</li> -->
                </ul>
@@ -154,6 +178,8 @@
     <!-- /.container -->
 
    <%- include('footer75'); %>
+   <%- include('info-modal'); %>
+   <%- include('buy-cards-modal'); %>
 <!-- chat socket starts -->
 <script>
 var socket = io();
@@ -164,7 +190,7 @@ var socket = io();
     data.user = "<%= Bingo75.user %>";
     data.user_room = "<%= Bingo75.user_room %>";
         console.log(data);
-        socket.emit('get user list75', data);
+        socket.emit('get user list', data);
     $('#send_msg_btn').show();
     $('#message').show();   
     $('#send_msg_btn').on('click', function(e){
@@ -181,11 +207,21 @@ var socket = io();
           "scrollTop": $('#messages')[0].scrollHeight
         }, "fast");
     });
-    socket.on('show user list75', function(users){ 
+    /*socket.on('show user list', function(users){ 
         console.log(users);
         var user_list = '';
         for(i=0;i<users.length;i++){
             user_list += '<li ><a href="#">'+users[i]+'</a></li>';
+        }
+        if(user_list){
+            $('#users_in_room').html(user_list);
+        }
+    });*/
+    socket.on('show user list', function(users){ 
+        console.log(users);
+        var user_list = '';
+        for(i=0;i<users.length;i++){
+                user_list += '<li class="active"><i class="online"></i><a id="'+users[i]+'" href="#">'+users[i]+'</a></li>';
         }
         if(user_list){
             $('#users_in_room').html(user_list);
@@ -213,7 +249,7 @@ $( document ).ready(function() {
         
         socket.on('show counter ball75', function(data){ 
             console.log(data, 'from server in ');
-
+            $('#counter_ball75').html(data.counter_ball75);
             if(data.game_completed){
                 //performance.navigation.type = 0;
                 setTimeout(function(){ 
@@ -222,9 +258,9 @@ $( document ).ready(function() {
                 console.info( "game completed");
             }
             var user = '<%= Bingo75.user %>';
-            for(key in data.card_name[user]){
+            for(key in data.card_name75[user]){
             //console.log(data, Object.keys(data.card_name).length, 'show counter ball');
-                    if(data.card_name[user][key] == 'matched'){
+                    if(data.card_name75[user][key] == 'matched'){
                         //document.getElementById(key).className ='matched-cell';
                         $('#'+key).addClass('matched-cell');
                     }
@@ -369,4 +405,64 @@ function drawHand(ctx, pos, length, width) {
     ctx.stroke();
     ctx.rotate(-pos);
 }
+</script>
+<script>
+<% if(Bingo75.url == 'bingo75') { %>
+$('#clockdiv75').hide();
+function getTimeRemaining(endtime) {
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor((t / 1000) % 60);
+  var minutes = Math.floor((t / 1000 / 60) % 60);
+  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+  return {
+    'total': t,
+    'days': days,
+    'hours': hours,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+}
+
+function initializeClock(id, endtime) {
+  var clock = document.getElementById(id);
+  //var daysSpan = clock.querySelector('.days');
+  //var hoursSpan = clock.querySelector('.hours');
+  var minutesSpan = clock.querySelector('.minutes');
+  var secondsSpan = clock.querySelector('.seconds');
+
+  function updateClock() {
+    var t = getTimeRemaining(endtime);
+
+    //daysSpan.innerHTML = t.days;
+    //hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+    if (t.total <= 0) {
+      $('#clockdiv75').hide();
+      clearInterval(timeinterval);
+      clearInterval(checkInterval);
+    }
+  }
+
+  updateClock();
+  var timeinterval = setInterval(updateClock, 1000);
+}
+curr_hr = moment(new Date()).tz("Europe/Amsterdam").format('x');
+fut_hr = moment(new Date()).tz("Europe/Amsterdam").add(300000, 'ms').format('x');
+diff_hr = (fut_hr - curr_hr);
+
+checkInterval = setInterval(function(){
+  var hr = moment(new Date()).tz("Europe/Amsterdam").format("mmss");
+  var mm = moment(new Date()).tz("Europe/Amsterdam").format("mm");
+  var tm = 60 - parseInt(mm);
+    //if(hr == "0001" || hr == "3001"){
+        $('#clockdiv75').show();
+        var deadline = new Date(Date.parse(new Date()) + 1 * 1 * tm * 60 * 1000);
+        //console.log(tm, 'dsdsdsds')
+        initializeClock('clockdiv75', deadline);
+    //}
+  }, 1000);
+<% } %>
 </script>

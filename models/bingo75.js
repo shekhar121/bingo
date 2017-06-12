@@ -1,5 +1,6 @@
 var User = require('./user');
 var Room = require('./room');
+var Game = require('./game75');
 function getRandomInt(min, max) { 
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -157,6 +158,23 @@ var Bingo75 = function(cards, pattern){
                         data.users[usr]["card_"+i+"_square21"] == 'matched'){
                         data.winner75 = 1;
                         data.winner75User = usr;
+                        Game.findOne({'_id':data.game_id},  function(err, gm){
+                        if(err){
+                            console.log('could not find  game75 with winner card:'+ data.current_game[usr]);
+                            return;
+                        }
+                        gm.winner = usr;
+                        //gm.r1winnerLine1Card = table;
+                        //gm.round = data.game_round;
+                        gm.save(function(err, data){
+                                if(err){
+                                    console.log(err, 'could not update game75 after win', data);
+                                    return;
+                                }
+                                //return res.status(200).json({username:data.username});
+                            });
+                        });
+
                     }
                 } 
             }
@@ -166,6 +184,25 @@ var Bingo75 = function(cards, pattern){
         
         return data;
     }
+    this.update_current_game = function(game_id){
+        Game.findOne({'_id':game_id}, function(err,g){
+            if(err){
+                console.log('could not update_current_game75:'+ game_id);
+                return;
+            }
+                g.users = [];
+                g.winner = '';
+
+                g.save(function(err, data){
+                    if(err){
+                        console.log(err,'could not update game75 after completed - ');
+                        return;
+                    }
+                    return true;
+                });
+        });
+    }
+
 }
 
 module.exports = Bingo75;

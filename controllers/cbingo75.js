@@ -1,13 +1,13 @@
 var async = require('async');
 var Room = require('../models/room');
 var User = require('../models/user');
-var Game = require('../models/game');
+var Game = require('../models/game75');
 var Setting = require('../models/setting');
 //var Bingo75 = require('../models/bingo75');
 var Bingo75 = Bingo75 || {}; 
 //get user details
 
-module.exports = function(app){
+module.exports = function(app){ 
 	
 	app.get('/bingo75/rooms', function(req, res){ 
 		//console.log(app.get('settings'), 'session3');
@@ -19,7 +19,7 @@ module.exports = function(app){
 		// update after game is completed
 		if(req.query.game_c == 'yes' && req.query.game_c_id){
 			//null completed game sessions, to get new one
-			req.session.game_id = null;
+			//req.session.game_id = null;
 			// add new game 
 			// starts remove later - just to insert some testing games
 		  	/*var g = new Game();
@@ -39,13 +39,13 @@ module.exports = function(app){
 		Bingo75 = {
 			user : req.session.user.username,
 			//user_details : req.session.user,
-			user_bingo_credits: (req.session.user_bingo_credits)?req.session.user_bingo_credits:0 ,
+			//user_bingo_credits: (req.session.user_bingo_credits)?req.session.user_bingo_credits:0 ,
 			//cards : req.query.cards,
 			//user_room : req.query.room,
 			//game_id : req.query.game,
 			//card_name : {},
-			game_id : (req.session.game_id)?req.session.game_id:0 ,
-			user_game : false,
+			game_id : (req.session.game_id) ? req.session.game_id : 0 ,
+			user_playing75 : (req.session.user_playing75) ? req.session.user_playing75 : 0 ,
 			url : 'bingo75/rooms' //req.url
 		}
 		/*Room.find({type:'bingo75'}, function(err, rooms){
@@ -77,9 +77,9 @@ module.exports = function(app){
 		    	});*/
 		    	Room.find({type:'bingo75'}, callback);
 		    },
-		    function(callback) {
+		    /*function(callback) {
 		    	Game.findOne({type:'bingo75', started:false, completed:false}, callback);
-		    },
+		    },*/
 		    function(callback) {
 		    	User.findOne({_id:req.session.user._id}, callback);
 		    }
@@ -90,15 +90,15 @@ module.exports = function(app){
 	            return;
 	        }
 		    Bingo75.rooms  = results[0]; //rooms
-		    Bingo75.gameinplay  = results[1]; //gameinplay
-		    Bingo75.user_details = results[2];
+		    //Bingo75.gameinplay  = results[1]; //gameinplay
+		    Bingo75.user_details = results[1];
 		    res.render('bingo75/rooms', {Bingo75:Bingo75});
 		});
 		//asyncs ends
 	});
 
 	app.get('/bingo75', function(req, res){
-		if(!req.session.user || !req.session.game_id || !req.session.room_id){
+		if(!req.session.user || !req.session.game_id){
 			res.redirect('/bingo75/rooms');
 			return;
 		}
@@ -149,10 +149,17 @@ module.exports = function(app){
 			    Bingo75.room  = results[0]; //rooms
 			    //Bingo.gameinplay  = results[1]; //gameinplay
 
-			    Bingo75.table = results[1].users[0].cards_table;
-				Bingo75.card_name = results[1].users[0].playing_card;
+			    //Bingo75.table = results[1].users[0].cards_table;
+				//Bingo75.card_name = results[1].users[0].playing_card;
+				for(var i=0;i<results[1].users.length;i++){
+					if(results[1].users[i].user == req.session.user.username){
+						Bingo75.table = results[1].users[i].cards_table;
+						Bingo75.card_name = results[1].users[i].playing_card;
+					} 
+				}
 				Bingo75.room_id = req.session.room_id;
-				Bingo75.marquee  = results[2].bingo90_broadcast_msg;
+				Bingo75.room_img =  req.session.room_img;
+				Bingo75.marquee  = results[2].bingo75_broadcast_msg;
 				Bingo75.pattern = results[1].users[0].pattern;
 				Bingo75.user_details = results[3];
 			    
