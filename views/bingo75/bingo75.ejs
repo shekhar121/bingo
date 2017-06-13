@@ -457,12 +457,12 @@ checkInterval = setInterval(function(){
   var hr = moment(new Date()).tz("Europe/Amsterdam").format("mmss");
   var mm = moment(new Date()).tz("Europe/Amsterdam").format("mm");
   var tm = 60 - parseInt(mm);
-    //if(hr == "0001" || hr == "3001"){
+    if(hr >= "0601"){
         $('#clockdiv75').show();
         var deadline = new Date(Date.parse(new Date()) + 1 * 1 * tm * 60 * 1000);
         //console.log(tm, 'dsdsdsds')
         initializeClock('clockdiv75', deadline);
-    //}
+    }
   }, 1000);
 <% } %>
 </script>

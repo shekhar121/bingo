@@ -94,7 +94,8 @@ app.use(jsonParser);
 				hour75 = hrhh75;
 			}
 			var query = {hour:hour75};
-			if(hr75 == "0001" || hr75 == "3001"){	
+			//if(hr75 == "0001" || hr75 == "3001"){	
+			if(hr75 >= "0000" || hr75 <= "0600"){	
 				query = {hour:hour75, 'type':'gold'};
 			}
 			//var gameID = req.body.Room.game_id;

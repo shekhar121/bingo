@@ -73,7 +73,7 @@ module.exports = function(http){
     	//console.log(hr75, 'current hour75');
     	//check for game 75
     	if(hrhh75 % 2 != 0){
-	    	if(hr75 == "0601" || hr75 == "1001" || hr75 == '1601' || hr75 == "2001" || hr75 == "2601" || hr75 == "3601" || hr75 == "4001" || hr75 == "4601" || hr75 == "5001"){		
+	    	if(hr75 == "0601" || hr75 == "1001" || hr75 == '1601' || hr75 == "2001" || hr75 == "2601" || hr75 == "3001" || hr75 == "3601" || hr75 == "4001" || hr75 == "4601" || hr75 == "5001"){		
 		    	//if(!b90.round_started){
 		    		//b90.round_started = true;
 		    		Game75.findOne({hour:hrhh}, function(err, game){
@@ -90,10 +90,10 @@ module.exports = function(http){
 		    	//}
 	    	} // check75 ends
 	    	// for golden room
-	    	if(hr75 == "0001" || hr75 == "3001"){		
+	    	if(hr75 >= "0000" || hr75 <= "0600"){		
 		    	//if(!b90.round_started){
 		    		//b90.round_started = true;
-		    		Game75.findOne({hour:hrhh, 'type':'gold'}, function(err, game){
+		    		Game75.findOne({hour:hrhh75, 'type':'gold'}, function(err, game){
 		    			b75.game_id = game._id;
 		    			b75.game = game;
 		    			//if(!game.started){
