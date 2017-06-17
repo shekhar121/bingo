@@ -155,8 +155,8 @@ $("#pay_desk75").click(function(){
 <% if(Bingo75.user_details.win_amount > 0) { %>
   //$('.accountInfoBox').hide();
 <% } %>
-<% if(Bingo75.user_details.win_amount < 0) { %>
-  //$('.accountInfoBox').show();
+<% if(Bingo75.user_details.win_amount <= 0) { %>
+  $('.accountInfoBox').show();
 <% } %>
     Room = {
         cards:1,
@@ -182,12 +182,16 @@ $("#pay_desk75").click(function(){
               data: JSON.stringify({Room}),
               success: function(res){
                 console.log('logged in'+ res);
-                if(res.status){
+                if(res.status && res.game){
                     window.location.href = '/bingo75';
                     return;
                 }
+                if(res.status && !res.game){
+                    $('#error').addClass('error-red green text-center' ).html('There is no game in this hour, try in the next hour! Game hours: 1,3,5,7,9,11');
+                    return;
+                }
                 if(!res.status){
-                    $('#error').addClass('error-red red text-center' ).html('not enough credits! tranfer credits to bingo or get more credits');
+                    $('#error').addClass('error-red red text-center' ).html(res.msg);
                     return;
                 }
               },
@@ -206,7 +210,7 @@ $("#pay_desk75").click(function(){
      $('#transfer').on('click', function(){ 
     var total_credits = parseFloat($('#total_credits').val());
     var transfer_credits = parseFloat($('#transfer_credits').val());
-    console.log('cliked', total_credits, transfer_credits)
+    console.log('clicked', total_credits, transfer_credits)
     if(total_credits >= transfer_credits){
     $.ajax({
               type: "POST",

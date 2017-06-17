@@ -14,7 +14,7 @@
                                         <br>
                                         <span class="roomTitle">Upto <%= Bingo75.room.cards_upto %> cards per room</span> <br>
                                         <span class="roomTitle">Choose cards:
-                                            <select class="room-cards">
+                                            <select id="room-cards">
                                                 <% 
                                                     for(j=1;j<=Bingo75.room.cards_upto;j++){
                                                 %>
@@ -37,7 +37,7 @@
 </div><!-- /.modal -->
 <script type="text/javascript">
    Room = {
-        cards:<%= Bingo75.cards %>,
+        cards:1,
         room_id: "<%= Bingo75.room_id %>"
     };
 
@@ -46,7 +46,7 @@
 
         Room.room_id = $(this).attr('data-room');
         Room.room_img = $(this).attr('data-room_img');
-        Room.cards = $(this).parent('.roomDetailsLeft').find('.room-cards').val();
+        Room.cards = $('#room-cards').val();
         //console.log(Room);
         //return;
         //if(Room.room_id && Room.game_id){

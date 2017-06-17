@@ -481,10 +481,10 @@ body{ /*padding:10px;*/}
     background: linear-gradient(#ddd 10%, #0275d8 90%); /* Standard syntax (must be last) */
 }
 .head-bar-grad {
- background: -webkit-linear-gradient(#ddd 10%, #666 90%); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#ddd 10%, #666 90%); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#ddd 10%, #666 90%); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#ddd 10%, #666 90%); /* Standard syntax (must be last) */
+ background: -webkit-linear-gradient(#eee 40%, #999 100%); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#eee 40%, #999 100%); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#eee 40%, #999 100%); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#eee 40%, #999 100%); /* Standard syntax (must be last) */
 }
 @keyframes rota {
     to { transform: rotate(360deg); }

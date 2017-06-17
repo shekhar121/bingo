@@ -27,7 +27,7 @@ module.exports = function(http){
 
 	// 90 room id - 587a8ca380859cf4acf73a61
 	b90.user_room = '587a8ca380859cf4acf73a61';
-	b75.user_room = '587a693080859cf4acf73a5d';
+	
 
 	// automate bingo 90
 	checkInterval = setInterval(function(){
@@ -35,6 +35,7 @@ module.exports = function(http){
 		hrhh = moment(new Date()).tz("Europe/Amsterdam").format("hh");
 		hr75 = moment(new Date()).tz("Europe/Amsterdam").format("mmss");
 		hrhh75 = moment(new Date()).tz("Europe/Amsterdam").format("hh");
+		
     	//console.log(hr, 'current hour', hrhh);
     	if(hrhh % 2 == 0){
 	    	if(hr == "0001" || hr == "0601" || hr == "1001" || hr == '1601' || hr == "2001" || hr == "2601" || hr == "3001" || hr == "3601" || hr == "4001" || hr == "4601" || hr == "5001"){
@@ -76,6 +77,10 @@ module.exports = function(http){
 	    	if(hr75 == "0601" || hr75 == "1001" || hr75 == '1601' || hr75 == "2001" || hr75 == "2601" || hr75 == "3001" || hr75 == "3601" || hr75 == "4001" || hr75 == "4601" || hr75 == "5001"){		
 		    	//if(!b90.round_started){
 		    		//b90.round_started = true;
+		    		b75.user_room = '587a693080859cf4acf73a5d';
+					/*if(hr75 >= "0000" && hr75 <= "0600"){	
+						b75.user_room = '593ab62c0067b32afc002f6b';
+					}*/
 		    		Game75.findOne({hour:hrhh}, function(err, game){
 		    			b75.game_id = game._id;
 		    			b75.game = game;
@@ -90,10 +95,12 @@ module.exports = function(http){
 		    	//}
 	    	} // check75 ends
 	    	// for golden room
-	    	if(hr75 >= "0000" || hr75 <= "0600"){		
+	    	if(hr75 >= "0000" && hr75 <= "0600"){
+	    	b75.user_room = '593ab62c0067b32afc002f6b';		
 		    	//if(!b90.round_started){
 		    		//b90.round_started = true;
-		    		Game75.findOne({hour:hrhh75, 'type':'gold'}, function(err, game){
+		    		Game75.findOne({hour:hrhh75}, function(err, game){
+		    			//console.log(game);
 		    			b75.game_id = game._id;
 		    			b75.game = game;
 		    			//if(!game.started){
@@ -134,7 +141,7 @@ module.exports = function(http){
 			}
 		}
 		stopCounter75 = setInterval(function(){
-			data75.game_completed = false;
+			//data75.game_completed = false;
 				var ball75 = array75[Math.floor(Math.random()*array75.length)];
 				var index75 = array75.indexOf(ball75);
 				if (index75 > -1) {

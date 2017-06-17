@@ -126,7 +126,7 @@
                                 <a style="padding: 0.25rem;" class="btn foot-help-grad" id="all_cards">All Cards</a>
                             </div>
                         </div>
-                        <div class="row" style="border-top: 1px solid #999; border-bottom: 1px solid #999; padding: 5px 5px 10px;">
+                        <div class="row head-bar-grad" style="border-top: 1px solid #999; border-bottom: 1px solid #999; padding: 5px 5px 10px;">
 
                             <%  if(Bingo.cards > 0){ %>
                                 <%- Bingo.table %>
@@ -295,7 +295,7 @@ $( document ).ready(function() {
                     if(data.card_name[user][key] == 'matched'){
                         //console.log('data.card_name[user][key]');
                         //document.getElementById(key).className ='matched-cell';
-                        $('#'+key).css('background','<%= Bingo.pin_bg %>');
+                        $('#'+key).css({'background': '<%= Bingo.pin_bg %>', 'color':'#000'});
                         //$('#'+key).css('background','#000');
                         //$('#'+key).addClass('matched-cell');
                     }

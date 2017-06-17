@@ -92,28 +92,28 @@ app.use(jsonParser);
 			var hour75 = null;
 			if(hrhh75 % 2 != 0){
 				hour75 = hrhh75;
-			}
-			var query = {hour:hour75};
-			//if(hr75 == "0001" || hr75 == "3001"){	
-			if(hr75 >= "0000" || hr75 <= "0600"){	
-				query = {hour:hour75, 'type':'gold'};
-			}
+			
+				var room_id = req.body.Room.room_id;
+				//if(hr75 == "0001" || hr75 == "3001"){	
+				if(hr75 >= "0000" && hr75 <= "0600"){	
+					room_id = '593ab62c0067b32afc002f6b';
+				}
 			//var gameID = req.body.Room.game_id;
 			
-				Game.findOne(query,  function(err, game){
+				Game.findOne({hour:hour75},  function(err, game){
 		        	if(err){
 						res.status(500).send(err);
 						return;
 					}
 					//check bingo credit if he can buy cards
-					Room.findOne({'_id':req.body.Room.room_id},  function(err, room){
+					Room.findOne({'_id':room_id},  function(err, room){
 			        	if(err){
 							res.status(500).send(err);
 							return;
 						}
 						if(req.body.Room.cards > 0){
 							if(req.session.user_bingo_credits < room.card_price*req.body.Room.cards){
-								return res.status(200).json({status:false, msg:'not enough credits'});
+								return res.status(200).json({status:false, msg:'Not enough credits, Please deposite to play.', game:false});
 							} 
 						}
 					//check card ends - improve with async later
@@ -126,7 +126,7 @@ app.use(jsonParser);
 							if(game.users[i].user == req.session.user.username){
 								//user_exit = true;
 								game.users.splice(i,1);
-								game.room_id = req.session.room_id;
+								game.room_id = room_id;
 								game.save(function(err){
 							  		if(err){
 							  			console.log(err);
@@ -138,7 +138,7 @@ app.use(jsonParser);
 							} 
 						} 
 						game.users.push({user: req.session.user.username, cards_table:table, playing_card:card_name, pattern:'T'});
-						game.room_id = req.session.room_id;
+						game.room_id = room_id;
 						game.save(function(err){
 							  		if(err){
 							  			console.log(err);
@@ -150,21 +150,24 @@ app.use(jsonParser);
 						req.session.cards = req.body.Room.cards;
 						
 						req.session.game_id =  game._id;
-						if(hr75 == "0001" || hr75 == "3001"){	
+						//if(hr75 == "0001" || hr75 == "3001"){
+						if(hr75 >= "0000" && hr75 <= "0600"){	
 							req.session.room_img = 'gold.png';
-							req.session.room_id = '';
 						} else{
 							req.session.room_img =  req.body.Room.room_img;	
-							req.session.room_id = req.body.Room.room_id;
 						}
-						
-						return res.status(200).json({status:true});
+						req.session.room_id = room_id;
+						return res.status(200).json({status:true,game:true});
 					}
 					
 					}) // room check ends
 
 				});
-			
+			} else{
+				req.session.game_id = null;
+				req.session.room_id = null;
+				return res.status(200).json({status:true, game:false});
+			}
 	});
 
 	app.post('/api/gotobingo90', jsonParser, function(req, res){
