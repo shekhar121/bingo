@@ -97,7 +97,7 @@ header nav {
 }
 .roomDetailsLeft,.roomDetailsRight{float:left; padding-left:10px; padding-top:5px; color:#FFF; }
 .roomDetailsRight{ text-align:center;}
-/*.roomListRow img{float:left;}*/
+.roomListRow img{float:left;}
 .roomDetailsLeft span{ padding-right:20px; font-size:24px;}
 .roomTitle{color:#733991;}
 .roomDetailsLeft span.cardsRoom, .roomDetailsRight span.cardsRoom{display:block; font-size:16px; clear:both;}
@@ -348,7 +348,7 @@ border-right: 10px solid #001a25;
     from {-webkit-transform: rotate(360deg);}
     to   {-webkit-transform: rotate(0deg);}
 }
-.roomListRow .row div {
+/*.roomListRow .row div {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -367,6 +367,5 @@ select .room-cards {
     height: 2em !important;
     width: 5em !important;
     text-align: right !important;
-    /* direction: rtl; */
     text-align-last: right !important;
-}
+}*/
