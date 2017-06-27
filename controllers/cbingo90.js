@@ -107,17 +107,17 @@ module.exports = function(app){
 					//if(hr == "0001" || hr == "0601" || hr == "1001" || hr == '1601' || hr == "2001" || hr == "2601" || hr == "3001" || hr == "3601" || hr == "4001" || hr == "4601" || hr == "5001"){
 						//console.log('VVVVVVVVVVVVVVVVVVVVVV')
 			    		//if(hr < "0001" && hr > "5601"){ Bingo.game_round = 1; Bingo.game_round_clr = '#fc4000';}
-			    		if(hr > "0001" && hr < "0601"){ Bingo.game_round = 1; Bingo.game_round_clr = '#9b0298';}
-			    		if(hr > "0601" && hr < "1001"){ Bingo.game_round = 2; Bingo.game_round_clr = '#4e2900';}
-			    		if(hr > "1001" && hr < "1601"){ Bingo.game_round = 3; Bingo.game_round_clr = '#fd02b1';}
-			    		if(hr > "1601" && hr < "2001"){ Bingo.game_round = 4; Bingo.game_round_clr = '#00f05b';}
-			    		if(hr > "2001" && hr < "2601"){ Bingo.game_round = 5; Bingo.game_round_clr = '#054F50';}
-			    		if(hr > "2601" && hr < "3001"){ Bingo.game_round = 6; Bingo.game_round_clr = '#4D4880';}
-			    		if(hr > "3001" && hr < "3601"){ Bingo.game_round = 7; Bingo.game_round_clr = '#C18E09';}
-			    		if(hr > "3601" && hr < "4001"){ Bingo.game_round = 8; Bingo.game_round_clr = '#FF00FF';}
-			    		if(hr > "4001" && hr < "4601"){ Bingo.game_round = 9; Bingo.game_round_clr = '#808000';}
-			    		if(hr > "4601" && hr < "5001"){ Bingo.game_round = 10; Bingo.game_round_clr = '#800000';}
-			    		if(hr > "5001" && hr < "5601"){ Bingo.game_round = 11; Bingo.game_round_clr = '#fc4000';}
+			    		if(hr > "0001" && hr < "0601"){ Bingo.game_round = 1; Bingo.game_round_clr = '#e8ba7e';}
+			    		if(hr > "0601" && hr < "1001"){ Bingo.game_round = 2; Bingo.game_round_clr = '#e6ddd8';}
+			    		if(hr > "1001" && hr < "1601"){ Bingo.game_round = 3; Bingo.game_round_clr = '#d1e0a5';}
+			    		if(hr > "1601" && hr < "2001"){ Bingo.game_round = 4; Bingo.game_round_clr = '#bed468';}
+			    		if(hr > "2001" && hr < "2601"){ Bingo.game_round = 5; Bingo.game_round_clr = '#dfa5bb';}
+			    		if(hr > "2601" && hr < "3001"){ Bingo.game_round = 6; Bingo.game_round_clr = '#b1c7d2';}
+			    		if(hr > "3001" && hr < "3601"){ Bingo.game_round = 7; Bingo.game_round_clr = '#d1e0a5';}
+			    		if(hr > "3601" && hr < "4001"){ Bingo.game_round = 8; Bingo.game_round_clr = '#de94af';}
+			    		if(hr > "4001" && hr < "4601"){ Bingo.game_round = 9; Bingo.game_round_clr = '#f4f2f3';}
+			    		if(hr > "4601" && hr < "5001"){ Bingo.game_round = 10; Bingo.game_round_clr = '#b1c7d2';}
+			    		if(hr > "5001" && hr < "5601"){ Bingo.game_round = 11; Bingo.game_round_clr = '#f4f2f3';}
 				    //}
 				}
 			    Bingo.room  = results[0]; //rooms

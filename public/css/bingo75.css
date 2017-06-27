@@ -1,7 +1,9 @@
 /* YOUR CUSTOM STYLES */
 @import url('https://fonts.googleapis.com/css?family=Oswald');
 @import url('https://fonts.googleapis.com/css?family=Fascinate+Inline');
-
+header nav {
+  background: #059dcf !important;
+}
 /* bg Box */
 .boxWrap { margin-top:2%; background: #0099cc;position: relative; width:55%;}
 .boxWrap:after,.boxWrap:before {  content: '';  background: #005776; position: absolute;}
@@ -82,12 +84,16 @@
 
 .footer-copyright{text-align:center; color:#FFF; font-size:12px;}
 .roomBoxWrap{padding:20px; height:628px; overflow:auto;}
-.roomListRow { border-bottom:1px solid #03a4da;
-  background: #059dcf; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(#059dcf, #18a4d2, #019ccd); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#059dcf, #18a4d2, #019ccd); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#059dcf, #18a4d2, #019ccd); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#059dcf, #18a4d2, #019ccd); /* Standard syntax */ padding:10px;
+/*.roomListRow { border-bottom:1px solid #03a4da;
+  background: -webkit-linear-gradient(#059dcf, #18a4d2, #019ccd); 
+  background: -o-linear-gradient(#059dcf, #18a4d2, #019ccd); 
+  background: -moz-linear-gradient(#059dcf, #18a4d2, #019ccd); 
+  background: linear-gradient(#059dcf, #18a4d2, #019ccd);  padding:10px;
+}*/
+.roomListRow {
+    border-bottom: 4px solid rgba(255,255,255,.8);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.3);
 }
 .roomDetailsLeft,.roomDetailsRight{float:left; padding-left:10px; padding-top:5px; color:#FFF; }
 .roomDetailsRight{ text-align:center;}
@@ -341,4 +347,26 @@ border-right: 10px solid #001a25;
 @-webkit-keyframes rotation {
     from {-webkit-transform: rotate(360deg);}
     to   {-webkit-transform: rotate(0deg);}
+}
+.roomListRow .row div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.roomListrow .row div img {
+    border-radius: 9999px;
+    border: 2px solid rgba(255,255,255,.5);
+    display: block;
+    width: 100px;
+    height: 100px;
+}
+
+select .room-cards {
+    border-radius: 10px;
+    height: 2em;
+    width: 5em;
+    text-align: right;
+    /* direction: rtl; */
+    text-align-last: right;
 }
