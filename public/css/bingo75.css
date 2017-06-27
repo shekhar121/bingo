@@ -91,9 +91,9 @@ header nav {
   background: linear-gradient(#059dcf, #18a4d2, #019ccd);  padding:10px;
 }*/
 .roomListRow {
-    border-bottom: 4px solid rgba(255,255,255,.8);
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.3);
+    border-bottom: 4px solid rgba(255,255,255,.8) !important;
+  border-radius: 4px !important;
+  background: rgba(255, 255, 255, 0.3) !important;
 }
 .roomDetailsLeft,.roomDetailsRight{float:left; padding-left:10px; padding-top:5px; color:#FFF; }
 .roomDetailsRight{ text-align:center;}
@@ -349,24 +349,24 @@ border-right: 10px solid #001a25;
     to   {-webkit-transform: rotate(0deg);}
 }
 .roomListRow .row div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .roomListrow .row div img {
-    border-radius: 9999px;
-    border: 2px solid rgba(255,255,255,.5);
-    display: block;
-    width: 100px;
-    height: 100px;
+    border-radius: 9999px !important;
+    border: 2px solid rgba(255,255,255,.5) !important;
+    display: block !important;
+    width: 100px !important;
+    height: 100px !important;
 }
 
 select .room-cards {
-    border-radius: 10px;
-    height: 2em;
-    width: 5em;
-    text-align: right;
+    border-radius: 10px !important;
+    height: 2em !important;
+    width: 5em !important;
+    text-align: right !important;
     /* direction: rtl; */
-    text-align-last: right;
+    text-align-last: right !important;
 }
