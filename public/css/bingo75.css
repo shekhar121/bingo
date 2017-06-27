@@ -97,7 +97,7 @@ header nav {
 }
 .roomDetailsLeft,.roomDetailsRight{float:left; padding-left:10px; padding-top:5px; color:#FFF; }
 .roomDetailsRight{ text-align:center;}
-.roomListRow img{float:left;}
+/*.roomListRow img{float:left;}*/
 .roomDetailsLeft span{ padding-right:20px; font-size:24px;}
 .roomTitle{color:#733991;}
 .roomDetailsLeft span.cardsRoom, .roomDetailsRight span.cardsRoom{display:block; font-size:16px; clear:both;}
