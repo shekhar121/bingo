@@ -23,7 +23,7 @@
                 </div>
                     <!-- <div class="roominfoTxt">Rounds to go: <span class="rounds">0</span><span class="clearfix"></span></div> -->
                     <!--**********************************-->
-                    <div class="titleTxt">Books:</div>
+                    <div class="titleTxt textorange">Books:</div>
                     <div class="roominfoTxt">
                         1 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book1_cost %></span><span class="clearfix"></span>
                     </div>
@@ -43,15 +43,15 @@
                         6 Books: <span class="rounds price">&euro; <%= Bingo.rooms[i].book6_cost %></span><span class="clearfix"></span>
                     </div>
                     <!--**********************************-->
-                    <div class="titleTxt">Priced in the room:</div>
+                    <div class="titleTxt textorange">Prizes in the room:</div>
                     <span class="roomPrice elven">
-                        Line 1 - &euro; <%= Bingo.rooms[i].line1_prize %>
+                        Line 1 <span class="rounds pric pull-right">&euro; <%= Bingo.rooms[i].line1_prize %></span>
                     </span>
                     <span class="roomPrice elven">
-                        Line 2 - &euro; <%= Bingo.rooms[i].line2_prize %>
+                        Line 2 <span class="rounds price pull-right">&euro; <%= Bingo.rooms[i].line2_prize %></span>
                     </span>
                     <span class="roomPrice elven">
-                        Full House - &euro; <%= Bingo.rooms[i].fullhouse_prize %>
+                        Full House<span class="rounds price pull-right">&euro; <%= Bingo.rooms[i].fullhouse_prize %></span>
                     </span>
                     <!-- <span class="roomPrice elven">Jackpot - &euro; <%= Bingo.rooms[i].jackpot_prize %></span> -->
                     <!-- <span class="roomPrice">6 x &euro; 30.00,</span>
@@ -59,7 +59,7 @@
                     <!--**********************************-->
 				</div>
 				<div class="pushtobottom">
-                    <div class="titleTxt">Buy Books!</div>
+                    <div class="titleTxt textorange">Buy Books!</div>
                     <div id="btn_card" class="btnWrap">
                         <a href="javascript:void(0)" class="blackglass" data-val="1">1</a> 
                         <a href="javascript:void(0)" class="blackglass" data-val="2">2</a>
