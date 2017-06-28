@@ -3,13 +3,14 @@
     <!-- Page Content -->
 <div class="container-fluid bgcolor bingo90container">
 
-    <div class="row" style="background: url('/assets/img/wave.png')";>
+    <div class="row" style="";>
         <% if(Bingo.rooms.length > 0){ 
             for(i=0;i<Bingo.rooms.length;i++){
         %>
         <div class="col-xs-12 col-md-15 colBorder" <% if(i==0){ %> style="border-left: 0.5rem #004253 solid;" <% } %>>
             <div class="roomHead"><%= Bingo.rooms[i].name %> (<span>0</span>)</div>
             <div class="roomTxtBox">
+			<div class="pushnottobottom">
                 <div class="titleTxt">Status: 
                     <% if(!Bingo.rooms[i].if_open){ %> 
                        <span class="status" style="color: red;"> Closed...</span>
@@ -56,6 +57,8 @@
                     <!-- <span class="roomPrice">6 x &euro; 30.00,</span>
                     <span class="roomPrice">5 x &euro; 100.00</span> -->
                     <!--**********************************-->
+				</div>
+				<div class="pushtobottom">
                     <div class="titleTxt">Buy Books!</div>
                     <div id="btn_card" class="btnWrap">
                         <a href="javascript:void(0)" class="blackglass" data-val="1">1</a> 
@@ -129,26 +132,26 @@
 								<div class="enterRoom2"  data-room="<%= Bingo.rooms[i]._id %>" style=" bottom: 65px;">
 									<a style="border-radius: 0px;background: #004253;" href="/bingo90" class="glass btn" >Back To Game</a>
 								</div>
-								<!-- <div class="enterRoom2"><a style="background: #004253;border-radius: 0px;" id="update_room" href="#" class="glass btn" >Update/Buys Books & Enter Room</a></div> -->
+								<!-- <div class="enterRoom2"><a id="update_room" href="#" class="glass btn btn-warning" >Update/Buys Books & Enter Room</a></div> -->
 							<% } else {  %>
 								
-								<div class="enterRoom">
-									<a style="background: #004253;border-radius: 0px;" id="enter_room" href="#" class="glass btn" >Enter Room</a>
+								<div class="enterRoom hide">
+									<a  id="enter_room" href="#" class="glass btn btn-warning" >Enter Room</a>
 								</div>
 							<% }  %>
 						
 							<% if(!Bingo.rooms[i].status){ %>
 								<div class="enterRoom2">
-									<a style="background: #004253;border-radius: 0px;" id="update_room" href="#" class="glass btn" >Update/Buys Books & Enter Room</a>
+									<a	id="update_room" href="#" class="glass btn btn-warning" >Enter Room</a>
 								</div>
 							<% } else{  %>
 								<div class="enterRoom2">
-									<a style="background: #004253;border-radius: 0px;color:red;"   class="glass btn"> Busy</a>
+									<a style="color:red;"   class="glass btn btn-warning"> Busy</a>
 								</div>
 							<% }  %>
 						<% } else {  %>
 							<div class="enterRoom">
-								<a style="background: #004253;border-radius: 0px;color:#fff;"   class="glass btn"> Enter Room (Closed)</a>
+								<a class="glass btn btn-warning"> Enter Room (Closed)</a>
 							</div>
 						<% }  %>
 						</div>
@@ -156,6 +159,7 @@
                     <!--Closed-->                  
                 </div>
            </div>
+		 </div>
         <% }  } %>
         <!-- rooms for loop end - -->
            

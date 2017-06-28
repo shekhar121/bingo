@@ -61,7 +61,7 @@ body{ /*padding:10px;*/}
 .color_6{background-color:#429022;}
 .color_7{background-color:#0011cb;}
 .color_8{background-color:#00c1ff;}
-.pinWrap{margin-top: 15px;}
+.pinWrap{margin: 0;}
 .pinWrap a{    font-size: 1.6rem;
     line-height: 18px;
     margin-right: -10px;}
@@ -86,13 +86,10 @@ body{ /*padding:10px;*/}
 	position: absolute;	top: 2px;left: 2px;	width: calc(100% - 4px);border-radius: 20px 20px 0px 0px;height: 50%;background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));
 }
 
-.glass:hover{background: linear-gradient(#666,#ccc); color:#ccc;}
+.glass:hover{background: linear-gradient(red,darkred); color:#ccc;}
 
 
-.blackglass{position: relative;	display: inline-block;	padding: 1px 10px;	background:linear-gradient(#999,#004253);text-decoration: none;color: #fff;font-size: 1rem;font-family: sans-serif;font-weight: bold;border-radius: 20px;box-shadow: 0px 1px 4px -2px #000;text-shadow: 0px -1px #000; margin-bottom:6px; margin-right:3px;}
-.blackglass:after{
-	content: '';
-	position: absolute;	top: 2px;left: 2px;	width: calc(100% - 4px);border-radius: 10px 10px 0px 0px;height: 50%;background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));}
+.blackglass{position: relative;	display: inline-block;	padding: 1px 10px;	background:linear-gradient(#333,#000);text-decoration: none;color: #fff;font-size: 1rem;font-family: sans-serif;font-weight: bold;box-shadow: 0px 1px 4px -2px #000;text-shadow: 0px -1px #000; margin-bottom:3px; margin-right:3px;}
 
 .blackglass:hover{background: linear-gradient(#333,#666); color:#ccc;}
 .pinWrap a:hover{color:#ccc;}
@@ -186,8 +183,8 @@ body{ /*padding:10px;*/}
 .cardBoxT span:first-child{border-left:0px;}
 .cardBoxT span:nth-child(19) { border-left:0px; border-bottom:0px;}	
 .cardBoxT span:nth-child(27) { border-bottom:0px;}
-.botom_infoTxt{/*padding:10px;*/ font-size:18px;}	
-.botom_infoTxt a{color:#fff; padding-right:30px;}
+.botom_infoTxt{padding:5px 10px; font-size:1em;}	
+.botom_infoTxt a{color:#fff;}
 /*chat room page*/
 .ChatCol{position:relative; margin-top:5px; border: 1px #999 solid; width: 98%;padding: 2px;}
 .ChatCol img{position:absolute; left:-25px; top:0px; height: 70px;}
@@ -549,14 +546,15 @@ body{ /*padding:10px;*/}
 
 .footerbingo90 {
 	position: fixed;
+	z-index: 6;
 	bottom: 0;
 	width: 100%;
+	font-size: 80%;
 	/*margin-top: -45px;*/
 }
 
 .bingo90header {
-	height: auto;
-	padding-top: 15px;
+	padding-top: 5px;
 }
 
 .center-block img {
@@ -572,8 +570,27 @@ body{ /*padding:10px;*/}
 	z-index: 5;
 	position: relative;
 	width: 100%;
-    height: 28px;
-    margin-top: -30px;
+    height: 45px;
+	bottom: 40px;
+}
+
+.bingo90container .row .col-md-15{
+	position:relative;
+}
+
+.enterroombuttons .row {
+	  align-items: center;
+  justify-content: center;
+}
+
+.enterroombuttons a {
+	border-radius: 3px;
+	margin: 0;
+	padding: 8px 12px;
+}
+
+.hide {
+  display: none;
 }
 
 @media (max-width: 768px) { 
@@ -587,5 +604,29 @@ body{ /*padding:10px;*/}
 	width: 100%;
 	/*margin-top: -45px;*/
 }
+	
+}
+
+@media (min-width: 768px) { 
+	.pushtobottom{
+		width: 90%;
+		
+		position: absolute;
+		/* display: block; */
+		bottom: -8px;
+	}
+	.bingo90header {
+		height: 13vh;
+	}
+
+	.bingo90container .row .col-md-15{
+		height: 86vh;
+	}	
+	
+	.pushnottobottom{
+		height:auto;
+		min-height: 50%;
+		margin-bottom: 15px;
+	}
 	
 }
