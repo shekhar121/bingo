@@ -71,6 +71,25 @@ header nav {
 .roomListRow:hover:after { width: 100%; height: 4px; left: 3px; bottom: 0; transform: translatey(100%) skewx(45deg);}
 .roomListRow:hover:before { width: 5px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 2px;}
 
+.roomListRow {
+	padding: 15px 5px;
+}
+
+.roomListRow .row img {
+    border-radius: 9999px;
+    border: 2px solid rgba(255,255,255,.5);
+    display: block;
+    width: 100px;
+    height: 100px;
+}
+
+.roomListRow .row > div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
 .allRommsList a:hover{ background: #ff6600;position: relative;}
 .allRommsList a:hover:after,.allRommsList a:hover:before {  content: '';  background: #a84300; position: absolute;}
 .allRommsList a:hover:after { width: 100%; height: 4px; left: 3px; bottom: 0; transform: translatey(100%) skewx(45deg);}
@@ -83,7 +102,7 @@ header nav {
 .refreshBtn a:before { width: 5px;  height: 100%;  right: 0;  transform: translatex(100%) skewy(45deg);  top: 2px;} 
 
 .footer-copyright{text-align:center; color:#FFF; font-size:12px;}
-.roomBoxWrap{padding:20px; height:628px; overflow:auto;}
+.roomBoxWrap{padding:20px; height:100%;}
 /*.roomListRow { border-bottom:1px solid #03a4da;
   background: -webkit-linear-gradient(#059dcf, #18a4d2, #019ccd); 
   background: -o-linear-gradient(#059dcf, #18a4d2, #019ccd); 
@@ -97,7 +116,7 @@ header nav {
 }
 .roomDetailsLeft,.roomDetailsRight{float:left; padding-left:10px; padding-top:5px; color:#FFF; }
 .roomDetailsRight{ text-align:center;}
-.roomListRow img{float:left;}
+
 .roomDetailsLeft span{ padding-right:20px; font-size:24px;}
 .roomTitle{color:#733991;}
 .roomDetailsLeft span.cardsRoom, .roomDetailsRight span.cardsRoom{display:block; font-size:16px; clear:both;}

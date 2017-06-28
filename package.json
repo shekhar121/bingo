@@ -20,5 +20,15 @@
     "mongoose": "^4.7.6",
     "password-hash": "^1.2.2",
     "socket.io": "^1.7.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shekhar121/bingo.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/shekhar121/bingo/issues"
+  },
+  "homepage": "https://github.com/shekhar121/bingo#readme"
 }

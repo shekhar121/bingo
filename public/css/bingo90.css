@@ -2,11 +2,11 @@
 @import url('https://fonts.googleapis.com/css?family=Fascinate+Inline');
 body{ /*padding:10px;*/}
 
-.bgcolor{background-color:#ffffff; border:4px #fff solid;}
+.bgcolor{background-color:#ffffff;}
 .colBorder{border-right:0.5rem #004253 solid;}
 .noborder{border-bottom:0px;}
 /*.chatSec{background-color: #004253; position:relative;margin:10px 0px;color:#ffffff;padding:11px 5px 10px 60px;border-radius:5px; min-height:48px;}*/
-.chatSec{background-color: #215a9d; position:relative;margin: 0px;color:#ffffff;padding:10px;border-radius:5px;}
+.chatSec{background-color: #215a9d; position:relative;margin: 0px;color:#ffffff;padding:0;border-radius:5px;}
 .headerTxt{
     background: #060660; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(left, #060660 , #256ba7); /* For Safari 5.1 to 6.0 */
@@ -15,7 +15,7 @@ body{ /*padding:10px;*/}
   background: linear-gradient(to right, #060660 , #256ba7); /* Standard syntax */
   float: left;
  margin:10px;color:#ffffff;padding:10px;border-radius:5px; font-size: 1.5rem;}
-.chatSec img{ position:absolute;top: -7px;left: -10px;}
+.chatSec img{ }
 .chatSec span.redColor{color:#d61414;}	
 .chatSec span.nam{color: #fe0098;font-size: 18px;font-weight: bold;}
 .msgBox span.msg{height:60px; display:block; font-size:20px;}
@@ -76,8 +76,8 @@ body{ /*padding:10px;*/}
 .pin_9{color:#ea2300;}
 .pin_10{color:#004209;}	
 
-.enterRoom{text-align:center; /*margin-top:20px;*/ position: absolute;bottom: 55px;}
-.enterRoom2{text-align:center; /*margin-top:20px;*/ position: absolute;bottom: 35px;}
+.enterRoom{text-align:center; /*margin-top:20px;*/}
+.enterRoom2{text-align:center; /*margin-top:20px;*/}
 /*gray glassy Button*/
 .glass2{position: relative;	display: inline-block;	padding: 6px 20px;	background:linear-gradient(#000,#888);text-decoration: none;color: #fff;font-size: 16px;font-family: sans-serif;font-weight: bold;border-radius: 20px;box-shadow: 0px 1px 4px -2px #333;text-shadow: 0px -1px #333;}
 .glass{padding: 5px 10px; color: #fff;}
@@ -537,4 +537,55 @@ body{ /*padding:10px;*/}
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(10,120,10,0.5); 
+}
+
+
+
+.xs-hidden, .sm-hidden {
+	display: none;
+}
+
+/*Custom styles*/
+
+.footerbingo90 {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	/*margin-top: -45px;*/
+}
+
+.bingo90header {
+	height: auto;
+	padding-top: 15px;
+}
+
+.center-block img {
+	margin: 0 1em 1em 1em;
+}
+
+.chatSec {
+	padding:15px;
+}
+
+.enterroombuttons {
+	background: #fff;
+	z-index: 5;
+	position: relative;
+	width: 100%;
+    height: 28px;
+    margin-top: -30px;
+}
+
+@media (max-width: 768px) { 
+	.chatSec{
+		text-align: center;
+	}
+	
+.footerbingo90 {
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	/*margin-top: -45px;*/
+}
+	
 }

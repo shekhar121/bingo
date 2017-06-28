@@ -82,7 +82,7 @@
                             for(i=0;i<Bingo75.rooms.length;i++){
                         %>
                         
-                             <div class="roomListRow chosen-room">
+                             <a href="#" data-room="<%= Bingo75.rooms[i]._id %>" data-game="" data-room_img="list_img<%= i %>.png"><div class="roomListRow chosen-room">
                                 
                                   <div class="row">
                                   <div class="col-md-2">
@@ -93,7 +93,7 @@
                                         <span class="roomTitle"><%= Bingo75.rooms[i].name %></span>
                                         
                                         <span class="cardsRoom">Upto <%= Bingo75.rooms[i].cards_upto %> cards per room</span> 
-                                        <span class="cardsRoom">Choose cards:
+                                       <!-- <span class="cardsRoom">Choose cards:
                                             <select class="room-cards">
                                                 <% 
                                                     for(j=1;j<=Bingo75.rooms[i].cards_upto;j++){
@@ -101,11 +101,11 @@
                                                 <option value="<%= j %>"><%= j %></option>
                                                 <% } %>
                                             </select>
-                                        </span>      
+                                        </span>      -->
                                         <span class="cardsRoom">Card Price: <i class="cardPrice">&euro; <%= Bingo75.rooms[i].card_price %></i> <!-- Previous round <i class="cardPrice">0.10</i> --></span> 
-                                        <a class="btn btn-success" href="#" data-room="<%= Bingo75.rooms[i]._id %>" data-game="" data-room_img="list_img<%= i %>.png"> 
-                                        Enter Room</a>       
-                                   </div> 
+                                        <!--<a class="btn btn-success" href="#" data-room="<%= Bingo75.rooms[i]._id %>" data-game="" data-room_img="list_img<%= i %>.png"> 
+                                        Enter Room</a>     -->  
+                                   </div> </a>
                                    </div>
                                    <div class="col-md-3">
                                    <div class="roomDetailsLeft">

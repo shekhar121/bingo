@@ -66,14 +66,13 @@
 
 <% if(Bingo.url == 'bingo90/rooms') { %>
 <!-- <div class="container-fluid bgcolor noborder"> -->
-<div class="container-fluid" style="background: #256ba7;">
-  <div class="col-md-12">
+<div class="container-fluid bingo90header" style="background: #256ba7;">
        <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-9 hidden-xs-down hidden-sm-down">
               <!-- <a href="<%= Bingo.url  %>">
                   <img src="/assets/img/woodbingo_logo.png" class="logo" width="200">
               </a> -->
-                <img src="/assets/img/woodbingo_logo.png" class="logo" width="200" style="float: left;">
+                <img src="/assets/img/woodbingo_logo.png" class="logo pull-left" width="200">
               <h2 class="headerTxt"><!-- <img src="/assets/img/chat1.png" alt=""> --> 
 
              Welcome at “<span class="redColor">WoodBingo</span>” our game is based on traditional bingo game.</h2>
@@ -98,26 +97,35 @@
             </div>
 
              
-            <div class="col-md-3">
-
-                <div class="chatSec"><!-- <img src="/assets/img/user1.png" alt=""> --> 
-                    Welcome : <span class="nam"><%- Bingo.user %></span>
-                    <!-- <div style="float: right; display: inline-block;">
-                      <a href="/api/logout" class="glass">Log out</a>
-                      <a href="#" class="glass">Pay-out</a>
-                    </div> -->
-                    <div class="creditBox">
-                        <span>Total Amount:</span><span class="euro">&euro; <%- Bingo.user_details.deposit_amount.toFixed(2) %> </span>
-                        <span class="clearfix"></span>
-                    </div>
-                    <div class="creditBox">
-                        <span>Win Amount:</span><span class="euro" id="won_credits">&euro; <%- Bingo.user_details.win_amount.toFixed(2) %> </span>
-                        <span class="clearfix"></span>
-                    </div>
-                    <a class="btn btn-yellow waves-effect waves-light" id="all_cards" style="background: #f3b359;">Pay Out</a>
-                    <a class="btn btn-yellow waves-effect waves-light" id="all_cards" style="background: #f97276;">Logout</a>
-                    
+            <div class="col-md-3 col-xs-12 col-sm-12">
+				<div class="center-block text-center img-responsive col-xs-12">
+					<img src="/assets/img/woodbingo_logo.png" class="logo hidden-md-up text-center" width="100">
+				</div>
+				<div class="chatSec center-block">
+					<!-- <img src="/assets/img/user1.png" alt=""> --> 
+					<div class="row">
+						<div class="col-xs-6 col-sm-6 col-md-7">
+							Welcome : <span class="nam"><%- Bingo.user %></span>
+							<!-- <div style="float: right; display: inline-block;">
+							  <a href="/api/logout" class="glass">Log out</a>
+							  <a href="#" class="glass">Pay-out</a>
+							</div> -->
+							<div class="creditBox">
+								<span>Total Amount:</span><span class="euro">&euro; <%- Bingo.user_details.deposit_amount.toFixed(2) %> </span>
+								<span class="clearfix"></span>
+							</div>
+							<div class="creditBox">
+								<span>Win Amount:</span><span class="euro" id="won_credits">&euro; <%- Bingo.user_details.win_amount.toFixed(2) %> </span>
+								<span class="clearfix"></span>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-5">
+							<a class="btn btn-sm btn-yellow waves-effect waves-light" id="all_cards" style="background: #f3b359;">Pay Out</a>
+							<a class="btn btn-sm btn-yellow waves-effect waves-light" id="all_cards" style="background: #f97276;">Logout</a>
+						</div>
+					</div>
                 </div>
+				
             </div>
             
             <!-- <div class="col-md-4">
@@ -126,7 +134,6 @@
               </div>
             </div> -->
         </div>
-  </div>
 </div>
 <% } 
 if(Bingo.url == 'bingo90') { %>
