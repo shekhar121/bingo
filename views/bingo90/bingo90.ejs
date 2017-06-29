@@ -27,7 +27,7 @@
                     <div class="col-md-5" style="border-right: 1px solid #999;">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="infoBoxWrap winnerBox playerOverFlow">
+                                <div class="infoBoxWrap playerBox playerOverFlow">
                                     <div class="boxtitle">
                                         <i class="fa fa-users left"></i> Players
                                     </div>
@@ -71,7 +71,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="infoBoxWrap winnerBox">
+                                <div class="infoBoxWrap chatBox">
                                     <div class="boxtitle">
                                         <i class="fa fa-comments"></i> Chat Box
                                     </div>
@@ -82,7 +82,7 @@
                                         
                                     </div>
                                     <div class="md-form floatLedt">
-                                        <input type="text" id="message" name="message" class="form-control">
+                                        <input type="text" onclick="" id="message" name="message" class="form-control">
                                         <label for="form1" class="">Type your message here</label>
                                     </div>
                                     <a href="#" class="action-button shadow animate sendBtn blue" id="send_msg_btn">Send</a>
@@ -211,14 +211,26 @@ var data = {};
     $('#send_msg_btn').show();
     $('#message').show();   
   
-    $('#send_msg_btn').on('click', function(e){
-        e.preventDefault();
+	var send_msg = function(e){
+		e.preventDefault();
         var message = $('#message').val();
         data.message = message;
         socket.emit('send message', data);
         $('#message').val('');
         return false;
+	}
+  
+  
+    $('#send_msg_btn').on('click', function(e){
+        send_msg(e);
     });
+	
+	$('#message').keyup(function (e) {
+		if (e.keyCode === 13) {
+			send_msg(e);
+		}
+	});
+	
     socket.on('show message', function(data){
         $('#messages').append($('<li>').html('<b>'+data.user+'</b>: '+data.message));
         $("#messages").animate({
@@ -283,10 +295,10 @@ $( document ).ready(function() {
                 console.info( "This page is not reloaded");
             }*/
             if(data.round_completed){
-                //performance.navigation.type = 0;
+                //performance.navigation.type = 0;/*
                 setTimeout(function(){ 
                     window.location = '/bingo90/rooms?game_c=yes&game_c_id='+data.game_id; 
-                },  5000);
+                },  5000);*/
                 console.info( "game completed");
             }
             var user = '<%= Bingo.user %>';

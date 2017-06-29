@@ -68,7 +68,8 @@
 <!-- <div class="container-fluid bgcolor noborder"> -->
 <div class="container-fluid bingo90header" style="background: #256ba7;">
        <div class="row">
-            <div class="col-md-9 hidden-xs-down hidden-sm-down">
+            <div class="col-xs-12 col-sm-12 col-md-9">
+			<div class="hidden-xs-down hidden-sm-down">
               <!-- <a href="<%= Bingo.url  %>">
                   <img src="/assets/img/woodbingo_logo.png" class="logo" width="200">
               </a> -->
@@ -77,9 +78,9 @@
 
              Welcome at “<span class="redColor">WoodBingo</span>” our game is based on traditional bingo game.</h2>
 
-             
+             </div>
 
-              <div style="clear: both; background: #fff;padding: 10px 10px 5px; height:2em;"> 
+              <div class="error"> 
                 <!-- <div class="titleTxt">Buy Books!</div> -->
                 <span id="error"></span>
                     <div class="btnWrap-old"><!-- Buy Books : --> 
@@ -140,8 +141,8 @@ if(Bingo.url == 'bingo90') { %>
 <div class="container-fluid bg_gradient">
     
     <div class="row">
-        <div class="col-md-12" style="background: url(/assets/img/smoke.png)">
-            <img src="/assets/img/bg_head.svg" style="height: 98px;width: 35%;display: inline;    opacity: 0.5;">
+        <div class="col-md-12 headerbingogame">
+            <img src="/assets/img/bg_head.svg" class="bghead">
             <div class="topLeftBtnWrap">
                 <a class="topLeftBtn" href="/bingo90/rooms">Room List <i class="fa fa-times closeWindow" aria-hidden="true"></i></a>
                 <a class="topLeftBtn" href="#" id="sound_change">Sound</a>
