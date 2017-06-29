@@ -220,7 +220,6 @@ var data = {};
         return false;
 	}
   
-  
     $('#send_msg_btn').on('click', function(e){
         send_msg(e);
     });
@@ -229,6 +228,10 @@ var data = {};
 		if (e.keyCode === 13) {
 			send_msg(e);
 		}
+	});
+	
+	$('.chatRoomTxt').click(function() {
+		$('#message').focus();
 	});
 	
     socket.on('show message', function(data){
