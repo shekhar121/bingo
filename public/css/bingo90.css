@@ -27,7 +27,7 @@ body{ /*padding:10px;*/}
 .msgBox .creditBox{margin-bottom:6px;}
 .option{text-align:center;}
 .option a{margin-bottom:5px}
-.roomHead{text-align:center; padding:5px 0px;border-top:0.5rem #004253 solid; border-bottom:0.5rem #004253 solid;}
+.roomHead{text-align:center; font-weight: bold; padding:5px 0px;border-top:0.5rem #004253 solid; border-bottom:0.5rem #004253 solid;}
 .roomHead span{color:#F00;}
 .roomTxtBox{padding:0 1rem;}
 .titleTxt{font-size:16px; font-weight:bold;}
@@ -102,7 +102,7 @@ body{ /*padding:10px;*/}
 .badge{color:#666 !important; margin-left:3px;padding-left:2px;}
 /* Bingo 90 cards */
 .allCardsWrap{
-    background: url(/assets/img/wave.png);
+    /*background: url(/assets/img/wave.png);*/
 }
 .allCardsWrapClose{padding-top:30px;background:url(/assets/img/close.png) no-repeat top right; }
 .balls_wrp{background:url(/assets/img/ring.png) no-repeat top right; height:97.5px; float:right; padding-right:70px;}
@@ -413,10 +413,9 @@ body{ /*padding:10px;*/}
     width: 58.5%;
 }
 .grad {
-    background: -webkit-linear-gradient(left, #EE2B1B, orange, yellow, orange, #EE2B1B); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(left,#EE2B1B, orange, yellow, orange, #EE2B1B); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(left, #EE2B1B, orange, yellow, orange, #EE2B1B); /* For Fx 3.6 to 15 */
-    background: linear-gradient(to right, #EE2B1B, orange, yellow, orange, #EE2B1B); /* Standard syntax (must be last) */
+   background: #fff;
+   color: #000;
+   font-weight: bold;
 }
 .foot-grad {
  background: -webkit-linear-gradient(#ddd 10%, #0275d8 90%); /* For Safari 5.1 to 6.0 */
@@ -425,18 +424,12 @@ body{ /*padding:10px;*/}
     background: linear-gradient(#ddd 10%, #0275d8 90%); /* Standard syntax (must be last) */
 }
 .foot-help-grad {
-    background: -webkit-linear-gradient(left, blue, #0275d8, #ccc, #0275d8, blue); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(left,blue, #0275d8, #ccc, #0275d8, blue); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(left, blue, #0275d8, #ccc, #0275d8, blue); /* For Fx 3.6 to 15 */
-    background: linear-gradient(to right, blue, #0275d8, #ccc, #0275d8, blue); /* Standard syntax (must be last) */
-    padding: 5px 20px;
-    border-radius: 25%;
-    border: 2px solid #ccc;
+    
 }
 .footer{
     background: #00c1ff;
     border: 1px solid #999;
-    padding: 1rem 0;
+    padding: 5px;
 }
 #clockdiv{
   font-family: sans-serif;
@@ -468,7 +461,7 @@ body{ /*padding:10px;*/}
 }
 .foot_btn{
     padding: 5px 10px;
-    font-weight: 400;
+    font-weight: 800;
     border: 2px solid #999;
 }
 .foot-grad {
@@ -551,6 +544,8 @@ body{ /*padding:10px;*/}
 	width: 100%;
 	font-size: 80%;
 	/*margin-top: -45px;*/
+	margin-left: 0 !important;
+	left: 0;
 }
 
 .bingo90header {

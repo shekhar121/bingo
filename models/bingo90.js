@@ -106,8 +106,8 @@ var Bingo90 = function(cards, pattern){
     this.getLineWinningCard = function(i,usr, data, line){
         //console.log(i,usr, line, 'this.getLineWinningCard')
         var table = '';
-        table += '<div class="col-md-12">\
-                    <div class="cardBoxT ChatCol">\
+        table += '<div class="cardBoxT col-md-12">\
+                    <div class=" ChatCol">\
                     <span id="card_'+i+'_square0" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square0"]+'</span>\
                     <span id="card_'+i+'_square1"></span>\
                     <span id="card_'+i+'_square2" class="selectedBox matched-cell">'+data.current_game[usr]["card_"+i+"_square2"]+'</span>\
@@ -361,8 +361,8 @@ var Bingo90 = function(cards, pattern){
                 var num28 = this.getRandomInt(81, 90);
                 this.card_name['card_'+i+'_square28'] = num28;
 
-        table += '<div class="col-md-6">\
-                    <div class="cardBoxT ChatCol">\
+        table += '<div class="cardBoxT col-md-6">\
+                    <div class=" ChatCol">\
                     <span id="card_'+i+'_square0" class="selectedBox ">'+num0+'</span>\
                     <span id="card_'+i+'_square1"></span>\
                     <span id="card_'+i+'_square2" class="selectedBox ">'+num2+'</span>\
