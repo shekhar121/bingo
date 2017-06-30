@@ -1,6 +1,9 @@
 /* YOUR CUSTOM STYLES */
 @import url('https://fonts.googleapis.com/css?family=Fascinate+Inline');
-body{ /*padding:10px;*/}
+html, body {
+	height: 100%;
+}
+body{ /*padding:10px;*/ }
 
 .bgcolor{background-color:#ffffff;}
 .colBorder{border-right:0.5rem #004253 solid;}
@@ -106,7 +109,7 @@ body{ /*padding:10px;*/}
 }
 .allCardsWrapClose{padding-top:30px;background:url(/assets/img/close.png) no-repeat top right; }
 .balls_wrp{background:url(/assets/img/ring.png) no-repeat top right; height:97.5px; float:right; padding-right:70px;}
-.topLeftBtnWrap{float:right;height:97.5px; overflow:hidden;}
+.topLeftBtnWrap{float:right;height:97.5px; overflow:hidden; margin-left: -1px;}
 .topLeftBtn{     background: #eee; display:block;
     background: -webkit-linear-gradient(#ccc, #fff);
     background: -o-linear-gradient(#ccc, #fff);
@@ -140,15 +143,17 @@ body{ /*padding:10px;*/}
     border-top: 0px;*/ border-radius: 15%;}
 .cardBoxT span.bingoBox{color: white;
     text-shadow: 1px 1px 2px blue;
-    -webkit-box-shadow: 0 0 18px #e37703 inset;
-    -moz-box-shadow: 0 0 18px #e37703 inset;
-    box-shadow: 0 0 18px #e37703 inset;
+	background: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 18px rgba(0,0,0,.2) inset;
+    -moz-box-shadow: 0 0 18px rgba(0,0,0,.2) inset;
+    box-shadow: 0 0 18px rgba(0,0,0,.2) inset;
     background-color: #f6aa58;}
 .cardBoxT span.selectedBox{color: white;
     text-shadow: 1px 1px 2px blue;
-    -webkit-box-shadow: 0 0 18px #e74c3c inset;
-    -moz-box-shadow: 0 0 18px #e74c3c inset;
-    box-shadow: 0 0 18px #e74c3c inset;
+	background: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 18px rgba(0,0,0,.2) inset;
+    -moz-box-shadow: 0 0 18px rgba(0,0,0,.2) inset;
+    box-shadow: 0 0 18px rgba(0,0,0,.2) inset;
     /*background-color: rgba(255,255,255,0.1) !important;*/
     border-radius: 15%;}	
 .cardBoxT span.freeBox{color: white;
@@ -162,6 +167,25 @@ body{ /*padding:10px;*/}
     width: 16.66% !important;
     float: left;
 } 
+
+.headerbingogame {
+	position: fixed;
+	top: 0;
+	height: 97.5px;
+	z-index: 5;
+	width: 100%;
+}
+
+.leftcolumn, .rightcolumn {
+	flex: 1;
+	height: 100%;
+	margin-top: 97.5px;
+}
+
+.allCardsWrap > .row {
+	margin-top: 0;
+}
+
 @media screen and (min-width: 768px){
     #full_view .col-md-6 {
         -webkit-box-flex: 0;
@@ -186,10 +210,18 @@ body{ /*padding:10px;*/}
 .botom_infoTxt{padding:5px 10px; font-size:1em;}	
 .botom_infoTxt a{color:#fff;}
 /*chat room page*/
-.ChatCol{position:relative; margin-top:5px; border: 1px #999 solid; width: 98%;padding: 2px;}
-.ChatCol img{position:absolute; left:-25px; top:0px; height: 70px;}
+.ChatCol{position:relative; margin-top:5px; width: 97%;padding: 2px;}
+.ChatCol img{position:absolute; left:-12px; top:0px; height: 95%;}
 /*.ChatCol span{height:44px; font-size:18px; line-height:36px;    }*/
 .ChatCol span{height:19.5px; font-size:12px; line-height:15px;   margin: 1px auto; }
+
+.roundcolor > div {
+	border: 1px solid rgba(0,0,0,.5);
+    border-radius: 10px;
+    padding: 0 0 0 8px;
+	margin: 3px -3px 0 3px;
+}
+
 .infoBoxWrap{background-color:#FFF; border-width: 0 100px 100px 0; position:relative; padding:0 15px 15px;}
 .boxtitle{  
     font-family: 'Lato', cursive;
@@ -240,12 +272,28 @@ body{ /*padding:10px;*/}
     border-radius: 8px;
     margin-top: 4px;
     margin-right: 5px;}	
+	
 .playersList{margin:0px;height:192px; overflow:auto;}
-.winnerBox, .playerBox, .chatBox{margin-top:18px; min-height: 105px;}
+.winnerBox, .playerBox, .chatBox{min-height: 122px; border: 2px solid #444;}
+
+.playerBox {  }
+.winnerBox {  }
+.chatBox {  }
+
+.roundcolor { overflow-y:auto; }
+
+.allCardsWrap .col-md-6, .allCardsWrap > .row > .col-md-5 > .row > .col-md-12 {
+	padding: 0;
+}
+
+.scrolltext {
+	clear: both;
+}
+
 
 .winnerBox, .chatBox, .playerBox {
     background: #fff; /* fallback */
-    background:
+    /*background:
         -moz-linear-gradient(45deg,  transparent 10px, #fff 10px),
         -moz-linear-gradient(135deg, transparent 10px, #fff 10px),
         -moz-linear-gradient(225deg, transparent 10px, #fff 10px),
@@ -261,7 +309,7 @@ body{ /*padding:10px;*/}
         -webkit-linear-gradient(225deg, transparent 10px, #fff 10px),
         -webkit-linear-gradient(315deg, transparent 10px, #fff 10px);
 		
-    background-position: bottom left, bottom right, top right, top left;
+    background-position: bottom left, bottom right, top right, top left;*/
     -moz-background-size: 50% 50%;
     -webkit-background-size: 50% 50%;
     background-size: 75%;
@@ -274,6 +322,7 @@ body{ /*padding:10px;*/}
 	opacity: 0.15;
 	top: 0;
 	left: 0;
+	height:100px;
 	bottom: 0;
 	right: 0;
 	position: absolute;
@@ -609,6 +658,12 @@ body{ /*padding:10px;*/}
 	/*margin-top: -45px;*/
 	margin-left: 0 !important;
 	left: 0;
+	padding: 0;
+	
+}
+
+.foot-grad {
+	padding: 10px;
 }
 
 .bingo90header {
@@ -709,4 +764,10 @@ body{ /*padding:10px;*/}
 		clear: both; padding: 0px 10px 5px; height:2em;
 	}
 	
+}
+
+
+.row .no-float {
+  display: table-cell;
+  float: none;
 }

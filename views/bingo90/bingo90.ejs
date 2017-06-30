@@ -5,13 +5,13 @@
 
 
 <!-- Main Section Five Cols -->
-<div class="container-fluid bg_gradient">
-       <div class="row" style="position: relative;">
+<div class="bg_gradient" style="display: flex;">
+       <div class="" style="position: relative;">
             
             <%  if(Bingo.cards_type){ %>
                 <div class="col-md-12 ">
 
-                    <div class="row" id="full_view">
+                    <div class="row roundcolor" id="full_view">
                         <div class="col-md-12" style="">
                             <a class="btn btn-sm btn-warning" id="all_cards_close">Close</a>
                         </div>
@@ -23,8 +23,8 @@
                 </div>
             <%  } else { %>
             <div class="col-md-12 allCardsWrap">
-                <div class="row" >
-                    <div class="col-md-5" style="border-right: 1px solid #999;">
+                <div class="row">
+                    <div class="col-md-5 leftcolumn" style="border-right: 1px solid #999;">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="infoBoxWrap playerBox playerOverFlow">
@@ -94,8 +94,8 @@
                         </div>
                     </div>
                     <!--Col end-->
-                    <div class="col-md-7" style="max-height: 530px; overflow: scroll;">
-                        <div class="row head-bar-grad">
+                    <div class="col-md-7 rightcolumn">
+                        <div class="row head-bar-grad" >
                             
                             <div class="col-md-5" style="margin-bottom: -0.5rem;" >
                                      <a style="padding: 0.25rem;" class="btn foot-help-grad dropdown-toggle waves-effect waves-light" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-weixin" aria-hidden="true"></i></a>
@@ -126,7 +126,7 @@
                                 <a style="padding: 0.25rem;" class="btn foot-help-grad" id="all_cards">All Cards</a>
                             </div>
                         </div>
-                        <div class="row head-bar-grad" style="border-top: 1px solid #999; border-bottom: 1px solid #999; padding: 5px 5px 10px;">
+                        <div class="row roundcolor" style="border-top: 1px solid #999; border-bottom: 1px solid #999; padding: 5px 5px 10px;">
 
                             <%  if(Bingo.cards > 0){ %>
                                 <%- Bingo.table %>
@@ -139,8 +139,9 @@
                 </div>
             </div>
             <%  }  %>
-            <div class="row marquee-row">
-                <div class="col-md-12 marquee grad" ><marquee><%- Bingo.marquee %></marquee></div>
+            <div class="row marquee-row scrolltext">
+				<div class="col-md-7"></div>
+                <div class="col-md-5 marquee grad" ><marquee><%- Bingo.marquee %></marquee></div>
             </div>
 
        </div>
@@ -420,6 +421,16 @@ $('#modalWinnerLine3').on('shown.bs.modal', function (e) {
     }, 1500);
     
 })
+
+
+var windowheight = $('body').outerHeight();
+var compiledheight = $('body').outerHeight() - $('.headerbingogame').outerHeight() - $('.footerbingo90').outerHeight() - 30;
+
+$('document').ready(function() {
+    $('.roundcolor').css({'height': compiledheight});
+	console.log(compiledheight + "px");
+});
+
 </script>
 <%- include('../chat'); %>
 

@@ -34,7 +34,7 @@
         .boxtitle{
             background-color:<%= Bingo.body_bg %>;
         }
-        .cardBoxT{
+        .cardBoxT, .roundcolor, body {
             background: <%- Bingo.game_round_clr %>;
         }
         /* Navigation*/
@@ -138,10 +138,10 @@
 </div>
 <% } 
 if(Bingo.url == 'bingo90') { %>
-<div class="container-fluid bg_gradient">
+<div class=" headerbingogame bg_gradient">
     
-    <div class="row">
-        <div class="col-md-12 headerbingogame">
+    <div class="">
+        <div class=" ">
             <img src="/assets/img/bg_head.svg" class="bghead">
             <div class="topLeftBtnWrap">
                 <a class="topLeftBtn" href="/bingo90/rooms">Room List <i class="fa fa-times closeWindow" aria-hidden="true"></i></a>
