@@ -356,7 +356,7 @@ body{ /*padding:10px;*/ }
     }
 }*/
 /*five cols closed*/
-.chatRoomTxt{height: 240px; overflow:auto;}
+
 .floatLedt{float:left; margin:0px; width:80%;}
 .floatLedt input{padding:3px; margin:0px;}
 .animate {
@@ -501,22 +501,6 @@ body{ /*padding:10px;*/ }
 .wrapper span:nth-child(6)  { animation-name: loading-6;  }
 .wrapper span:nth-child(7)  { animation-name: loading-7;  }
 
-.marquee{
-    border: 2px solid #666;
-    padding: 5px;
-    margin-top: 10px;
-    /*background: #fbc846;*/
-    color: #fff;
-    font-size: 1.5rem;
-    /*animation: marquee 50s linear infinite;*/
-}
-.marquee-row{
-        position: absolute;
-    bottom: 0px;
-    right: 0;
-    margin-right: 0rem;
-    width: 58.5%;
-}
 .grad {
    background: #fff;
    color: #000;
@@ -766,11 +750,18 @@ body, html, .allCardsWrap, .allCardsWrap > .row, .leftcolumn, .rightcolumn {
 	padding: 0;
 	margin-left: 0;
 	margin-right: 0;
+	height: 6.1vh;
 }
 
 .foot-grad {
 	margin: 0;
-	height: 4.5vh;
+	height: 100%;
+	padding: 8px 0 0 0;
+		justify-content: center;
+}
+
+.foot-grad a {
+	padding: 15px;
 }
 
 .headerbingogame {
@@ -783,14 +774,47 @@ body, html, .allCardsWrap, .allCardsWrap > .row, .leftcolumn, .rightcolumn {
 
 .leftcolumn {
 	padding-top: 0;
-	z-index:99999;
+	height: 81vh;
+	margin-bottom: 0;
+	background: #fff;
+}
+
+.twofirst {
+	height: 30vh;
+}
+
+.twolast {
+	height: 51vh;
+}
+
+.chatBox {
+	height: 100%;
 }
 
 .roundcolor {
-	overflow-y:scroll;
-	max-height: 77vh;
 }
 
 .bg_gradient {
 	position: relative;
+}
+
+.chatRoomTxt{height: 41.5vh; overflow:auto;}
+
+
+
+.marquee{
+    border: 2px solid #666;
+    padding: 5px;
+    margin-top: 10px;
+    /*background: #fbc846;*/
+    color: #fff;
+    font-size: 1.5rem;
+    /*animation: marquee 50s linear infinite;*/
+}
+.marquee-row{
+        position: absolute;
+    bottom: 0px;
+    right: 0;
+    margin-right: 0rem;
+    width: 58.4%;
 }
