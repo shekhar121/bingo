@@ -5,8 +5,8 @@
 
 
 <!-- Main Section Five Cols -->
-<div class="bg_gradient" style="display: flex;">
-       <div class="" style="position: relative;">
+<div class="bg_gradient" style="">
+       <div class="" style="">
             
             <%  if(Bingo.cards_type){ %>
                 <div class="col-md-12 ">
@@ -140,8 +140,7 @@
             </div>
             <%  }  %>
             <div class="row marquee-row scrolltext">
-				<div class="col-md-7"></div>
-                <div class="col-md-5 marquee grad" ><marquee><%- Bingo.marquee %></marquee></div>
+                <div class="col-md-12 marquee grad" ><marquee><%- Bingo.marquee %></marquee></div>
             </div>
 
        </div>
@@ -263,6 +262,9 @@ var data = {};
 <!-- chat socket ends -->
 
 <script type="text/javascript">
+
+
+
 //$('.bg_gradient').css('background','<%= Bingo.body_bg %>');
 $( document ).ready(function() {
     
@@ -401,7 +403,13 @@ $( document ).ready(function() {
             }
         }
     <% } %>
-    
+    /*
+	var windowheight = $('body').outerHeight();
+var compiledheight = $('body').outerHeight() - $('.headerbingogame').outerHeight() - $('.footerbingo90').outerHeight() - 30;
+
+    $('.roundcolor').css({'height': compiledheight});
+	console.log(compiledheight + "px");*/
+	
 });
 $('#modalWinnerLine1').on('shown.bs.modal', function (e) {
     setTimeout(function(){
@@ -423,13 +431,7 @@ $('#modalWinnerLine3').on('shown.bs.modal', function (e) {
 })
 
 
-var windowheight = $('body').outerHeight();
-var compiledheight = $('body').outerHeight() - $('.headerbingogame').outerHeight() - $('.footerbingo90').outerHeight() - 30;
 
-$('document').ready(function() {
-    $('.roundcolor').css({'height': compiledheight});
-	console.log(compiledheight + "px");
-});
 
 </script>
 <%- include('../chat'); %>
