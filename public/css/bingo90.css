@@ -750,7 +750,27 @@ body, html, .allCardsWrap, .allCardsWrap > .row, .leftcolumn, .rightcolumn {
 	padding: 0;
 	margin-left: 0;
 	margin-right: 0;
-	height: 6.1vh;
+	height: 45px;
+	position: fixed;
+	bottom: 0;
+	z-index: 999;
+}
+
+@media only screen and (max-width : 1024px) {
+	.footerbingo90 {
+	width: 100%;
+	margin-top: -25px;
+	padding: 0;
+	margin-left: 0;
+	margin-right: 0;
+	height: 45px;
+	position: relative;
+	bottom: 0;
+	z-index: 999;
+	}
+	.hide1024 {
+		display: none;
+	}
 }
 
 .foot-grad {
