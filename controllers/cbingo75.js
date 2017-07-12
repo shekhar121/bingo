@@ -19,62 +19,19 @@ module.exports = function(app){
 		// update after game is completed
 		if(req.query.game_c == 'yes' && req.query.game_c_id){
 			//null completed game sessions, to get new one
-			//req.session.game_id = null;
-			// add new game 
-			// starts remove later - just to insert some testing games
-		  	/*var g = new Game();
-		  	g.title = 'This is new game..';
-		  	g.date = new Date();
-		  	g.started = false;
-		  	g.completed = false;
-		  	g.type = 'bingo75';
-		  	g.save(function(err, g){
-		  		if(err){
-		  			res.status(500).send(err);
-		  			return;
-		  		}
-		  	});*/
-		  	// ends remove later - just to insert some testing games
+			//do something after game
 		}
 		Bingo75 = {
 			user : req.session.user.username,
 			//user_details : req.session.user,
-			//user_bingo_credits: (req.session.user_bingo_credits)?req.session.user_bingo_credits:0 ,
-			//cards : req.query.cards,
-			//user_room : req.query.room,
-			//game_id : req.query.game,
-			//card_name : {},
 			game_id : (req.session.game_id) ? req.session.game_id : 0 ,
 			user_playing75 : (req.session.user_playing75) ? req.session.user_playing75 : 0 ,
 			url : 'bingo75/rooms' //req.url
 		}
-		/*Room.find({type:'bingo75'}, function(err, rooms){
-			if(err){
-				res.status(500).send(err);
-				return;
-			}
-			console.log(rooms);
-			Bingo.rooms = rooms;
-			Game.findOne({type:'bingo75', started:false, completed:false}, function(err, gameinplay){
-		        	if(err){
-						console.log(err);
-						return;
-					}
-				Bingo.gameinplay = gameinplay;
-				res.render('bingo75/rooms', {Bingo:Bingo});
-			})
-			
-		});*/
 
 		//try with async
 		async.parallel([
 		    function(callback) { 
-		    	/*Room.find({type:'bingo75'}, function(err, data){
-					if (err) {
-			            throw callback(err);
-			        }
-			        callback(null, data);
-		    	});*/
 		    	Room.find({type:'bingo75'}, callback);
 		    },
 		    /*function(callback) {
@@ -90,7 +47,6 @@ module.exports = function(app){
 	            return;
 	        }
 		    Bingo75.rooms  = results[0]; //rooms
-		    //Bingo75.gameinplay  = results[1]; //gameinplay
 		    Bingo75.user_details = results[1];
 		    res.render('bingo75/rooms', {Bingo75:Bingo75});
 		});
@@ -104,8 +60,6 @@ module.exports = function(app){
 		}
 		Bingo75 = {
 			user : req.session.user.username,
-			//user_bingo_credits:req.session.user_bingo_credits,
-			//user_details : req.session.user,
 			cards : req.session.cards,
 			user_room : req.session.room_id,
 			game_id : req.session.game_id,
@@ -113,19 +67,7 @@ module.exports = function(app){
 			card_name : {},
 			url : 'bingo75' //req.url
 		}
-	  	// starts remove later - just to insert some testing games
-	  	/*var g = new Game();
-	  	g.title = 'This is new game..';
-	  	g.date = new Date();
-	  	g.started = false;
-	  	g.completed = false;
-	  	g.type = 'bingo75';
-	  	g.save(function(err, g){
-	  		if(err){
-	  			res.status(500).send(err);
-	  			return;
-	  		}
-	  	});*/
+
 	  	var gameID = req.session.game_id;
 			//try with async
 			async.parallel([
@@ -147,10 +89,7 @@ module.exports = function(app){
 		            return;
 		        }
 			    Bingo75.room  = results[0]; //rooms
-			    //Bingo.gameinplay  = results[1]; //gameinplay
 
-			    //Bingo75.table = results[1].users[0].cards_table;
-				//Bingo75.card_name = results[1].users[0].playing_card;
 				for(var i=0;i<results[1].users.length;i++){
 					if(results[1].users[i].user == req.session.user.username){
 						Bingo75.table = results[1].users[i].cards_table;
